@@ -1,0 +1,124 @@
+<SecretTextFieldRound>:
+	size_hint_y: None
+	height: text_field.height
+
+	text: text_field.text
+	validator: None
+
+	MDExtendedTextField:
+		id: text_field
+		hint_text: root.hint_text
+		text: root.text
+		password: True
+		icon_left: "key-variant"
+		validator: root.validator
+
+	MDIconButton:
+		icon: "eye-off"
+		pos_hint: {"center_y":  .5}
+		pos: text_field.width - self.width + dp(8), 0
+		theme_text_color: "Hint"
+		on_release:
+			self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+			text_field.password = not text_field.password
+
+<ButtonWithLabel@MDBoxLayout>:
+	size_hint_y: None
+	width: btn.width
+	height: btn.height
+	orientation: 'horizontal'
+
+	btn_text: 'Button'
+	btn_on_press: None
+
+	label_text: 'Label'
+
+	MDRectangleFlatButton:
+		id: btn
+		text: root.btn_text
+
+		on_press: root.btn_on_press()
+
+	# Spacer
+	MDBoxLayout:
+		id: spacer
+		size_hint_x: None
+		size_hint_y: None
+		width: btn.width / 2
+
+	MDLabel:
+		id: label
+		size_hint_y: None
+		height: btn.height
+
+		text: root.label_text
+
+
+<SettingsScreenView>
+
+	MDBoxLayout:
+		id: main_bl
+		orientation: "vertical"
+
+		MDTopAppBar:
+			id: main_bar
+			# title: "Settings"  # FIXME: Wrong position..
+			# TODO: Change screen animation..
+			# TODO: Warnings if unsaved changes..
+			left_action_items: [["arrow-left", lambda x: setattr(root.manager_screens, 'current', 'main_screen')]]
+
+			right_action_items: [["content-save", root.save_settings]]
+
+		MDBoxLayout:
+			id: main_bl_startup_tools
+			orientation: "vertical"
+			padding: dp(20), dp(20)
+
+			# SecretTextFieldRound:
+			# 	id: input_client_id
+			# 	width: "600dp"
+			# 	hint_text: "client id"
+			# 	text: app.config.get('p4a_dev', 'client_id')
+			# 	validator: root._validate_p4a_dev_client_id
+			# 	# pos_hint: {"center_x": .5, "center_y": .5}
+			# 	pos_hint: {"center_x": .5}
+
+			# SecretTextFieldRound:
+			# 	id: input_client_secret
+			# 	width: "600dp"
+			# 	hint_text: "client secret"
+			# 	text: app.config.get('p4a_dev', 'client_secret')
+			# 	validator: root._validate_p4a_dev_client_secret
+			# 	# pos_hint: {"center_x": .5, "center_y": .5}
+			# 	pos_hint: {"center_x": .5}
+
+			# TODO: Mature content checkbox..
+			# TODO: Requests delay num set
+			# TODO: Filenaming section
+			# TODO: Mb better use some widgets under the text field (hide under some layout..)
+			# TODO: Localization using i18n..
+
+			# ButtonWithLabel:
+			# 	id: main_bl_startup_tools_set_dload_path_tool
+				
+			# 	btn_text: 'Set download path'
+			# 	##
+			# 	label_text: app.config.get('p4a_dev', 'dload_path')
+			# 	# label_text: app.config.get('p4a_dev', 'dload_path').split('/')[-1]
+
+			# 	btn_on_press: root.set_download_path
+
+
+			# Spacer
+			MDBoxLayout:
+				id: main_bl_startup_tools_bl_spacer
+
+
+			MDLabel:
+				id: main_bl_startup_tools_version
+				size_hint_y: None
+				height: '50dp'
+				width: '300dp'
+				pos_hint: {'center_x': .5}
+
+				text: 'Version 1.0 Alpha'

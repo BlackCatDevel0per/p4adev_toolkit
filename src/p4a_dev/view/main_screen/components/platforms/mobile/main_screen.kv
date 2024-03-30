@@ -1,0 +1,106 @@
+##:import AboutDialog p4a_dev.view.main_screen.components.platforms.mobile.main_screen.AboutDialog
+
+<DrawerClickableItem@MDNavigationDrawerItem>
+	focus_color: "#e7e4c0"
+	text_color: "#4a4939"
+	icon_color: "#4a4939"
+	ripple_color: "#c5bdd2"
+	selected_color: "#0c6c4d"
+
+
+<DrawerLabelItem@MDNavigationDrawerItem>
+	text_color: "#4a4939"
+	icon_color: "#4a4939"
+	focus_behavior: False
+	selected_color: "#4a4939"
+	_no_ripple_effect: True
+
+# TODO: About ui & some things..
+
+<MainScreenView>
+
+	MDBoxLayout:
+		id: main_bl
+		orientation: "vertical"
+
+		MDTopAppBar:
+			id: main_bar
+			# title: "MDTopAppBar"
+			left_action_items:
+				[["menu", lambda x: main_naw_drawer.set_state("open")]]
+
+		MDBoxLayout:
+			id: main_bl_startup_tools
+			orientation: "vertical"
+
+			MDAnchorLayout:
+				id: start_btn
+				anchor_x: 'center'
+				anchor_y: 'center'
+
+				# MDExtendedTextField:
+				# 	id: input_urls
+
+				# 	size_hint: (0.7, 0.8)
+				# 	multiline: True
+				# 	# required: True
+				# 	mode: "rectangle"
+				# 	hint_text: "Urls"
+
+				# 	def_helper_text: 'Paste Galleries urls list separated by "," or newline.'
+				# 	helper_text: self.def_helper_text
+				# 	helper_text_mode: "on_focus"
+
+				# 	# TODO: Set error if incorrect input.. & urls list validator
+				# 	validator: root.text_input_validate
+				# 	# on_text_validate: self.error = True
+				# 	# on_focus: self.error = True
+
+				# TODO: Archive checkbox
+				# TODO: Some other options..
+
+		# NOTE: Remove!
+		# MDRaisedButton:
+		# 	size_hint: (0.08, 0.09)
+		# 	text: "TEST"
+
+		# 	on_release:
+		# 		[setattr(cr, 'text', 'blah..') for cr in root.data_table.table_data.ids.row_controller.children]
+
+	MDNavigationDrawer:
+		id: main_naw_drawer
+		radius: (0, 8, 8, 0)
+
+		MDNavigationDrawerMenu:
+
+			MDNavigationDrawerHeader:
+				title: "P4ADev Toolkit"
+				title_font_size: "28sp"
+				title_color: "#4a4939"
+				# text: "Header text"
+				spacing: "4dp"
+				padding: "12dp", 0, 0, "56dp"
+
+			MDNavigationDrawerLabel:
+				text: "View"
+
+			DrawerClickableItem:
+				icon: "brush-variant"
+				text: "Accent"
+
+				on_press: app.switch_accent_style()
+
+			MDNavigationDrawerLabel:
+				text: "App"
+
+			DrawerClickableItem:
+				icon: "cog"
+				text: "Settings"
+
+				on_press: root.manager_screens.current = 'settings_screen'
+
+			# DrawerClickableItem:
+			# 	icon: "information-slab-circle"
+			# 	text: "About"
+
+			# 	#on_press: AboutDialog().open()

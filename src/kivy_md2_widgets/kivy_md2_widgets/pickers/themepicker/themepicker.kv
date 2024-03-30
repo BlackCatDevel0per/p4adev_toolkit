@@ -1,0 +1,127 @@
+#:import MDTabsBase kivymd.uix.tab
+
+
+<RoundButton>
+	size_hint: None, None
+
+
+# In current time in imperative style..
+<Tab@MDFloatLayout+MDTabsBase>
+	icon: 'cog'
+	md_bg_color: app.theme_cls.bg_normal
+
+
+<ColorSelector>
+	canvas:
+		Color:
+			rgba: root.rgb_hex(root.color_name)
+		Ellipse:
+			size: self.size
+			pos: self.pos
+
+
+<AccentColorSelector@ColorSelector>
+	on_release: app.theme_cls.accent_palette = root.color_name
+
+
+<PrimaryColorSelector@ColorSelector>
+	on_release: app.theme_cls.primary_palette = root.color_name
+
+
+<MDThemePicker>
+	# auto_dismiss: True
+	size_hint: None, None
+	size: "284dp", "400dp"
+
+	MDBoxLayout:
+		orientation: "vertical"
+
+		MDTopAppBar:
+			title: "Change theme"
+
+		MDTabs:
+			on_tab_switch: root.on_tab_switch(*args)
+
+			# FIXME: DRYS..
+			Tab:
+				id: theme_tab
+				text: "Theme"
+				icon: 'format-color-fill'
+
+				MDGridLayout:
+					id: primary_box
+					adaptive_size: True
+					spacing: "8dp"
+					padding: "12dp"
+					pos_hint: {"center_x": .5, "top": 1}
+					cols: 5
+					rows: 4
+
+				MDFlatButton:
+					text: "CLOSE"
+					pos: root.width - self.width - 10, 10
+					on_release: root.dismiss()
+
+			Tab:
+				id: accent_tab
+				text: "Accent"
+				icon: 'format-color-highlight'
+
+				MDGridLayout:
+					id: accent_box
+					adaptive_size: True
+					spacing: "8dp"
+					padding: "12dp"
+					pos_hint: {"center_x": .5, "top": 1}
+					cols: 5
+					rows: 4
+
+				MDFlatButton:
+					text: "CLOSE"
+					pos: root.width - self.width - 10, 10
+					on_release: root.dismiss()
+
+			Tab:
+				id: style_tab
+				text: "Style"
+				icon: 'theme-light-dark'
+
+				MDGridLayout:
+					adaptive_size: True
+					spacing: "8dp"
+					pos_hint: {"center_x": .5, "center_y": .5}
+					cols: 2
+					rows: 1
+
+					RoundButton:
+						size: dp(120), dp(120)
+						canvas:
+							Color:
+								rgba: 1, 1, 1, 1
+							Ellipse:
+								size: self.size
+								pos: self.pos
+							Color:
+								rgba: 0, 0, 0, 1
+							Line:
+								width: 1.
+								circle: (self.center_x, self.center_y, dp(60))
+
+						on_release: app.theme_cls.theme_style = "Light"
+
+					RoundButton:
+						size: dp(120), dp(120)
+						canvas:
+							Color:
+								rgba: 0, 0, 0, 1
+							Ellipse:
+								size: self.size
+								pos: self.pos
+
+						on_release: app.theme_cls.theme_style = "Dark"
+
+				MDFlatButton:
+					text: "CLOSE"
+					pos: root.width - self.width - 10, 10
+					on_release: root.dismiss()
+

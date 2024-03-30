@@ -1,0 +1,26 @@
+{
+	"PROJECT_PATH": "src",
+
+	"connection_settings": {
+		"host": "192.168.1.13",
+		"port": 2121,
+
+		"user": "android",
+		"passwd": "android"
+	},
+	
+	"filters": {
+		"include": [
+			"*"
+		],
+		"exclude": []
+	},
+
+	"paths_bind": {
+		"app_launch": "",
+		"dnart_gd": "_python_bundle/site-packages",
+
+		"plyer": "_python_bundle/site-packages"
+	}
+}
+

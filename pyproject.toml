@@ -1,0 +1,162 @@
+[tool.poetry]
+name = "p4a_dev"
+version = "0.0.1"
+description = "Deviant Art Gallery Downloader by url using deviantart api & deviante lib"
+authors = ["BlackCatDevel0per <bcdev@mail.ru>"]
+
+[tool.poerty.plugins."poetry_commands"]
+run_app = "PYTHONPATH=src/p4a_dev:. poetry run python src/p4a_dev/main.py"
+
+[tool.ruff]
+line-length = 100
+select = [
+	"RUF",
+	"FBT",
+	"FURB",
+	"PERF",
+	"TRY",
+	"FLY",
+	"YTT",
+	"PIE",
+	# "PYI",  # For stub files
+	"TCH",
+	"FA",
+	"UP",
+	"EM",
+	"PL",
+	"G",  # NOTE: CONF!
+	"INP",
+	"PT",
+	"DJ",
+	"NPY",
+	"PD",
+	"ERA",
+	"ARG",
+	"INT",
+	"TID",
+	"SIM",
+	"SLOT",
+	"RET",
+	"RSE",
+	"SLF",
+	"T20",
+	"Q",
+	"ISC",
+	"BLE",
+	"DTZ",
+	"COM",
+	"C4",
+	"A",
+	"PTH",
+	"FIX",
+	"TD",
+	"ANN",
+	"S",
+	"ASYNC",
+	"D",
+	"N",
+
+	"C",
+	"I",
+	# Pycodestyle
+	"E",
+	# Pyflakes
+	"F",
+	"B",
+	"W",
+	# isort
+	# "I001"
+]
+
+ignore = [
+	"W191", "D206", "RET502",
+	"UP040",  # New type aliases (type hinting)
+	"PTH123",  # Not good solution for all things..
+	"TD001",
+	"TD002",
+	"TD003",
+	"S101",
+]  # Add RET503?
+
+src = ["src/p4a_dev", "tests", "scripts"]
+
+exclude = [
+    ".git",
+    "build",
+    "dist",
+    "venv",
+    ".venv",
+    "docs",
+    "tests",
+    "dev",
+    "*.egg-info",
+]
+target-version = "py310"
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "single"
+
+[tool.ruff.format]
+indent-style = "tab"
+
+
+[tool.poetry.dependencies]
+python = ">=3.8.1,<4.0"
+kivy = {extras = ["base"], version = "^2.2.1"}
+kivymd = {git = "https://github.com/kivymd/KivyMD", rev = "1152d3c31229b357336cb9e19cfaa2ba8c6941bc"}  # Before 2.0.0 aka before move to md3
+
+# [tool.poetry.group.dev]
+# optional = true
+
+asynckivy = "^0.6.2"
+plyer = "^2.1.0"
+bs4 = "^0.0.2"
+aiohttp = "^3.9.3"
+new-deviantart = "^0.2.4"
+lxml = "^5.1.0"
+pyslet = "^0.7.20170805"
+aiofiles = "^23.2.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+pytest-dependency = "^0.5.1"
+ruff = "^0.0.292"
+# TODO: Nuitka..?
+# NOTE: Better use from git link directly~
+buildozer = {git = "https://github.com/BlackCatDevel0per/buildozer"}
+# TODO: Fork & cache downloads..
+python-for-android = {url = "https://github.com/BlackCatDevel0per/python-for-android/archive/refs/heads/master.zip"}
+cython = {git = "https://github.com/BlackCatDevel0per/cython"}
+build = "^1.0.3"
+setuptools = "^69.0.3"
+wheel = "^0.42.0"
+kivy-examples = "^2.3.0"
+faker = "^22.6.0"
+pyftpdlib = "^1.5.9"
+watchdog = "^4.0.0"
+regex = "^2023.12.25"
+cachetools = "^5.3.2"
+ftputil = "^5.1.0"
+pyperclip = "^1.8.2"
+installer = "^0.7.0"
+ipykernel = "^6.29.4"
+ipython = "8.12.3"
+
+[tool.poetry.group.performance]
+optional = true
+
+[tool.poetry.group.performance.dependencies]
+ujson = "^5.9.0"
+
+
+
+
+[tool.poetry.group.other.dependencies]
+rich = "^13.7.0"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+
+[tool.cython]
+force = true
+

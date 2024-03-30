@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "kivy_md2_widgets"
+version = "0.0.0"
+description = "..."
+authors = ["BlackCatDevel0per <bcdev@mail.ru>"]
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+

@@ -1,0 +1,18 @@
+"""Build AIOHTTP"""
+from typing import List
+from pythonforandroid.recipe import CppCompiledComponentsPythonRecipe
+
+
+class AIOHTTPRecipe(CppCompiledComponentsPythonRecipe):  # type: ignore # pylint: disable=R0903
+    version = "3.9.3"
+    url = "https://pypi.python.org/packages/source/a/aiohttp/aiohttp-{version}.tar.gz"
+    name = "aiohttp"
+    depends: List[str] = ["setuptools"]
+
+    def get_recipe_env(self, arch):
+        env = super().get_recipe_env(arch)
+        env['LDFLAGS'] += ' -lc++_shared'
+        return env
+
+
+recipe = AIOHTTPRecipe()
