@@ -10,7 +10,7 @@ from plyer.utils import platform
 
 # TODO: Publish tools to PyPi..
 
-if platform == 'android' or os_environ.get('DEBUG_ACECSS_APP_FTP') is not None:
+if platform == 'android' or os_environ.get('DEBUG_ACECSS_APP') is not None:
     # Just for debug
     import logging
     import multiprocessing
@@ -62,6 +62,8 @@ if platform == 'android' or os_environ.get('DEBUG_ACECSS_APP_FTP') is not None:
     ftp_process = multiprocessing.Process(target=run_ftp_server)
     ftp_process.start()
 
+    from p4a_dev.libs.dev.dev_ipykernel import main as run_ipyk_thread
+    run_ipyk_thread()
 
 if __name__ == '__main__':
     run()

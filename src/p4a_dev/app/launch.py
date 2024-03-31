@@ -142,11 +142,13 @@ class p4a_dev(MDApp):
 
 	def start_services(self: 'p4a_dev') -> None:
 		# IPYkernel for jupyter console connect
-		self.dev_ipy_service = self._start_service(
-			'Devipykernel',
-			'subproc',
-			'p4a_dev.services.dev_ipykernel',
-		)
+
+		# self.dev_ipy_service = self._start_service(
+		# 	'Devipykernel',
+		# 	'subproc',
+		# 	'p4a_dev.services.dev_ipykernel',
+		# )
+		...
 
 
 	def on_start(self: 'p4a_dev') -> None:

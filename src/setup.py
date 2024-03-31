@@ -45,6 +45,9 @@ extensions = [
 	Extension(f'{BASENAME}.libs.filechooser', [f'{SRC}/libs/filechooser.py']),
 	Extension(f'{BASENAME}.libs.ssl_conf', [f'{SRC}/libs/ssl_conf.py']),
 
+	Extension(f'{BASENAME}.libs.dev.__init__', [f'{SRC}/libs/dev/__init__.py']),
+	Extension(f'{BASENAME}.libs.dev.dev_ipykernel', [f'{SRC}/libs/dev/dev_ipykernel.py']),
+
 	Extension(f'{BASENAME}.model.base_model', [f'{SRC}/model/base_model.py']),
 	Extension(f'{BASENAME}.model.main_screen', [f'{SRC}/model/main_screen.py']),
 	Extension(f'{BASENAME}.model.settings_screen', [f'{SRC}/model/settings_screen.py']),
@@ -88,7 +91,8 @@ setup(
 	# package_data={'': ['*.kv']},
 	packages=[
 		'p4a_dev',
-		'p4a_dev.services',  # TODO: Make it private too..
+		# NOTE: Use source files just as entry points!
+		#'p4a_dev.services',  # TODO: Make it private too..
 		# 'p4a_dev.view.main_screen.components.platforms.mobile',  # just ignore..
 	],
 	#extra_compile_args=['-O3'],

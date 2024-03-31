@@ -1,5 +1,6 @@
 [app]
 
+# TODO: App restart button..
 # TODO: Use Profiles (prod, dev, mb demo)
 # TODO: Update ui..
 # (str) Title of your application
@@ -44,7 +45,7 @@ version = 0.1
 # prod
 # requirements = python3,hostpython3,kivy==2.2.1,certifi,pyslet==0.7.20170805,plyer==2.1.0,p4a_dev,kivy_md2_widgets,git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc
 # debug
-requirements = python3,hostpython3,kivy==2.2.1,certifi,pyslet==0.7.20170805,plyer==2.1.0,p4a_dev,kivy_md2_widgets,git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc,pyftpdlib,wcwidth,pure-eval,ptyprocess,traitlets,tornado,six,pyzmq,pygments,psutil,prompt-toolkit,platformdirs,pexpect,parso,packaging,nest-asyncio,executing,exceptiongroup,decorator,debugpy,python-dateutil,matplotlib-inline,jupyter-core,jedi,comm,asttokens,stack-data,jupyter-client,ipython,ipykernel,typing-extensions
+requirements = python3,hostpython3,kivy==2.2.1,certifi,pyslet==0.7.20170805,plyer==2.1.0,p4a_dev,kivy_md2_widgets,git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc,pyftpdlib,wcwidth,pure-eval,ptyprocess,traitlets,tornado,six,pyzmq,pygments,psutil,prompt-toolkit,platformdirs,pexpect,parso,packaging,nest-asyncio,executing,exceptiongroup,decorator,python-dateutil,jupyter-core,jedi,comm,asttokens,stack-data,jupyter-client,typing-extensions,ipython,ipykernel,background_zmq_ipython
 # requirements = python3,hostpython3,yarl,frozenlist
 
 # (str) Custom source folders for requirements
@@ -67,7 +68,7 @@ orientation = portrait
 #services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
 # FIXME: test..
 # NOTE: Service name will capitalized!
-services = Devipykernel:_python_bundle/site-packages/p4a_dev/services/dev_ipykernel.py
+#services = Devipykernel:_python_bundle/site-packages/p4a_dev/services/dev_ipykernel.py
 
 #
 # OSX Specific
