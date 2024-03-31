@@ -40,7 +40,7 @@ def main():
 
     print(f'{sn} Starting..')
     kernelapp.launch_new_instance()
-    print(f'{sn} Started!')
+
 
 if __name__ == '__main__':
     main()
