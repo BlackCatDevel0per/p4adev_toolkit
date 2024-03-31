@@ -6,14 +6,19 @@ import sh
 
 
 class LibZMQRecipe(Recipe):
-    version = '4.3.1'  # 4.3.2-4.3.4 fails with clang..
+    version = '4.3.5'
     url = 'https://github.com/zeromq/libzmq/releases/download/v{version}/zeromq-{version}.zip'
     depends = []
     built_libraries = {'libzmq.so': 'src/.libs'}
+    #built_libraries = {'libzmq.la': 'src/.libs'}
     need_stl_shared = True
 
     def build_arch(self, arch):
-        env = self.get_recipe_env(arch)
+        env = self.get_recipe_env(arch).copy()
+        env['LDLIBS'] += ' -lc -ldl -llog -lc++_shared'
+        env['CFLAGS'] += ' -D_GNU_SOURCE -D_REENTRANT -D_THREAD_SAFE'
+        env['CXXFLAGS'] += ' -mno-outline-atomics'
+
         #
         # libsodium_recipe = Recipe.get_recipe('libsodium', self.ctx)
         # libsodium_dir = libsodium_recipe.get_build_dir(arch.arch)
@@ -34,6 +39,11 @@ class LibZMQRecipe(Recipe):
                 '--prefix={}'.format(prefix),
                 '--with-libsodium=no',
                 '--disable-libunwind',
+                '--enable-libbsd=no',
+
+                '--enable-static=no',
+                '--enable-shared=yes',
+
                 '--disable-Werror',
                 _env=env)
             shprint(sh.make, _env=env)
@@ -41,3 +51,4 @@ class LibZMQRecipe(Recipe):
 
 
 recipe = LibZMQRecipe()
+

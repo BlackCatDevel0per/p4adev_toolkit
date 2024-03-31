@@ -1,5 +1,6 @@
 [app]
 
+# TODO: Use Profiles (prod, dev, mb demo)
 # TODO: Update ui..
 # (str) Title of your application
 title = P4ADev Toolkit
@@ -43,7 +44,7 @@ version = 0.1
 # prod
 # requirements = python3,hostpython3,kivy==2.2.1,certifi,pyslet==0.7.20170805,plyer==2.1.0,p4a_dev,kivy_md2_widgets,git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc
 # debug
-requirements = python3,hostpython3,kivy==2.2.1,certifi,pyslet==0.7.20170805,plyer==2.1.0,p4a_dev,kivy_md2_widgets,git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc,pyftpdlib,wcwidth,pure-eval,ptyprocess,traitlets,tornado,six,pyzmq,pygments,psutil,prompt-toolkit,platformdirs,pexpect,parso,packaging,nest-asyncio,executing,exceptiongroup,decorator,debugpy,python-dateutil,matplotlib-inline,jupyter-core,jedi,comm,asttokens,stack-data,jupyter-client,ipython,ipykernel
+requirements = python3,hostpython3,kivy==2.2.1,certifi,pyslet==0.7.20170805,plyer==2.1.0,p4a_dev,kivy_md2_widgets,git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc,pyftpdlib,wcwidth,pure-eval,ptyprocess,traitlets,tornado,six,pyzmq,pygments,psutil,prompt-toolkit,platformdirs,pexpect,parso,packaging,nest-asyncio,executing,exceptiongroup,decorator,debugpy,python-dateutil,matplotlib-inline,jupyter-core,jedi,comm,asttokens,stack-data,jupyter-client,ipython,ipykernel,typing-extensions
 # requirements = python3,hostpython3,yarl,frozenlist
 
 # (str) Custom source folders for requirements
@@ -65,7 +66,8 @@ orientation = portrait
 # (list) List of service to declare
 #services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
 # FIXME: test..
-services = DevIPYkernel:_python_bundle/site-packages/p4a_dev/services/dev_ipykernel.pyc
+# NOTE: Service name will capitalized!
+services = Devipykernel:_python_bundle/site-packages/p4a_dev/services/dev_ipykernel.py
 
 #
 # OSX Specific
@@ -121,7 +123,8 @@ android.minapi = 26
 ##android.sdk = 27
 
 # (str) Android NDK version to use
-#android.ndk = 23b
+android.ndk = 26c
+#25c/26c
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi. (else will set automaticelly by api version)
 android.ndk_api = 26
@@ -287,8 +290,8 @@ android.enable_androidx = True
 
 # (list) The Android archs to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
 # In past, was `android.arch` as we weren't supporting builds for multiple archs at the same time.
-#android.archs = arm64-v8a
-android.archs = armeabi-v7a
+android.archs = arm64-v8a
+# android.archs = armeabi-v7a
 # android.archs = arm64-v8a, armeabi-v7a
 # android.archs = x86
 # android.archs = x86, x86_64

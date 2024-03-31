@@ -24,6 +24,7 @@ from p4a_dev.view.screens import screens
 
 if platform == 'android':
 	from android import mActivity
+	context = mActivity.getApplicationContext()
 	from jnius import autoclass
 else:
 	import sys
@@ -33,7 +34,8 @@ else:
 
 class p4a_dev(MDApp):
 
-	app_site: str = 'com.bcdev.p4a_dev'
+	if platform == 'android':
+		app_site: str = str(context.getPackageName())
 
 	def __init__(self: 'p4a_dev', **kwargs: 'Any') -> None:
 		super().__init__(**kwargs)
@@ -116,7 +118,9 @@ class p4a_dev(MDApp):
 		import_kw: 'dict[str, Any]' = {'fromlist': ['']},
 	) -> 'Service | Process':
 		if platform == 'android':
-			service = autoclass(f'{self.app_site}.Service{name}')
+			sn: str = f'{self.app_site}.Service{name}'
+			service = autoclass(sn)
+			del sn
 			service.start(mActivity, '')
 			return service
 
@@ -139,7 +143,7 @@ class p4a_dev(MDApp):
 	def start_services(self: 'p4a_dev') -> None:
 		# IPYkernel for jupyter console connect
 		self.dev_ipy_service = self._start_service(
-			'DevIPYkernel',
+			'Devipykernel',
 			'subproc',
 			'p4a_dev.services.dev_ipykernel',
 		)

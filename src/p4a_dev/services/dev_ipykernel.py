@@ -11,6 +11,9 @@ from ipykernel import kernelapp
 # PythonService.mService.setAutoRestartService(True)
 
 def main():
+    sn = '[IPYkernel]'
+    print(f'{sn} Preparing..')
+
     ipy_conf: dict = {
         "shell_port": 12345,
         "iopub_port": 12346,
@@ -26,7 +29,7 @@ def main():
 
     kfn = Path(Path(__file__).parent, 'ipython_kernel.json')
     with open(kfn, 'w') as kf:
-        json.dump(ipy_conf, kf)
+        json.dump(ipy_conf, kf, ensure_ascii=True, indent=4)
 
     sys.argv.append('-f')
     sys.argv.append(str(kfn))
@@ -35,7 +38,9 @@ def main():
     # app.initialize()
     # app.start()
 
+    print(f'{sn} Starting..')
     kernelapp.launch_new_instance()
+    print(f'{sn} Started!')
 
 if __name__ == '__main__':
     main()
