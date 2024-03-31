@@ -10,11 +10,19 @@ from pythonforandroid.util import current_directory
 class LibSDL2Image(BootstrapNDKRecipe):
 	"""Overrides original recipe for using caching."""
 
-	version = '2.6.2'
+	# TODO: Update to 2.8.2+
+	version = '2.8.2'
 	url = 'https://github.com/libsdl-org/SDL_image/releases/download/release-{version}/SDL2_image-{version}.tar.gz'
 	dir_name = 'SDL2_image'
 
 	patches = ['enable-webp.patch']
+
+
+	def get_include_dirs(self, arch):
+		return [
+			os.path.join(self.ctx.bootstrap.build_dir, 'jni', 'SDL2_image', 'include')
+		]
+
 
 	def prebuild_arch(self, arch):
 		# We do not have a folder for each arch on BootstrapNDKRecipe, so we
@@ -22,6 +30,7 @@ class LibSDL2Image(BootstrapNDKRecipe):
 		external_deps_dir = os.path.join(self.get_build_dir(arch.arch), "external")
 		if not os.path.exists(os.path.join(external_deps_dir, "libwebp")):
 			with current_directory(external_deps_dir):
+				# TODO: Make base class for it..
 				if os.environ.get('USE_P4A_RECIPES_CACHING'):
 					with open('download.sh', 'r') as df:
 						data = df.read()
