@@ -1,4 +1,5 @@
-from ipykernel import kernelapp
+# from ipykernel import kernelapp
+from os import environ as os_environ
 
 from p4a_dev.app.launch import run
 from plyer.utils import platform
@@ -9,7 +10,7 @@ from plyer.utils import platform
 
 # TODO: Publish tools to PyPi..
 
-if platform != 'android':
+if platform == 'android' or os_environ.get('DEBUG_ACECSS_APP_FTP') is not None:
     # Just for debug
     import logging
     import multiprocessing
