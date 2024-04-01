@@ -1,10 +1,14 @@
 from __future__ import annotations
 
-from time import sleep
+from os import environ as os_environ
+from os import makedirs as mkdirs
+
+# from time import sleep
 import json
 from background_zmq_ipython import IPythonBackgroundKernelWrapper
 from traceback import format_exc
 from pathlib import Path
+from plyer.utils import platform
 
 # TODO: Make base class for services..
 
@@ -79,11 +83,24 @@ def init_ipython_kernel(**kwargs):
     cn_info: dict = kwargs.pop('cn_info', None)
 
     kernel_wrapper = IPyWrapper(**kwargs)
-    
+
     kernel_wrapper._connection_info = cn_info
-    
+
     kernel_wrapper.start()
     return kernel_wrapper
+
+
+ipy_conf: dict = {
+    "shell_port": 12345,
+    "iopub_port": 12346,
+    "stdin_port": 12347,
+    "control_port": 12348,
+    "hb_port": 12349,
+    "ip": "0.0.0.0",
+    "key": "6a913be8-0e00-43d7-b0c5-1842c29d88b5",
+    "transport": "tcp",
+    "signature_scheme": "hmac-sha256"
+}
 
 
 def main():
@@ -91,32 +108,27 @@ def main():
     print(f'{sn} Preparing..')
 
     # TODO: IP test..
-    # TODO: Solve ipyk temp dirs issues..
 
-    ipy_conf: dict = {
-        "shell_port": 12345,
-        "iopub_port": 12346,
-        "stdin_port": 12347,
-        "control_port": 12348,
-        "hb_port": 12349,
-        "ip": "0.0.0.0",
-        #"ip": "127.0.0.1",
-        "key": "6a913be8-0e00-43d7-b0c5-1842c29d88b5",
-        "transport": "tcp",
-        "signature_scheme": "hmac-sha256"
-    }
-
-
-    kfn = Path(Path(__file__).parent, 'ipython_kernel.json')
+    kfn: str = 'ipython_kernel.json'
+    file_kfp: 'str | Path' = Path(Path(__file__).parent, kfn)
 
     print(f'{sn} Starting..')
     try:
         # Force disable debugpy for a while..
         import ipykernel.debugger as ipydbg
         ipydbg._is_debugpy_available = False
-        
+
+        if platform == 'android':
+            # Set to app dir near `.kivy` dir
+            dir_aipyp = os_environ['IPYTHONDIR'] = os_environ['ANDROID_ARGUMENT'] + '/' + '.ipython'
+            file_kfp = Path(dir_aipyp, kfn)
+
+            mkdirs(dir_aipyp, exist_ok=True)
+
+            del dir_aipyp
+
         init_ipython_kernel(
-            connection_filename=str(kfn),
+            connection_filename=str(file_kfp),
             connection_fn_with_pid=False,
             allow_remote_connections=True,
             cn_info=ipy_conf,
@@ -134,4 +146,3 @@ if __name__ == '__main__':
     main()
 
 # TODO: Clear sys.argv..
-
