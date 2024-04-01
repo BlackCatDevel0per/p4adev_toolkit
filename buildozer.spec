@@ -1,5 +1,6 @@
 [app]
 
+# TODO: Better look at bootstraps..
 # TODO: App restart button..
 # TODO: Use Profiles (prod, dev, mb demo)
 # TODO: Update ui..
