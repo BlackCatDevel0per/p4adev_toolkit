@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "p4a_dev"
 version = "0.0.1"
-description = "Deviant Art Gallery Downloader by url using deviantart api & deviante lib"
+description = "P4A Kivy/KivyMD Developer sample & tools."
 authors = ["BlackCatDevel0per <bcdev@mail.ru>"]
 
 [tool.poerty.plugins."poetry_commands"]
