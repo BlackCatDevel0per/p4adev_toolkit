@@ -1,5 +1,16 @@
 [app]
 
+# TODO: Fix openssl issues
+# TODO: Publish dev toolkit to PyPi (ftp server, ipykernel & etc) + make profile for it
+# TODO: Publish widgets..
+# TODO: Publish p4a-samples with review recipes..
+# TODO: Review packaging setuptools
+
+# TODO: Scoped storage utils package to simplify fs routines on new Android versions..
+
+# TODO: Fix ftp_sync & publish to PyPi && unify all tools in one cli pkg..
+# TODO: Make commands extension for poetry..
+
 # TODO: Better look at bootstraps..
 # TODO: App restart button..
 # TODO: Use Profiles (prod, dev, mb demo)
