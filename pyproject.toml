@@ -142,6 +142,7 @@ installer = "^0.7.0"
 ipykernel = "^6.29.4"
 ipython = "8.12.3"
 background-zmq-ipython = "^1.20220901.135250"
+jedi = "0.19.1"
 
 [tool.poetry.group.performance]
 optional = true
