@@ -63,8 +63,9 @@ for ext in extensions:
 
 		##
 		s = f'{sp.parent}/{sp.stem}.c'
-		## (sources are generated via build script..)
-		####
+		# TODO: Make it optionally using env var..
+		# You should cythonize python code to C before build this package & app
+		# (sources are generated via build script..)
 		if sp.exists() and not Path(s).exists():
 			continue
 		ext.sources[i] = s
