@@ -65,7 +65,7 @@ export USE_P4A_RECIPES_CACHING=1
 # export PATH=.:$PATH
 # source ./git_cache.sh
 
-poetry run python -c "import sys, pprint; pprint.pprint(sys.path)"
+# poetry run python -c "import sys, pprint; pprint.pprint(sys.path)"
 # poetry run python -c "from shutil import which;print(which('git'))"
 
 # TODO: Skip downloading by patching buildozer's a bit legacy download method..
@@ -87,12 +87,14 @@ ls >/dev/null 2>&1 && paplay $start_sound
 cd src
 find . -name '*.c' -delete
 
-poetry run python setup.py sdist
-rm -rf *.egg-info dist build
+########################
+#poetry run python setup.py sdist
+#rm -rf *.egg-info dist build
 
 cd ..
 
-poetry run python -m buildozer -v android $1
+# poetry run python -m buildozer --profile $2 -v android $1
+poetry run python -m buildozer -v --profile $2 android $1
 
 # FIXME: Use it as option (to avoid stopping multiple builds..)
 # Kill gradle daemon after build
