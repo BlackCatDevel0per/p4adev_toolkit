@@ -52,13 +52,17 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-##
+# TODO: Detect profile inside from recipe..
 # TODO: Build materialyoucolor (mb) properly.. & some other android kivy stdlib recipes..
+# TODO: Contribute buildozer & make configuration more rich..
 # prod
-# requirements = python3,hostpython3,kivy==2.2.1,certifi,pyslet==0.7.20170805,plyer==2.1.0,p4a_dev,kivy_md2_widgets,git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc
-# debug
-requirements = python3,hostpython3,kivy==2.2.1,certifi,pyslet==0.7.20170805,plyer==2.1.0,p4a_dev,kivy_md2_widgets,git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc,pyftpdlib,wcwidth,pure-eval,ptyprocess,traitlets,tornado,six,pyzmq,pygments,psutil,prompt-toolkit,platformdirs,pexpect,parso,packaging,nest-asyncio,executing,exceptiongroup,decorator,python-dateutil,jupyter-core,jedi,comm,asttokens,stack-data,jupyter-client,typing-extensions,ipython,ipykernel,background_zmq_ipython
-# requirements = python3,hostpython3,yarl,frozenlist
+requirements = python3,hostpython3,
+  kivy==2.2.1,
+  certifi,
+  pyslet==0.7.20170805,
+  plyer==2.1.0,p4a_dev,
+  kivy_md2_widgets,
+  git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -476,4 +480,73 @@ warn_on_root = 1
 #    Then, invoke the command line with the "demo" profile:
 #
 #buildozer --profile demo android debug
+
+# [PROFILE - DEV]
+[app@dev]
+title = P4ADev Toolkit [DEV]
+
+# (bool) Indicate if the application should be fullscreen or not
+fullscreen = 0
+
+android.archs = arm64-v8a
+
+android.no-byte-compile-python = True
+
+# (string) Presplash background color (for android toolchain)
+# Supported formats are: #RRGGBB #AARRGGBB or one of the following names:
+# red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray,
+# darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy,
+# olive, purple, silver, teal.
+#android.presplash_color = #FFFFFF
+
+# (string) Presplash animation using Lottie format.
+# see https://lottiefiles.com/ for examples and https://airbnb.design/lottie/
+# for general documentation.
+# Lottie files can be created using various tools, like Adobe After Effect or Synfig.
+#android.presplash_lottie = "path/to/lottie/file.json"
+
+# (str) Adaptive icon of the application (used if Android API level is 26+ at runtime)
+#icon.adaptive_foreground.filename = %(source.dir)s/data/icon_fg.png
+#icon.adaptive_background.filename = %(source.dir)s/data/icon_bg.png
+
+# TODO: Use extended interpolation at least..
+# dev
+requirements = python3,hostpython3,
+  kivy==2.2.1,
+  certifi,
+  pyslet==0.7.20170805,
+  plyer==2.1.0,p4a_dev,
+  kivy_md2_widgets,
+  git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc,
+
+  pyftpdlib,
+  wcwidth,
+  pure-eval,
+  ptyprocess,
+  traitlets,
+  tornado,
+  six,
+  pyzmq,
+  pygments,
+  psutil,
+  prompt-toolkit,
+  platformdirs,
+  pexpect,
+  parso,
+  packaging,
+  nest-asyncio,
+  executing,
+  exceptiongroup,
+  decorator,
+  python-dateutil,
+  jupyter-core,
+  jedi==0.19.1,
+  comm,
+  asttokens,
+  stack-data,
+  jupyter-client,
+  typing-extensions,
+  ipython,
+  ipykernel,
+  background_zmq_ipython
 
