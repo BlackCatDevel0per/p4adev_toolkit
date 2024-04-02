@@ -6,7 +6,7 @@ from plyer.utils import platform
 
 # TODO: C/Compiled entry point
 
-# NOTE: Use this part only for debug purposes (in prod remove deps and comment these lines)
+# NOTE: Use this part only for debug purposes (in prod comment these lines)
 
 # TODO: Publish tools to PyPi..
 
