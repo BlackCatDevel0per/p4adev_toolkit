@@ -487,10 +487,13 @@ title = P4ADev Toolkit [DEV]
 
 package.name = p4a_bdev
 
+version = 0.1
+
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 0
 
-android.archs = arm64-v8a
+# android.archs = arm64-v8a
+android.archs = armeabi-v7a
 
 android.no-byte-compile-python = True
 
