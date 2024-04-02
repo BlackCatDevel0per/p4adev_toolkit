@@ -87,9 +87,9 @@ ls >/dev/null 2>&1 && paplay $start_sound
 cd src
 find . -name '*.c' -delete
 
-########################
-#poetry run python setup.py sdist
-#rm -rf *.egg-info dist build
+# FIXME: Do it properly..
+poetry run python setup.py sdist
+rm -rf *.egg-info dist build
 
 cd ..
 
