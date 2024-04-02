@@ -27,5 +27,5 @@ temp
 
 src/p4a_dev/**/*.c
 src/p4a_dev/app/p4a_dev.ini
-src/p4a_dev/services/ipython_kernel.json
-deps_tree.txt
+src/p4a_dev/libs/dev/ipython_kernel.json
+
