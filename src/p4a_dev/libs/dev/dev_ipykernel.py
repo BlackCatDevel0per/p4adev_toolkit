@@ -185,7 +185,7 @@ kernel_wrapper = None
 
 
 def update_conf(conf: 'traitlets.config.loader') -> None:
-    # To fix autocompletion
+    # To fix autocompletion (if you using old jedi version)
     conf.IPCompleter.use_jedi = False
 
     # or also you can update it on post-init
@@ -203,7 +203,7 @@ def main():
 
     print(f'{sn} Starting..')
     try:
-        # Force disable debugpy for a while..
+        # Force disable debugpy
         import ipykernel.debugger as ipydbg
         ipydbg._is_debugpy_available = False
 
@@ -224,7 +224,7 @@ def main():
             allow_remote_connections=True,
             cn_info=ipy_conf,
 
-            update_conf=update_conf,
+            # update_conf=update_conf,
             # post_init_callback=update_conf,
         )
 
