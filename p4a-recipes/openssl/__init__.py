@@ -122,6 +122,11 @@ class OpenSSLRecipe(Recipe):
             perl = sh.Command('perl')
             buildarch = self.select_build_arch(arch)
             config_args = [
+                # TODO: Get app name inside recipe..
+                # TODO: Try to use system certeficates (or make it optional in the near future..)
+                '--prefix=/data/user/0/com.bcdev.p4a_bdev/files/app/.openssl',
+                '--openssldir=/data/user/0/com.bcdev.p4a_bdev/files/app/.openssl',
+
                 'shared',
                 'no-dso',
                 'no-asm',
