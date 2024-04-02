@@ -12,16 +12,9 @@ if str(recipes_path) not in sys.path:
 from utils.recipe.no_setup_pypi_recipe import NoSetupPyPiRecipe
 
 
-# TODO: Use another recipe base..
 class JediRecipe(NoSetupPyPiRecipe):
     version = 'v0.19.1'
     url = 'https://files.pythonhosted.org/packages/20/9f/bc63f0f0737ad7a60800bfd472a4836661adae21f9c2535f3957b1e54ceb/jedi-0.19.1-py2.py3-none-any.whl'
-
-    # PATCH_NOTE: Does it make big sense?
-    # patches = ['fix_MergedNamesDict_get.patch']
-    # This apparently should be fixed in jedi 0.10 (not released to
-    # pypi yet), but it still occurs on Android, I could not reproduce
-    # on desktop.
 
     # Install just for app (exclude native/host machine build)
     # to use setuotools from hostpython
@@ -32,4 +25,3 @@ class JediRecipe(NoSetupPyPiRecipe):
 
 
 recipe = JediRecipe()
-
