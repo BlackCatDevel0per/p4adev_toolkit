@@ -485,6 +485,8 @@ warn_on_root = 1
 [app@dev]
 title = P4ADev Toolkit [DEV]
 
+package.name = p4a_bdev
+
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 0
 
