@@ -1,8 +1,9 @@
-from pythonforandroid.recipe import Recipe
-from pythonforandroid.logger import shprint
-from pythonforandroid.util import current_directory
 from os.path import join
+
 import sh
+from pythonforandroid.logger import shprint
+from pythonforandroid.recipe import Recipe
+from pythonforandroid.util import current_directory
 
 
 class LibZMQRecipe(Recipe):
@@ -10,13 +11,14 @@ class LibZMQRecipe(Recipe):
     url = 'https://github.com/zeromq/libzmq/releases/download/v{version}/zeromq-{version}.zip'
     depends = []
     built_libraries = {'libzmq.so': 'src/.libs'}
-    #built_libraries = {'libzmq.la': 'src/.libs'}
     need_stl_shared = True
 
     def build_arch(self, arch):
         env = self.get_recipe_env(arch).copy()
         env['LDLIBS'] += ' -lc -ldl -llog -lc++_shared'
         env['CFLAGS'] += ' -D_GNU_SOURCE -D_REENTRANT -D_THREAD_SAFE'
+
+        # See: https://github.com/flutter/flutter/issues/75348
         env['CXXFLAGS'] += ' -mno-outline-atomics'
 
         #
