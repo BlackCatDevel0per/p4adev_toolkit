@@ -1,17 +1,9 @@
 """Build frozenlist"""
 from __future__ import annotations
 
-import sys
-from pathlib import Path
 from typing import TYPE_CHECKING
 
-# A little hack..
-recipes_path = Path(__file__).parent.parent
-
-if str(recipes_path) not in sys.path:
-	sys.path.insert(0, str(recipes_path))
-
-from utils.recipe import BuildToolCompiledComponentsPythonRecipe
+from p4adev_recipes.recipe import BuildToolCompiledComponentsPythonRecipe
 
 if TYPE_CHECKING:
 	from typing import List

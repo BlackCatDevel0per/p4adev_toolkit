@@ -1,15 +1,6 @@
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
-# A little hack..
-recipes_path = Path(__file__).parent.parent
-
-if str(recipes_path) not in sys.path:
-    sys.path.insert(0, str(recipes_path))
-
-from utils.recipe.no_setup_pypi_recipe import NoSetupPyPiRecipe
+from p4adev_recipes.recipe.no_setup_pypi_recipe import NoSetupPyPiRecipe
 
 
 class ImportlibMetadataRecipe(NoSetupPyPiRecipe):
