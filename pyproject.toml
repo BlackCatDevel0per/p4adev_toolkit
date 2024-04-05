@@ -105,9 +105,6 @@ python = ">=3.8.1,<4.0"
 kivy = {extras = ["base"], version = "^2.2.1"}
 kivymd = {git = "https://github.com/kivymd/KivyMD", rev = "1152d3c31229b357336cb9e19cfaa2ba8c6941bc"}  # Before 2.0.0 aka before move to md3
 
-# [tool.poetry.group.dev]
-# optional = true
-
 asynckivy = "^0.6.2"
 plyer = "^2.1.0"
 bs4 = "^0.0.2"
@@ -116,6 +113,9 @@ new-deviantart = "^0.2.4"
 lxml = "^5.1.0"
 pyslet = "^0.7.20170805"
 aiofiles = "^23.2.1"
+
+[tool.poetry.group.dev]
+optional = false
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.2"
@@ -126,6 +126,7 @@ ruff = "^0.0.292"
 buildozer = {git = "https://github.com/BlackCatDevel0per/buildozer"}
 # TODO: Fork & cache downloads..
 python-for-android = {url = "https://github.com/BlackCatDevel0per/python-for-android/archive/refs/heads/master.zip"}
+p4adev_recipes = "^0.0.2"
 cython = {git = "https://github.com/BlackCatDevel0per/cython"}
 build = "^1.0.3"
 setuptools = "^69.0.3"
@@ -150,11 +151,9 @@ optional = true
 [tool.poetry.group.performance.dependencies]
 ujson = "^5.9.0"
 
-
-
-
 [tool.poetry.group.other.dependencies]
 rich = "^13.7.0"
+
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
