@@ -1,9 +1,11 @@
-from os.path import join
+from __future__ import annotations
 
+from pathlib import Path
+
+import sh
+from pythonforandroid.logger import shprint
 from pythonforandroid.recipe import Recipe
 from pythonforandroid.util import current_directory
-from pythonforandroid.logger import shprint
-import sh
 
 
 class OpenSSLRecipe(Recipe):
@@ -64,16 +66,16 @@ class OpenSSLRecipe(Recipe):
         return self.url.format(url_version=self.url_version)
 
     def get_build_dir(self, arch):
-        return join(
+        return str(Path(
             self.get_build_container_dir(arch), self.name + self.version
-        )
+        ))
 
     def include_flags(self, arch):
         '''Returns a string with the include folders'''
-        openssl_includes = join(self.get_build_dir(arch.arch), 'include')
+        openssl_includes = str(Path(self.get_build_dir(arch.arch), 'include'))
         return (' -I' + openssl_includes +
-                ' -I' + join(openssl_includes, 'internal') +
-                ' -I' + join(openssl_includes, 'openssl'))
+                ' -I' + str(Path(openssl_includes, 'internal')) +
+                ' -I' + str(Path(openssl_includes, 'openssl')))
 
     def link_dirs_flags(self, arch):
         '''Returns a string with the appropriate `-L<lib directory>` to link
@@ -116,17 +118,16 @@ class OpenSSLRecipe(Recipe):
 
     def build_arch(self, arch):
         env = self.get_recipe_env(arch)
+
         with current_directory(self.get_build_dir(arch.arch)):
             # sh fails with code 255 trying to execute ./Configure
             # so instead we manually run perl passing in Configure
             perl = sh.Command('perl')
-            buildarch = self.select_build_arch(arch)
-            config_args = [
-                # TODO: Get app name inside recipe..
-                # TODO: Try to use system certeficates (or make it optional in the near future..)
-                '--prefix=/data/user/0/com.bcdev.p4a_bdev/files/app/.openssl',
-                '--openssldir=/data/user/0/com.bcdev.p4a_bdev/files/app/.openssl',
 
+            buildarch: str = self.select_build_arch(arch)
+
+            config_args = [
+                # TODO: Try to use system certeficates (or make it optional in the near future..)
                 'shared',
                 'no-dso',
                 'no-asm',
@@ -135,6 +136,7 @@ class OpenSSLRecipe(Recipe):
             ]
             shprint(perl, 'Configure', *config_args, _env=env)
             self.apply_patch('disable-sover.patch', arch.arch)
+            self.apply_patch('use_app_path_env4conf.patch', arch.arch)
 
             shprint(sh.make, 'build_libs', _env=env)
 

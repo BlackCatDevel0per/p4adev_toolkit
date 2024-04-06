@@ -1,0 +1,102 @@
+diff -Naru a/crypto/cryptlib.c b/crypto/cryptlib.c
+--- a/crypto/cryptlib.c	2024-04-06 09:43:29.511737592 +0630
++++ b/crypto/cryptlib.c	2024-04-06 10:36:17.496808459 +0630
+@@ -12,6 +12,34 @@
+ #include "crypto/cryptlib.h"
+ #include <openssl/safestack.h>
+ 
++char* getenv_or_default(const char* env_var, const char* default_val) {
++    // NOTE: Can be insecure!
++    char* val = getenv(env_var);
++    if (val == NULL || strlen(val) == 0) {
++        return strdup(default_val);
++    }
++
++    return strdup(val);
++}
++
++char* strconcat(char *s1, char *s2) {
++
++    size_t len1 = strlen(s1);
++    size_t len2 = strlen(s2);                      
++
++    char *result = malloc(len1 + len2 + 1);
++
++    if (!result) {
++        fprintf(stderr, "malloc() failed: insufficient memory!\n");
++        return NULL;
++    }
++
++    memcpy(result, s1, len1);
++    memcpy(result + len1, s2, len2 + 1);
++
++    return result;
++}
++
+ #if     defined(__i386)   || defined(__i386__)   || defined(_M_IX86) || \
+         defined(__x86_64) || defined(__x86_64__) || \
+         defined(_M_AMD64) || defined(_M_X64)
+diff -Naru a/crypto/cversion.c b/crypto/cversion.c
+--- a/crypto/cversion.c	2024-04-06 08:04:45.462605071 +0630
++++ b/crypto/cversion.c	2024-04-06 09:51:48.802748761 +0630
+@@ -29,7 +29,7 @@
+         return PLATFORM;
+     case OPENSSL_DIR:
+ #ifdef OPENSSLDIR
+-        return "OPENSSLDIR: \"" OPENSSLDIR "\"";
++        return strconcat("OPENSSLDIR: ", OPENSSLDIR);
+ #else
+         return "OPENSSLDIR: N/A";
+ #endif
+diff -Naru a/include/internal/cryptlib.h b/include/internal/cryptlib.h
+--- a/include/internal/cryptlib.h	2024-04-02 22:24:51.535249799 +0630
++++ b/include/internal/cryptlib.h	2024-04-06 11:05:15.728847344 +0630
+@@ -51,8 +51,6 @@
+ typedef struct mem_st MEM;
+ DEFINE_LHASH_OF(MEM);
+ 
+-# define OPENSSL_CONF             "openssl.cnf"
+-
+ # ifndef OPENSSL_SYS_VMS
+ #  define X509_CERT_AREA          OPENSSLDIR
+ #  define X509_CERT_DIR           OPENSSLDIR "/certs"
+@@ -75,6 +73,39 @@
+ # define DECIMAL_SIZE(type)      ((sizeof(type)*8+2)/3+1)
+ # define HEX_SIZE(type)          (sizeof(type)*2)
+ 
++
++// If you want to use openssl insde Android app
++// TODO: Make it more secure (avoid too long strings)
++#if defined(__ANDROID__)
++
++char* getenv_or_default(const char* env_var, const char* default_val);
++
++char* strconcat(char *s1, char *s2);
++
++#    define ANDROID_APP_PATH_ENV getenv_or_default("ANDROID_APP_PATH", ".")
++
++#    undef OPENSSLDIR
++#    define OPENSSLDIR strconcat(ANDROID_APP_PATH_ENV, "/.openssl")
++
++#    undef X509_CERT_FILE
++#    define X509_CERT_FILE strconcat(ANDROID_APP_PATH_ENV, "/_python_bundle/site-packages/certifi/cacert.pem")
++
++#    define OPENSSL_CONF strconcat(OPENSSLDIR, "/openssl.cnf")
++
++#    undef X509_PRIVATE_DIR
++#    define X509_PRIVATE_DIR strconcat(OPENSSLDIR, "/certs")
++
++#    undef X509_CERT_DIR
++#    define X509_CERT_DIR strconcat(OPENSSLDIR, "/private")
++
++#    undef CTLOG_FILE
++#    define CTLOG_FILE strconcat(OPENSSLDIR, "/ct_log_list.cnf")
++
++#else
++#    define OPENSSL_CONF "openssl.cnf"
++#endif
++
++
+ void OPENSSL_cpuid_setup(void);
+ extern unsigned int OPENSSL_ia32cap_P[];
+ void OPENSSL_showfatal(const char *fmta, ...);
