@@ -5,13 +5,15 @@ description = "P4A Kivy/KivyMD Developer sample & tools."
 authors = ["BlackCatDevel0per <bcdev@mail.ru>"]
 license = "Apache 2.0"
 
-homepage = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
-repository = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
-
 packages = [
     { include = "app", from = "src" },
     { include = "kivy_md2_widgets", from = "src/kivy_md2_widgets" }  ##
 ]
+
+[tool.poetry.urls]
+Homepage = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
+Documentation = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
+Repository = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 
 #[tool.poetry.plugins."poetry-plugin-commands"]
 #run_app = "PYTHONPATH=src:src/kivy_md2_widgets:. poetry run python src/app_launch/main.py"
