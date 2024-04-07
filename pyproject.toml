@@ -114,7 +114,7 @@ indent-style = "tab"
 [tool.poetry.dependencies]
 python = ">=3.8.1,<4.0"
 
-poetry_commands = { file = "..." }
+#poetry_commands = { file = "..." }
 
 [tool.poetry.group.app.dependencies]
 
