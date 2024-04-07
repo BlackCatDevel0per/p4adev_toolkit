@@ -25,7 +25,7 @@ bin.bak
 
 temp
 
-src/p4a_dev/**/*.c
-src/p4a_dev/app/p4a_dev.ini
-src/p4a_dev/libs/dev/ipython_kernel.json
+src/app/**/*.c
+src/app/app/*.ini
+src/app/libs/dev/ipython_kernel.json
 
