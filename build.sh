@@ -80,9 +80,9 @@ export USE_P4A_RECIPES_CACHING=1
 start_sound=/usr/share/sounds/freedesktop/stereo/message-new-instant.oga
 complete_sound=/usr/share/sounds/freedesktop/stereo/complete.oga
 
-ls >/dev/null 2>&1 && paplay $start_sound
+paplay $start_sound >/dev/null 2>&1
 
-# Crutchy cythonize main app lib
+## Crutchy cythonize main app lib
 # NOTE: WARNING!
 cd src
 find . -name '*.c' -delete
@@ -93,7 +93,7 @@ rm -rf *.egg-info dist build
 
 cd ..
 
-# poetry run python -m buildozer --profile $2 -v android $1
+## Build4Android
 poetry run python -m buildozer -v --profile $2 android $1
 
 # FIXME: Use it as option (to avoid stopping multiple builds..)
@@ -101,5 +101,5 @@ poetry run python -m buildozer -v --profile $2 android $1
 pkill -f '.*GradleDaemon.*'
 
 # Optionally play sound on complete
-ls >/dev/null 2>&1 && paplay $complete_sound
+paplay $start_sound >/dev/null 2>&1
 
