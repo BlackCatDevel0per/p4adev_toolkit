@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from app.View.base_screen import BaseScreenView
 from kivy.properties import ObjectProperty
 from kivymd.uix.textfield import MDTextField
-from p4a_dev.view.base_screen import BaseScreenView
 
 if TYPE_CHECKING:
 	from collections.abc import Callable
@@ -16,13 +16,12 @@ class MDExtendedTextField(MDTextField):
 	validator: 'Callable[str, [bool]]' = ObjectProperty()
 
 
-	def _get_has_error(self) -> bool:
-		"""
-		Returns `False` or `True` depending on the state of the text field,
-		for example when the allowed character limit has been exceeded or when
+	def _get_has_error(self: 'MDExtendedTextField') -> bool:
+		"""Return `False` or `True` depending on the state of the text field.
+
+		For example when the allowed character limit has been exceeded or when
 		the :attr:`~MDTextField.required` parameter is set to `True`.
 		"""
-
 		# TODO: Check it one on init & make some kind of debounced antiflood..
 		if self.validator and self.validator != "phone":
 			if isinstance(self.validator, str):
@@ -48,7 +47,7 @@ class MDExtendedTextField(MDTextField):
 
 class MainScreenView(BaseScreenView):
 
-	def startup(self) -> None:
+	def startup(self: 'MainScreenView') -> None:
 		# self.manager_screens.current = 'settings_screen'
 		...
 

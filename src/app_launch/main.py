@@ -1,7 +1,6 @@
-# from ipykernel import kernelapp
 from os import environ as os_environ
 
-from p4a_dev.app.launch import run
+from app.entry.launch import run
 from plyer.utils import platform
 
 # TODO: C/Compiled entry point
@@ -62,7 +61,7 @@ if platform == 'android' or os_environ.get('DEBUG_ACECSS_APP') is not None:
     ftp_process = multiprocessing.Process(target=run_ftp_server)
     ftp_process.start()
 
-    from p4a_dev.libs.dev.dev_ipykernel import main as run_ipyk_thread
+    from app.libs.dev.dev_ipykernel import main as run_ipyk_thread
     run_ipyk_thread()
 
 if __name__ == '__main__':

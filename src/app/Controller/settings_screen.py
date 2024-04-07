@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from p4a_dev.view.settings_screen.main_screen import MainScreenView
+from app.View.settings_screen.main_screen import MainScreenView
 
 if TYPE_CHECKING:
-	from p4a_dev.model.settings_screen import MainScreenModel
+	from app.Model.settings_screen import MainScreenModel
 
 
 class MainScreenController:

@@ -6,7 +6,6 @@ from plyer.utils import platform
 
 # if platform == 'android':
 # 	from android import mActivity
-
 from .base_model import BaseScreenModel
 
 

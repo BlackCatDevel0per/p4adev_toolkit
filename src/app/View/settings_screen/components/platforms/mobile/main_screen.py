@@ -3,12 +3,12 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from app.libs.filechooser import filechooser
+from app.View.base_screen import BaseScreenView
 from kivy.logger import Logger
 from kivy.properties import StringProperty
 from kivymd.toast import toast
 from kivymd.uix.relativelayout import MDRelativeLayout
-from p4a_dev.libs.filechooser import filechooser
-from p4a_dev.view.base_screen import BaseScreenView
 from plyer.utils import platform
 
 if TYPE_CHECKING:
@@ -29,18 +29,18 @@ class SettingsScreenView(BaseScreenView):
 		...
 
 
-	def _validate_p4a_dev_client_id(self, text: str) -> bool:
+	def _validate_app_client_id(self, text: str) -> bool:
 		return not text.isnumeric()
 
 
-	def _validate_p4a_dev_client_secret(self, text: str) -> bool:
+	def _validate_app_client_secret(self, text: str) -> bool:
 		# TODO
 		# return re.finditer(, ,)
 		return not bool(text)
 
 
 	def set_dload_path_conf(self, path: 'str | Path') -> None:
-		self.app.config.set('p4a_dev', 'dload_path', str(path))
+		self.app.config.set('app', 'dload_path', str(path))
 
 		self.app.config.write()
 

@@ -8,8 +8,8 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
 	from typing import Any
 
-	from p4a_dev.view.base_screen import BaseScreenView
-	from p4a_dev.view.screens import ScreenParams
+	from app.View.base_screen import BaseScreenView
+	from app.View.screens import ScreenParams
 
 
 from pathlib import Path
@@ -20,7 +20,7 @@ from kivy_md2_widgets.pickers import MDThemePicker
 from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 
-from p4a_dev.view.screens import screens
+from app.View.screens import screens
 
 if platform == 'android':
 	from android import mActivity
@@ -32,12 +32,12 @@ else:
 	from subprocess import Popen
 
 
-class p4a_dev(MDApp):
+class App(MDApp):
 
 	if platform == 'android':
 		app_site: str = str(context.getPackageName())
 
-	def __init__(self: 'p4a_dev', **kwargs: 'Any') -> None:
+	def __init__(self: 'App', **kwargs: 'Any') -> None:
 		super().__init__(**kwargs)
 		# FIXME: Do it properly..
 		self.module_directory = str(Path(self.directory).parent)
@@ -47,7 +47,7 @@ class p4a_dev(MDApp):
 		self.manager_screens = MDScreenManager()
 
 
-	def build_config(self: 'p4a_dev', config):
+	def build_config(self: 'App', config):
 		config.setdefaults(
 			'theme',
 			{
@@ -58,7 +58,7 @@ class p4a_dev(MDApp):
 		)
 
 
-	def build(self: 'p4a_dev') -> MDScreenManager:
+	def build(self: 'App') -> MDScreenManager:
 		self.theme_cls.theme_style_switch_animation = True
 		self.set_accent_style()
 
@@ -66,7 +66,7 @@ class p4a_dev(MDApp):
 		return self.manager_screens
 
 
-	def set_accent_style(self: 'p4a_dev') -> None:
+	def set_accent_style(self: 'App') -> None:
 		self.theme_cls.primary_palette = self.config.get('theme', 'palette')
 		self.theme_cls.accent_palette = self.config.get('theme', 'accent')
 		self.theme_cls.theme_style = self.config.get('theme', 'style')
@@ -74,7 +74,7 @@ class p4a_dev(MDApp):
 		self.config.write()
 
 
-	def save_accent_style(self: 'p4a_dev') -> None:
+	def save_accent_style(self: 'App') -> None:
 		self.config.set('theme', 'palette', self.theme_cls.primary_palette)
 		self.config.set('theme', 'accent', self.theme_cls.accent_palette)
 		self.config.set('theme', 'style', self.theme_cls.theme_style)
@@ -88,7 +88,7 @@ class p4a_dev(MDApp):
 		theme_picker.open()
 
 
-	def generate_application_screens(self: 'p4a_dev') -> None:
+	def generate_application_screens(self: 'App') -> None:
 		"""Create and add screens to the screen manager.
 
 		You should not change this cycle unnecessarily. He is self-sufficient.
@@ -111,7 +111,7 @@ class p4a_dev(MDApp):
 
 
 	def _start_service(
-		self: 'p4a_dev',
+		self: 'App',
 		name: str,
 		method: str = 'proc',
 		module: 'str | None' = None,
@@ -140,18 +140,18 @@ class p4a_dev(MDApp):
 		return process
 
 
-	def start_services(self: 'p4a_dev') -> None:
+	def start_services(self: 'App') -> None:
 		# IPYkernel for jupyter console connect
 
 		# self.dev_ipy_service = self._start_service(
 		# 	'Devipykernel',
 		# 	'subproc',
-		# 	'p4a_dev.services.dev_ipykernel',
+		# 	'app.services.dev_ipykernel',
 		# )
 		...
 
 
-	def on_start(self: 'p4a_dev') -> None:
+	def on_start(self: 'App') -> None:
 		super().on_start()
 
 		# TODO: Kill procs on exit..
@@ -162,6 +162,7 @@ class p4a_dev(MDApp):
 
 
 def run() -> None:
+	"""Run the app."""
 	Config.set('graphics', 'maxfps', '15')
 
-	p4a_dev().run()
+	App().run()

@@ -37,7 +37,7 @@ source.include_patterns = assets/*,images/*.png
 source.exclude_exts = spec,bak,egg-info
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = tests, bin, bin.bak, bin.new.bak, .venv, venv, docs, p4a-recipes, build, dist, src/p4a_dev
+source.exclude_dirs = tests, bin, bin.bak, bin.new.bak, .venv, venv, docs, p4a-recipes, build, dist, src/app
 
 # (list) List of exclusions using pattern matching
 # Do not prefix with './'
@@ -60,14 +60,14 @@ requirements = python3,hostpython3,
   kivy==2.2.1,
   certifi,
   pyslet==0.7.20170805,
-  plyer==2.1.0,p4a_dev,
+  plyer==2.1.0,app,
   kivy_md2_widgets,
   git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
-requirements.source.p4a_dev = ./src/
+requirements.source.app = ./src/
 requirements.source.kivy_md2_widgets = ./src/kivy_md2_widgets
 
 # (str) Presplash of the application
@@ -84,7 +84,7 @@ orientation = portrait
 #services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
 # FIXME: test..
 # NOTE: Service name will capitalized!
-#services = Devipykernel:_python_bundle/site-packages/p4a_dev/services/dev_ipykernel.py
+#services = Devipykernel:_python_bundle/site-packages/app/services/dev_ipykernel.py
 
 #
 # OSX Specific
@@ -521,7 +521,7 @@ requirements = python3,hostpython3,
   kivy==2.2.1,
   certifi,
   pyslet==0.7.20170805,
-  plyer==2.1.0,p4a_dev,
+  plyer==2.1.0,app,
   kivy_md2_widgets,
   git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc,
 

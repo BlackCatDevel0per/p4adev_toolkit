@@ -14,11 +14,11 @@ if TYPE_CHECKING:
         model: Type[MainScreenModel]
         controller: Type[MainScreenController]
 
-from p4a_dev.model.main_screen import MainScreenModel  # noqa: I001
-from p4a_dev.controller.main_screen import MainScreenController
+from app.Model.main_screen import MainScreenModel  # noqa: I001
+from app.Controller.main_screen import MainScreenController
 
-from p4a_dev.model.settings_screen import MainScreenModel as SettingsScreenModel
-from p4a_dev.controller.settings_screen import MainScreenController as SettingsScreenController
+from app.Model.settings_screen import MainScreenModel as SettingsScreenModel
+from app.Controller.settings_screen import MainScreenController as SettingsScreenController
 
 screens: Dict[str, ScreenParams] = {  # noqa: UP006
     'main_screen': {

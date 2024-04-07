@@ -1,16 +1,26 @@
+"""Build openssl."""
+
 from __future__ import annotations
 
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import sh
 from pythonforandroid.logger import shprint
 from pythonforandroid.recipe import Recipe
 from pythonforandroid.util import current_directory
 
+if TYPE_CHECKING:
+    from typing import Any, ClassVar
+
+    from pythonforandroid.archs import Arch
+    from pythonforandroid.build import Context
+
 
 class OpenSSLRecipe(Recipe):
-    '''
-    The OpenSSL libraries for python-for-android. This recipe will generate the
+    """The OpenSSL libraries for python-for-android.
+
+    This recipe will generate the
     following libraries as shared libraries (*.so):
 
         - crypto
@@ -44,57 +54,78 @@ class OpenSSLRecipe(Recipe):
 
         - Removed legacy version of openssl libraries
 
-    '''
+    """
 
-    version = '1.1'
-    '''the major minor version used to link our recipes'''
+    version: str = '1.1'
+    """the major minor version used to link our recipes"""
 
-    url_version = '1.1.1w'
-    '''the version used to download our libraries'''
+    url_version: str = '1.1.1w'
+    """the version used to download our libraries"""
 
-    url = 'https://www.openssl.org/source/openssl-{url_version}.tar.gz'
+    url: str = 'https://www.openssl.org/source/openssl-{url_version}.tar.gz'
 
-    built_libraries = {
-        'libcrypto{version}.so'.format(version=version): '.',
-        'libssl{version}.so'.format(version=version): '.',
+    built_libraries: ClassVar[dict[str, str]] = {
+        f'libcrypto{version}.so': '.',
+        f'libssl{version}.so': '.',
     }
 
+    ctx: Context
+
+
     @property
-    def versioned_url(self):
+    def versioned_url(self: OpenSSLRecipe) -> str:
         if self.url is None:
             return None
         return self.url.format(url_version=self.url_version)
 
-    def get_build_dir(self, arch):
-        return str(Path(
-            self.get_build_container_dir(arch), self.name + self.version
-        ))
 
-    def include_flags(self, arch):
-        '''Returns a string with the include folders'''
-        openssl_includes = str(Path(self.get_build_dir(arch.arch), 'include'))
-        return (' -I' + openssl_includes +
-                ' -I' + str(Path(openssl_includes, 'internal')) +
-                ' -I' + str(Path(openssl_includes, 'openssl')))
+    def get_build_dir(self: OpenSSLRecipe, arch: str) -> str:
+        return str(
+            Path(
+                self.get_build_container_dir(arch), self.name + self.version,
+            ),
+        )
 
-    def link_dirs_flags(self, arch):
-        '''Returns a string with the appropriate `-L<lib directory>` to link
-        with the openssl libs. This string is usually added to the environment
-        variable `LDFLAGS`'''
+
+    def include_flags(self: OpenSSLRecipe, arch: Arch) -> str:
+        """Return a string with the include folders."""
+        openssl_includes: str = str(Path(self.get_build_dir(arch.arch), 'include'))
+
+        return (
+            ' '
+            '-I' + openssl_includes + ' '
+            '-I' + str(Path(openssl_includes, 'internal')) + ' '
+            '-I' + str(Path(openssl_includes, 'openssl'))
+        )
+
+
+    def link_dirs_flags(self: OpenSSLRecipe, arch: Arch) -> str:
+        """Return a string with the appropriate `-L<lib directory>` to link with the openssl libs.
+
+        This string is usually added to the environment
+        variable `LDFLAGS`
+        """
         return ' -L' + self.get_build_dir(arch.arch)
 
-    def link_libs_flags(self):
-        '''Returns a string with the appropriate `-l<lib>` flags to link with
-        the openssl libs. This string is usually added to the environment
-        variable `LIBS`'''
-        return ' -lcrypto{version} -lssl{version}'.format(version=self.version)
 
-    def link_flags(self, arch):
-        '''Returns a string with the flags to link with the openssl libraries
-        in the format: `-L<lib directory> -l<lib>`'''
+    def link_libs_flags(self: OpenSSLRecipe) -> str:
+        """Return the appropriate `-l<lib>` flags to link with the openssl libs.
+
+        This string is usually added to the environment
+        variable `LIBS`
+        """
+        return f' -lcrypto{self.version} -lssl{self.version}'
+
+
+    def link_flags(self: OpenSSLRecipe, arch: Arch) -> str:
+        """Return the flags to link with the openssl libraries.
+
+        Format: `-L<lib directory> -l<lib>`
+        """
         return self.link_dirs_flags(arch) + self.link_libs_flags()
 
-    def get_recipe_env(self, arch=None):
+
+    def get_recipe_env(self: OpenSSLRecipe, arch: Arch | None = None) -> dict[str, Any]:
         env = super().get_recipe_env(arch)
         env['OPENSSL_VERSION'] = self.version
         env['MAKE'] = 'make'  # This removes the '-j5', which isn't safe
@@ -102,7 +133,7 @@ class OpenSSLRecipe(Recipe):
         env['ANDROID_NDK_HOME'] = self.ctx.ndk_dir
         return env
 
-    def select_build_arch(self, arch):
+    def select_build_arch(self: OpenSSLRecipe, arch: Arch) -> str:
         aname = arch.arch
         if 'arm64' in aname:
             return 'android-arm64'
@@ -116,7 +147,7 @@ class OpenSSLRecipe(Recipe):
             return 'android-x86'
         return 'linux-armv4'
 
-    def build_arch(self, arch):
+    def build_arch(self: OpenSSLRecipe, arch: Arch) -> None:
         env = self.get_recipe_env(arch)
 
         with current_directory(self.get_build_dir(arch.arch)):
@@ -132,8 +163,9 @@ class OpenSSLRecipe(Recipe):
                 'no-dso',
                 'no-asm',
                 buildarch,
-                '-D__ANDROID_API__={}'.format(self.ctx.ndk_api),
+                f'-D__ANDROID_API__={self.ctx.ndk_api}',
             ]
+
             shprint(perl, 'Configure', *config_args, _env=env)
             self.apply_patch('disable-sover.patch', arch.arch)
             self.apply_patch('use_app_path_env4conf.patch', arch.arch)

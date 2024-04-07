@@ -2,9 +2,7 @@ from kivy.properties import ObjectProperty
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 
-from p4a_dev.utility.observer import Observer
-
-##
+from app.utility.observer import Observer
 
 
 class BaseScreenView(MDScreen, Observer):

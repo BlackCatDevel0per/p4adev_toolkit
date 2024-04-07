@@ -78,8 +78,8 @@
 			# 	id: input_client_id
 			# 	width: "600dp"
 			# 	hint_text: "client id"
-			# 	text: app.config.get('p4a_dev', 'client_id')
-			# 	validator: root._validate_p4a_dev_client_id
+			# 	text: app.config.get('app', 'client_id')
+			# 	validator: root._validate_app_client_id
 			# 	# pos_hint: {"center_x": .5, "center_y": .5}
 			# 	pos_hint: {"center_x": .5}
 
@@ -87,8 +87,8 @@
 			# 	id: input_client_secret
 			# 	width: "600dp"
 			# 	hint_text: "client secret"
-			# 	text: app.config.get('p4a_dev', 'client_secret')
-			# 	validator: root._validate_p4a_dev_client_secret
+			# 	text: app.config.get('app', 'client_secret')
+			# 	validator: root._validate_app_client_secret
 			# 	# pos_hint: {"center_x": .5, "center_y": .5}
 			# 	pos_hint: {"center_x": .5}
 
@@ -103,8 +103,8 @@
 				
 			# 	btn_text: 'Set download path'
 			# 	##
-			# 	label_text: app.config.get('p4a_dev', 'dload_path')
-			# 	# label_text: app.config.get('p4a_dev', 'dload_path').split('/')[-1]
+			# 	label_text: app.config.get('app', 'dload_path')
+			# 	# label_text: app.config.get('app', 'dload_path').split('/')[-1]
 
 			# 	btn_on_press: root.set_download_path
 

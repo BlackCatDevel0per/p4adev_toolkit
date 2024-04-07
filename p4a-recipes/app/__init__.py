@@ -5,9 +5,9 @@ from pythonforandroid.recipe import CythonRecipe as R
 # TODO: Compare changes..
 
 
-class MainRecipe(R):
+class AppRecipe(R):
 
-	name = 'p4a_dev'
+	name = 'app'
 	# TODO: Versioning..?
 	# TODO: Set sources out of spec..?
 	depends = ['setuptools']
@@ -21,4 +21,4 @@ class MainRecipe(R):
 		return True
 
 
-recipe = MainRecipe()
+recipe = AppRecipe()

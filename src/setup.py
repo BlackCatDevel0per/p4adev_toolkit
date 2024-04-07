@@ -6,7 +6,7 @@ from setuptools import Extension, setup
 
 # TODO: Versioning..
 ##
-SRC = 'p4a_dev'
+SRC = 'app'
 
 BASENAME = SRC.split('/')[-1]
 
@@ -92,10 +92,10 @@ setup(
 	include_package_data=True,
 	# package_data={'': ['*.kv']},
 	packages=[
-		'p4a_dev',
+		SRC,
 		# NOTE: Use source files just as entry points!
-		#'p4a_dev.services',  # TODO: Make it private too..
-		# 'p4a_dev.view.main_screen.components.platforms.mobile',  # just ignore..
+		#'app.services',  # TODO: Make it private too..
+		# 'app.view.main_screen.components.platforms.mobile',  # just ignore..
 	],
 	#extra_compile_args=['-O3'],
 	##libraries=['m'],
