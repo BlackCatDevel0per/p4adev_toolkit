@@ -5,7 +5,7 @@ description = "P4A Kivy/KivyMD Developer sample & tools."
 authors = ["BlackCatDevel0per <bcdev@mail.ru>"]
 
 [tool.poerty.plugins."poetry_commands"]
-run_app = "PYTHONPATH=src/p4a_dev:. poetry run python src/p4a_dev/main.py"
+run_app = "PYTHONPATH=src:. poetry run python src/app_launch/main.py"
 
 [tool.ruff]
 line-length = 100
