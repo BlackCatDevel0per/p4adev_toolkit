@@ -138,7 +138,7 @@ ruff = "^0.0.292"
 buildozer = {git = "https://github.com/BlackCatDevel0per/buildozer"}
 # TODO: Fork & cache downloads..
 python-for-android = {url = "https://github.com/BlackCatDevel0per/python-for-android/archive/refs/heads/master.zip"}
-p4adev_recipes = "^0.0.2"
+p4adev_recipes = "^0.0.3"
 cython = {git = "https://github.com/BlackCatDevel0per/cython"}
 build = "^1.0.3"
 setuptools = "^69.0.3"

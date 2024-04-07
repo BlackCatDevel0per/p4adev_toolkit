@@ -1814,13 +1814,13 @@ files = [
 
 [[package]]
 name = "p4adev-recipes"
-version = "0.0.2"
-description = "Some advanced recipes bases for python-for-android."
+version = "0.0.3"
+description = "Some advanced recipes bases for python-for-android projects."
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "p4adev_recipes-0.0.2-py3-none-any.whl", hash = "sha256:0226de99ee9d7285540b72d6e8bb1923940c11c1f4021fca6e252d0b81744896"},
-    {file = "p4adev_recipes-0.0.2.tar.gz", hash = "sha256:bec19559fb219a7c42a01c49856ab0121aa002d0a3ac2a0a91f503d6381af97e"},
+    {file = "p4adev_recipes-0.0.3-py3-none-any.whl", hash = "sha256:8f102413be452dc44442daa57f3f26164793175d3c2ab5b58e4fde62f5b6a85f"},
+    {file = "p4adev_recipes-0.0.3.tar.gz", hash = "sha256:15d17275c8f79489838c5945d6d72ee0bcd1f3ab41cef3b35dcca3f9d81ba3af"},
 ]
 
 [package.dependencies]
@@ -3309,4 +3309,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.1,<4.0"
-content-hash = "9151c755bd07c648285ca8de3720633d048a9b296b0c20cc29344b5a8a36a4c8"
+content-hash = "38ed19e2e51a679e24a93af7d0e0548d326a2b67dd208c4b46d5184e42d448fa"
