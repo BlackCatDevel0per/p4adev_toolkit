@@ -3,9 +3,18 @@ name = "p4a_dev"
 version = "0.0.1"
 description = "P4A Kivy/KivyMD Developer sample & tools."
 authors = ["BlackCatDevel0per <bcdev@mail.ru>"]
+license = "Apache 2.0"
 
-[tool.poerty.plugins."poetry_commands"]
-run_app = "PYTHONPATH=src:. poetry run python src/app_launch/main.py"
+homepage = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
+repository = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
+
+packages = [
+    { include = "app", from = "src" },
+    { include = "kivy_md2_widgets", from = "src/kivy_md2_widgets" }  ##
+]
+
+#[tool.poetry.plugins."poetry-plugin-commands"]
+#run_app = "PYTHONPATH=src:src/kivy_md2_widgets:. poetry run python src/app_launch/main.py"
 
 [tool.ruff]
 line-length = 100
@@ -78,7 +87,7 @@ ignore = [
 	"S101",
 ]  # Add RET503?
 
-src = ["src/p4a_dev", "tests", "scripts"]
+src = ["src/app", "tests", "scripts"]
 
 exclude = [
     ".git",
@@ -102,6 +111,10 @@ indent-style = "tab"
 
 [tool.poetry.dependencies]
 python = ">=3.8.1,<4.0"
+
+poetry_commands = { file = "..." }
+
+[tool.poetry.group.app.dependencies]
 
 kivy = {extras = ["base"], version = "^2.2.1"}
 kivymd = {git = "https://github.com/kivymd/KivyMD", rev = "1152d3c31229b357336cb9e19cfaa2ba8c6941bc"}  # Before 2.0.0 aka before move to md3
