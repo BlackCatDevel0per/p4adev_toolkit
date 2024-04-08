@@ -15,10 +15,15 @@ Homepage = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 Documentation = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 Repository = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 
+# TODO: Execute without wait to end (poetry will closed while task is pending)
 [tool.poetry.plugins.commands]
 stree = "tree src"
-test_var = "echo $VAR"
-run_app = "PYTHONPATH=src:src/kivy_md2_widgets:. poetry run python src/app_launch/main.py"
+run-app = "PYTHONPATH=src:src/kivy_md2_widgets:. poetry run python src/app_launch/main.py"
+
+build-debug = "scripts/build.sh debug dev"
+rebuild-debug = "scripts/clean_build.sh debug dev"
+
+build-release = "scripts/clean_build.sh release app"
 
 [tool.ruff]
 line-length = 100

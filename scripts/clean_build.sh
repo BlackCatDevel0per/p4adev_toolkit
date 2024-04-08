@@ -2,5 +2,7 @@
 # TODO: More options..
 rm -rf bin .buildozer
 
-source ./build.sh $@
+MAIN_SCRIPT=$(dirname $(readlink -f $0))
+
+source $MAIN_SCRIPT/build.sh $@
 
