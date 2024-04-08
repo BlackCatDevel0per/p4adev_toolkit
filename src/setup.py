@@ -15,7 +15,7 @@ BASENAME = SRC.split('/')[-1]
 # TODO: Skip compiling if debug..
 # TODO: Do something with dir sub-packages.. (better than just __init__.py -> __init__.so)
 extensions = [
-	Extension(f'{BASENAME}.app.launch', [f'{SRC}/app/launch.py']),
+	Extension(f'{BASENAME}.entry.launch', [f'{SRC}/entry/launch.py']),
 	Extension(f'{BASENAME}.View.base_screen', [f'{SRC}/View/base_screen.py']),
 	Extension(f'{BASENAME}.View.screens', [f'{SRC}/View/screens.py']),
 
