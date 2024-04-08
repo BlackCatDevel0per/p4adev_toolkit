@@ -101,5 +101,5 @@ poetry run python -m buildozer -v --profile $2 android $1
 pkill -f '.*GradleDaemon.*'
 
 # Optionally play sound on complete
-paplay $start_sound >/dev/null 2>&1
+paplay $complete_sound >/dev/null 2>&1
 
