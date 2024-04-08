@@ -41,9 +41,9 @@ extensions = [
 
 	Extension(f'{BASENAME}.utility.observer', [f'{SRC}/utility/observer.py']),
 
+	# NOTE: DEPRECATED
 	Extension(f'{BASENAME}.libs.__init__', [f'{SRC}/libs/__init__.py']),
 	Extension(f'{BASENAME}.libs.filechooser', [f'{SRC}/libs/filechooser.py']),
-	Extension(f'{BASENAME}.libs.ssl_conf', [f'{SRC}/libs/ssl_conf.py']),
 
 	Extension(f'{BASENAME}.libs.dev.__init__', [f'{SRC}/libs/dev/__init__.py']),
 	Extension(f'{BASENAME}.libs.dev.dev_ipykernel', [f'{SRC}/libs/dev/dev_ipykernel.py']),
