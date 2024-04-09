@@ -10,7 +10,6 @@ from pythonforandroid.util import current_directory
 class LibSDL2Image(BootstrapNDKRecipe):
 	"""Overrides original recipe for using caching."""
 
-	# TODO: Update to 2.8.2+
 	version = '2.8.2'
 	url = 'https://github.com/libsdl-org/SDL_image/releases/download/release-{version}/SDL2_image-{version}.tar.gz'
 	dir_name = 'SDL2_image'
@@ -20,7 +19,7 @@ class LibSDL2Image(BootstrapNDKRecipe):
 
 	def get_include_dirs(self, arch):
 		return [
-			os.path.join(self.ctx.bootstrap.build_dir, 'jni', 'SDL2_image', 'include')
+			os.path.join(self.ctx.bootstrap.build_dir, 'jni', 'SDL2_image', 'include'),
 		]
 
 
