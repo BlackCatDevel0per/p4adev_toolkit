@@ -1,3 +1,4 @@
+"""Build zipp"""
 from __future__ import annotations
 
 from p4adev_recipes.recipe.no_setup_pypi_recipe import NoSetupPyPiRecipe
