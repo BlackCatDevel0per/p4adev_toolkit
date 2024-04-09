@@ -1,18 +1,15 @@
 [app]
 
-# TODO: Fix openssl issues
-# TODO: Publish dev toolkit to PyPi (ftp server, ipykernel & etc) + make profile for it
-# TODO: Publish widgets..
 # TODO: Publish p4a-samples with review recipes..
 # TODO: Review packaging setuptools
 
 # TODO: Scoped storage utils package to simplify fs routines on new Android versions..
 
 # TODO: Fix ftp_sync & publish to PyPi && unify all tools in one cli pkg..
-# TODO: Make commands extension for poetry..
 
 # TODO: Better look at bootstraps..
 # TODO: App restart button..
+# TODO: Log widget on main screen..
 # TODO: Use Profiles (prod, dev, mb demo)
 # TODO: Update ui..
 # (str) Title of your application
@@ -78,7 +75,7 @@ requirements.source.app = ./src/
 
 # (list) Supported orientations
 # Valid options are: landscape, portrait, portrait-reverse or landscape-reverse
-orientation = portrait
+#orientation = portrait
 
 # (list) List of service to declare
 #services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
@@ -270,7 +267,7 @@ android.enable_androidx = True
 
 # (str) screenOrientation to set for the main activity.
 # Valid values can be found at https://developer.android.com/guide/topics/manifest/activity-element
-android.manifest.orientation = fullSensor
+android.manifest.orientation = sensor
 
 # (list) Android additional libraries to copy into libs/armeabi
 #android.add_libs_armeabi = libs/android/*.so
