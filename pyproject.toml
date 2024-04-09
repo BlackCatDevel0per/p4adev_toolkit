@@ -7,7 +7,6 @@ license = "Apache 2.0"
 
 packages = [
     { include = "app", from = "src" },
-    { include = "kivy_md2_widgets", from = "src/kivy_md2_widgets" }  ##
 ]
 
 [tool.poetry.urls]
@@ -16,9 +15,9 @@ Documentation = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 Repository = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 
 # TODO: Execute without wait to end (poetry will closed while task is pending)
-[tool.poetry.plugins.commands]
+[tool.poetry-plugin-commands]
 stree = "tree src"
-run-app = "PYTHONPATH=src:src/kivy_md2_widgets:. poetry run python src/app_launch/main.py"
+run-app = "PYTHONPATH=src:. poetry run python src/app_launch/main.py"
 
 build-debug = "scripts/build.sh debug dev"
 rebuild-debug = "scripts/clean_build.sh debug dev"
@@ -127,6 +126,8 @@ poetry-plugin-commands = "^0.0.6"
 
 kivy = {extras = ["base"], version = "^2.2.1"}
 kivymd = {git = "https://github.com/kivymd/KivyMD", rev = "1152d3c31229b357336cb9e19cfaa2ba8c6941bc"}  # Before 2.0.0 aka before move to md3
+
+kivymd2-widgets = "^0.0.2"
 
 asynckivy = "^0.6.2"
 plyer = "^2.1.0"

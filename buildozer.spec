@@ -61,14 +61,13 @@ requirements = python3,hostpython3,
   certifi,
   pyslet==0.7.20170805,
   plyer==2.1.0,app,
-  kivy_md2_widgets,
+  kivymd2_widgets,
   git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
 requirements.source.app = ./src/
-requirements.source.kivy_md2_widgets = ./src/kivy_md2_widgets
 
 # (str) Presplash of the application
 #presplash.filename = %(source.dir)s/data/presplash.png
@@ -518,13 +517,15 @@ android.no-byte-compile-python = True
 # TODO: Use extended interpolation at least..
 # dev
 requirements = python3,hostpython3,
+  # from prod
   kivy==2.2.1,
   certifi,
   pyslet==0.7.20170805,
   plyer==2.1.0,app,
-  kivy_md2_widgets,
+  kivymd2_widgets,
   git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc,
 
+  # for dev
   pyftpdlib,
   wcwidth,
   pure-eval,

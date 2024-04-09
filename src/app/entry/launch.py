@@ -16,9 +16,9 @@ from pathlib import Path
 
 from kivy.config import Config
 from kivy.utils import platform
-from kivy_md2_widgets.pickers import MDThemePicker
 from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
+from kivymd2_widgets.pickers import MDThemePicker
 
 from app.View.screens import screens
 

@@ -1790,6 +1790,20 @@ reference = "1152d3c31229b357336cb9e19cfaa2ba8c6941bc"
 resolved_reference = "1152d3c31229b357336cb9e19cfaa2ba8c6941bc"
 
 [[package]]
+name = "kivymd2-widgets"
+version = "0.0.2"
+description = "Collection of widgets for the older kivymd 1.1.1 lib (material design 2)."
+optional = false
+python-versions = "<4.0,>=3.8.1"
+files = [
+    {file = "kivymd2_widgets-0.0.2-py3-none-any.whl", hash = "sha256:2b775612a99ac9e2bcd874d2eb7a9629f47fc2a84155cd0de6e37cccc6a5716c"},
+    {file = "kivymd2_widgets-0.0.2.tar.gz", hash = "sha256:b442dce914dda0867f47ca7eaf98607b9f60b9967e7046cb568d91fe274df862"},
+]
+
+[package.dependencies]
+poetry-plugin-commands = ">=0.0.6,<0.0.7"
+
+[[package]]
 name = "markdown-it-py"
 version = "3.0.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
@@ -4017,4 +4031,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.1,<4.0"
-content-hash = "8f3d0125515525d67e41b8c3035a04246ed957cfc1c93a146046d4a9eb75eb19"
+content-hash = "256d94593425093fe38ef137b3dadbc0c01f4a233c3ddefeadeafba00728196a"
