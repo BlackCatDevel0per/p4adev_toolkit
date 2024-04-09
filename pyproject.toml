@@ -19,10 +19,10 @@ Repository = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 stree = "tree src"
 run-app = "PYTHONPATH=src:. poetry run python src/app_launch/main.py"
 
-build-debug = "bash scripts/build.sh debug dev"
-rebuild-debug = "bash scripts/clean_build.sh debug dev"
+build-debug = "scripts/build.sh debug dev"
+rebuild-debug = "scripts/clean_build.sh debug dev"
 
-build-release = "bash scripts/clean_build.sh release app"
+build-release = "scripts/clean_build.sh release app"
 
 [tool.ruff]
 line-length = 100
