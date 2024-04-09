@@ -18,6 +18,7 @@ Repository = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 [tool.poetry-plugin-commands]
 stree = "tree src"
 run-app = "PYTHONPATH=src:. poetry run python src/app_launch/main.py"
+run-app-rd = "DEBUG_ACECSS_APP=1 PYTHONPATH=src:. poetry run python src/app_launch/main.py"
 
 build-debug = "scripts/build.sh debug dev"
 rebuild-debug = "scripts/clean_build.sh debug dev"
@@ -121,12 +122,17 @@ indent-style = "tab"
 python = ">=3.8.1,<4.0"
 
 
+[tool.poetry.group.app]
+optional = false
+
 [tool.poetry.group.app.dependencies]
 
 kivy = {extras = ["base"], version = "^2.2.1"}
 kivymd = {git = "https://github.com/kivymd/KivyMD", rev = "1152d3c31229b357336cb9e19cfaa2ba8c6941bc"}  # Before 2.0.0 aka before move to md3
 
 kivymd2-widgets = "^0.0.3"
+
+p4adev-tools = "^0.0.2"
 
 asynckivy = "^0.6.2"
 plyer = "^2.1.0"

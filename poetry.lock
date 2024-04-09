@@ -2187,6 +2187,24 @@ files = [
 installer = ">=0.7.0,<0.8.0"
 
 [[package]]
+name = "p4adev-tools"
+version = "0.0.2"
+description = "Collection of widgets for the older kivymd 1.1.1 lib (material design 2)."
+optional = false
+python-versions = "<4.0,>=3.8.1"
+files = [
+    {file = "p4adev_tools-0.0.2-py3-none-any.whl", hash = "sha256:d836ef5a36aac00506185c8035fae1d89bb80699d2704726bbf283ba8226a018"},
+    {file = "p4adev_tools-0.0.2.tar.gz", hash = "sha256:39256275f1531c7b7bf030379f0f5827ecaeb9063525ef91515d56ae84f40768"},
+]
+
+[package.dependencies]
+background-zmq-ipython = ">=1.20220901.135250,<2.0.0"
+ipykernel = ">=6.29.4,<7.0.0"
+ipython = "8.12.3"
+jedi = "0.19.1"
+pyftpdlib = ">=1.5.9,<2.0.0"
+
+[[package]]
 name = "packaging"
 version = "24.0"
 description = "Core utilities for Python packages"
@@ -4029,4 +4047,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.1,<4.0"
-content-hash = "124027a2a132331165e46ea77dd7b38ca2fa217af25cd26eb23d0049537dd78c"
+content-hash = "c8e0d5c8c9a6bb3fac0bed04d6530970598a8b2e8e42780384981e68825e7c13"

@@ -57,10 +57,11 @@ version = 0.1
 # TODO: Contribute buildozer & make configuration more rich..
 # prod
 requirements = python3,hostpython3,
+  app,
   kivy==2.2.1,
   certifi,
   pyslet==0.7.20170805,
-  plyer==2.1.0,app,
+  plyer==2.1.0,
   kivymd2_widgets,
   git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc
 
@@ -269,7 +270,7 @@ android.enable_androidx = True
 
 # (str) screenOrientation to set for the main activity.
 # Valid values can be found at https://developer.android.com/guide/topics/manifest/activity-element
-#android.manifest.orientation = fullSensor
+android.manifest.orientation = fullSensor
 
 # (list) Android additional libraries to copy into libs/armeabi
 #android.add_libs_armeabi = libs/android/*.so
@@ -488,9 +489,6 @@ package.name = p4a_bdev
 
 version = 0.1
 
-# (bool) Indicate if the application should be fullscreen or not
-fullscreen = 0
-
 # android.archs = arm64-v8a
 android.archs = armeabi-v7a
 #android.archs = arm64-v8a, armeabi-v7a, x86, x86_64
@@ -517,43 +515,14 @@ android.no-byte-compile-python = True
 # TODO: Use extended interpolation at least..
 # dev
 requirements = python3,hostpython3,
+  app,
   # from prod
   kivy==2.2.1,
   certifi,
   pyslet==0.7.20170805,
-  plyer==2.1.0,app,
+  plyer==2.1.0,
   kivymd2_widgets,
   git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc,
 
   # for dev
-  pyftpdlib,
-  wcwidth,
-  pure-eval,
-  ptyprocess,
-  traitlets,
-  tornado,
-  six,
-  pyzmq,
-  pygments,
-  psutil,
-  prompt-toolkit,
-  platformdirs,
-  pexpect,
-  parso,
-  packaging,
-  nest-asyncio,
-  executing,
-  exceptiongroup,
-  decorator,
-  python-dateutil,
-  jupyter-core,
-  jedi==0.19.1,
-  comm,
-  asttokens,
-  stack-data,
-  jupyter-client,
-  typing-extensions,
-  ipython,
-  ipykernel,
-  background_zmq_ipython
-
+  p4adev_tools

@@ -45,9 +45,6 @@ extensions = [
 	Extension(f'{BASENAME}.libs.__init__', [f'{SRC}/libs/__init__.py']),
 	Extension(f'{BASENAME}.libs.filechooser', [f'{SRC}/libs/filechooser.py']),
 
-	Extension(f'{BASENAME}.libs.dev.__init__', [f'{SRC}/libs/dev/__init__.py']),
-	Extension(f'{BASENAME}.libs.dev.dev_ipykernel', [f'{SRC}/libs/dev/dev_ipykernel.py']),
-
 	Extension(f'{BASENAME}.Model.base_model', [f'{SRC}/Model/base_model.py']),
 	Extension(f'{BASENAME}.Model.main_screen', [f'{SRC}/Model/main_screen.py']),
 	Extension(f'{BASENAME}.Model.settings_screen', [f'{SRC}/Model/settings_screen.py']),
