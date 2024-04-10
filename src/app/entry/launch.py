@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-# Relative imports don't works!!!
+# NOTE: Relative imports don't works!!!
 # Mb can work something like `.some_module_pkg` but not other ways instead of absolute import..
 
 if TYPE_CHECKING:
@@ -24,7 +24,7 @@ from app.View.screens import screens
 
 if platform == 'android':
 	from android import mActivity
-	context = mActivity.getApplicationContext()
+	context: 'android.content.Context' = mActivity.getApplicationContext()
 	from jnius import autoclass
 else:
 	import sys
@@ -164,5 +164,11 @@ class App(MDApp):
 def run() -> None:
 	"""Run the app."""
 	Config.set('graphics', 'maxfps', '15')
+
+	# Set startup orientation because value from manifest is ignored..
+	# (depends on the system auto-rotate option)
+	ActivityInfo = autoclass('android.content.pm.ActivityInfo')
+
+	mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_USER)
 
 	App().run()
