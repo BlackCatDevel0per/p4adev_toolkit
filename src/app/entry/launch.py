@@ -1,3 +1,5 @@
+# NOTE: If you want to use partly-working annotations with cython 0.29.x please use this fork:
+# https://github.com/BlackCatDevel0per/cython 
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
