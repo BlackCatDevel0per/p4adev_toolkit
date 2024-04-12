@@ -169,8 +169,9 @@ def run() -> None:
 
 	# Set startup orientation because value from manifest is ignored..
 	# (depends on the system auto-rotate option)
-	ActivityInfo = autoclass('android.content.pm.ActivityInfo')
+	if platform == 'android':
+		ActivityInfo = autoclass('android.content.pm.ActivityInfo')
 
-	mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_USER)
+		mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_USER)
 
 	App().run()

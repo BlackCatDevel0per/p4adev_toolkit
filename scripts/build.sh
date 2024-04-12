@@ -82,17 +82,6 @@ complete_sound=/usr/share/sounds/freedesktop/stereo/complete.oga
 
 paplay $start_sound >/dev/null 2>&1
 
-## Crutchy cythonize main app lib
-# NOTE: WARNING!
-cd src
-find . -name '*.c' -delete
-
-# FIXME: Do it properly..
-poetry run python setup.py sdist
-rm -rf *.egg-info dist build
-
-cd ..
-
 ## Build4Android
 poetry run python -m buildozer -v --profile $2 android $1
 
