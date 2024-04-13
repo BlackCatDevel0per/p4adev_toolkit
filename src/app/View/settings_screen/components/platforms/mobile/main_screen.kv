@@ -98,15 +98,15 @@
 			# TODO: Mb better use some widgets under the text field (hide under some layout..)
 			# TODO: Localization using i18n..
 
-			# ButtonWithLabel:
-			# 	id: main_bl_startup_tools_set_dload_path_tool
+			ButtonWithLabel:
+				id: main_bl_startup_tools_set_docs_dir_tool
 				
-			# 	btn_text: 'Set download path'
-			# 	##
-			# 	label_text: app.config.get('app', 'dload_path')
-			# 	# label_text: app.config.get('app', 'dload_path').split('/')[-1]
+				btn_text: 'Set docs dir'
+				##
+				label_text: app.config.get('app', 'docs_dir')
+				# label_text: app.config.get('app', 'docs_dir').split('/')[-1]
 
-			# 	btn_on_press: root.set_download_path
+				btn_on_press: root.set_scdir
 
 
 			# Spacer
