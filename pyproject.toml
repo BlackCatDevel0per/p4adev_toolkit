@@ -89,6 +89,7 @@ select = [
 ignore = [
 	"W191", "D206", "RET502",
 	"UP040",  # New type aliases (type hinting)
+	"UP037",  # Ignore quoted type annotations for properly work cython 0.29.37..
 	"PTH123",  # Not good solution for all things..
 	"TD001",
 	"TD002",

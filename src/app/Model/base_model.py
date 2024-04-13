@@ -6,19 +6,21 @@
 # method). For this, observers must be descendants of an abstract class,
 # inheriting which, the `model_is_changed` method must be overridden.
 
+# TODO: Annotate..
+
 
 class BaseScreenModel:
     """Implements a base class for model modules."""
 
     _observers = []
 
-    def add_observer(self, observer) -> None:
+    def add_observer(self: 'BaseScreenModel', observer) -> None:
         self._observers.append(observer)
 
-    def remove_observer(self, observer) -> None:
+    def remove_observer(self: 'BaseScreenModel', observer) -> None:
         self._observers.remove(observer)
 
-    def notify_observers(self, name_screen: str) -> None:
+    def notify_observers(self: 'BaseScreenModel', name_screen: str) -> None:
         """Call by the observer when the model data change.
 
         :param name_screen:

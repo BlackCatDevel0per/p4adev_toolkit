@@ -25,21 +25,21 @@ class SecretTextFieldRound(MDRelativeLayout):
 
 class SettingsScreenView(BaseScreenView):
 
-	def startup(self) -> None:
+	def startup(self: 'SettingsScreenView') -> None:
 		...
 
 
-	def _validate_app_client_id(self, text: str) -> bool:
+	def _validate_app_client_id(self: 'SettingsScreenView', text: str) -> bool:
 		return not text.isnumeric()
 
 
-	def _validate_app_client_secret(self, text: str) -> bool:
+	def _validate_app_client_secret(self: 'SettingsScreenView', text: str) -> bool:
 		# TODO
 		# return re.finditer(, ,)
 		return not bool(text)
 
 
-	def set_dload_path_conf(self, path: 'str | Path') -> None:
+	def set_dload_path_conf(self: 'SettingsScreenView', path: 'str | Path') -> None:
 		self.app.config.set('app', 'dload_path', str(path))
 
 		self.app.config.write()
@@ -47,7 +47,7 @@ class SettingsScreenView(BaseScreenView):
 		toast('Download path set!')
 
 
-	def set_download_path_callback(self, sel: 'list[android.net.Uri]') -> None:
+	def set_download_path_callback(self: 'SettingsScreenView', sel: 'list[android.net.Uri]') -> None:
 		if not sel:
 			return
 
@@ -71,7 +71,7 @@ class SettingsScreenView(BaseScreenView):
 		self.set_dload_path_conf(Path(dir_full_path))
 
 
-	def set_download_path(self) -> None:
+	def set_download_path(self: 'SettingsScreenView') -> None:
 		filechooser.choose_dir(
 			# on_selection=lambda s: Logger.warning(f'result: {s}'),
 			on_selection=self.set_download_path_callback,
@@ -79,11 +79,11 @@ class SettingsScreenView(BaseScreenView):
 
 
 	# TODO: Move into the model
-	def save_settings(self, btn) -> None:
+	def save_settings(self: 'SettingsScreenView', btn) -> None:
 		...
 
 
-	def model_is_changed(self) -> None:
+	def model_is_changed(self: 'SettingsScreenView') -> None:
 		"""Call whenever any change has occurred in the data model.
 
 		The view in this method tracks these changes and updates the UI

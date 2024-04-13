@@ -1,5 +1,5 @@
 # NOTE: If you want to use partly-working annotations with cython 0.29.x please use this fork:
-# https://github.com/BlackCatDevel0per/cython 
+# https://github.com/BlackCatDevel0per/cython
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -8,6 +8,8 @@ from typing import TYPE_CHECKING
 # Mb can work something like `.some_module_pkg` but not other ways instead of absolute import..
 
 if TYPE_CHECKING:
+	# NOTE: Type annotations from typing block are still quoted because
+	# cython will raise errors in functions & methods annotations.. (but still ok for vars)
 	from typing import Any
 
 	from app.View.base_screen import BaseScreenView
@@ -84,7 +86,7 @@ class App(MDApp):
 		self.config.write()
 
 
-	def switch_accent_style(self) -> None:
+	def switch_accent_style(self: 'App') -> None:
 		theme_picker = MDThemePicker()
 		theme_picker.on_dismiss = self.save_accent_style
 		theme_picker.open()
@@ -117,7 +119,7 @@ class App(MDApp):
 		name: str,
 		method: str = 'proc',
 		module: 'str | None' = None,
-		import_kw: 'dict[str, Any]' = {'fromlist': ['']},
+		import_kw: 'dict[str, Any]' = {'fromlist': ['']},  # noqa: B006
 	) -> 'Service | Process':
 		if platform == 'android':
 			sn: str = f'{self.app_site}.Service{name}'

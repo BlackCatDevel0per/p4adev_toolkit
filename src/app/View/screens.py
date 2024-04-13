@@ -8,11 +8,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Dict, Type, TypedDict  # noqa: UP035
+    from typing import TypedDict
 
     class ScreenParams(TypedDict):
-        model: Type[MainScreenModel]
-        controller: Type[MainScreenController]
+        model: type[MainScreenModel]
+        controller: type[MainScreenController]
 
 from app.Model.main_screen import MainScreenModel  # noqa: I001
 from app.Controller.main_screen import MainScreenController
@@ -20,7 +20,7 @@ from app.Controller.main_screen import MainScreenController
 from app.Model.settings_screen import MainScreenModel as SettingsScreenModel
 from app.Controller.settings_screen import MainScreenController as SettingsScreenController
 
-screens: Dict[str, ScreenParams] = {  # noqa: UP006
+screens: dict[str, ScreenParams] = {
     'main_screen': {
         'model': MainScreenModel,
         'controller': MainScreenController,
