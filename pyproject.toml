@@ -25,6 +25,9 @@ rebuild-debug = "scripts/clean_build.sh debug dev"
 
 build-release = "scripts/clean_build.sh release app"
 
+[tool.mypy]
+plugins = ["src/p4a_mypy_plugins/platrundec.py"]
+
 [tool.ruff]
 line-length = 100
 select = [
@@ -171,6 +174,7 @@ ipython = "8.12.3"
 background-zmq-ipython = "^1.20220901.135250"
 jedi = "0.19.1"
 poetry-plugin-commands = "^0.0.8"
+mypy = {extras = ["mypyc"], version = "^1.9.0"}
 
 [tool.poetry.group.performance]
 optional = true
