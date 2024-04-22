@@ -61,6 +61,13 @@ class App(MDApp):
 			},
 		)
 
+		config.setdefaults(
+			'app',
+			{
+				'docs_dir': '',
+			},
+		)
+
 
 	def build(self: 'App') -> MDScreenManager:
 		self.theme_cls.theme_style_switch_animation = True

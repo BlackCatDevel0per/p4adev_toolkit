@@ -17,8 +17,7 @@
 	},
 
 	"paths_bind": {
-		"app_launch": "",
-		"dnart_gd": "_python_bundle/site-packages",
+		"app": "_python_bundle/site-packages",
 
 		"plyer": "_python_bundle/site-packages"
 	}
