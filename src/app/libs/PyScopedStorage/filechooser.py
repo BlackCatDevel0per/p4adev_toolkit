@@ -5,21 +5,12 @@ from typing import TYPE_CHECKING
 from plyer import filechooser
 from plyer.utils import platform
 
-from .platform_utils import platform_run
-
-
-@platform_run('android')
-def _():
+if platform == 'android':
 	from functools import partial
 
 	from android import activity
 
 	from .android_objects import Intent, mActivity
-
-	return locals()
-
-# globals()['mActivity'] = 1
-# mActivity
 
 if TYPE_CHECKING:
 	from typing import Any
