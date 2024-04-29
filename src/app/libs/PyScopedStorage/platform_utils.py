@@ -6,16 +6,17 @@ from plyer.utils import platform
 
 if TYPE_CHECKING:
 	from collections.abc import Callable
-	from typing import Any, Dict, TypeVar  # noqa: UP035
+	from typing import Any, Final, TypeVar
 
-	pr_decorated_func = Callable[[], Dict[str, Any]]  # noqa: UP006
+	local_scope = dict[str, Any]
+	pr_decorated_func = Callable[[], local_scope]
 	DF = TypeVar('DF', bound=pr_decorated_func)
 
 
 # TODO: Move this to another lib..
 
 
-def platform_run(plat: str) -> Callable[[DF], None]:
+class platform_run:
 	"""Little workaround to avoid platform check code duplicating.
 
 	Usage:
@@ -27,11 +28,15 @@ def platform_run(plat: str) -> Callable[[DF], None]:
 
 			return locals()
 	"""
-	def wrapper(func: DF) -> None:
-		if platform != plat:
+
+	def __init__(self: platform_run, plat: str) -> None:
+		self.plat: Final[str] = plat
+
+
+	def __call__(self: platform_run, func: DF) -> None:
+		if platform != self.plat:
 			return
+
 		# Update function's globals using returned locals
 		locs = func()
 		func.__globals__.update(locs)
-
-	return wrapper
