@@ -6,8 +6,8 @@ from plyer.utils import platform
 # TODO: C/Compiled entry point
 
 # NOTE: Use this part only for debug purposes (in prod comment these lines)
-os_environ['DEBUG_ACECSS_APP'] = '1'
-if platform == 'android' and os_environ.get('DEBUG_ACECSS_APP') is not None:
+os_environ['DEBUG_ACCESS_APP'] = '1'
+if platform == 'android' and os_environ.get('DEBUG_ACCESS_APP') is not None:
     from p4adev_tools import ftp_server_proc, ipython_kernel_thread
 
     ftp_server_proc()

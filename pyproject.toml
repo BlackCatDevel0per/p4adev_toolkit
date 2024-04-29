@@ -15,10 +15,11 @@ Documentation = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 Repository = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 
 # TODO: Execute without wait to end (poetry will closed while task is pending)
+# List commands with `poetry user-commands`
 [tool.poetry-plugin-commands]
 stree = "tree src"
 run-app = "PYTHONPATH=src:. poetry run python src/app_launch/main.py"
-run-app-rd = "DEBUG_ACECSS_APP=1 PYTHONPATH=src:. poetry run python src/app_launch/main.py"
+run-app-rd = "DEBUG_ACCESS_APP=1 PYTHONPATH=src:. poetry run python src/app_launch/main.py"
 
 build-debug = "scripts/build.sh debug dev"
 rebuild-debug = "scripts/clean_build.sh debug dev"
@@ -123,23 +124,42 @@ indent-style = "tab"
 python = ">=3.8.1,<4.0"
 
 
-[tool.poetry.group.app]
+# Why? Why not?))
+[tool.poetry-plugin-deps-juice]
+"poetry" = [
+	"app-gui",
+	"app-io"
+]
+
+
+[tool.poetry.group.app-gui]
 optional = false
 
-[tool.poetry.group.app.dependencies]
-
+[tool.poetry.group.app-gui.dependencies]
 kivy = {extras = ["base"], version = "^2.2.1"}
 kivymd = {git = "https://github.com/kivymd/KivyMD", rev = "1152d3c31229b357336cb9e19cfaa2ba8c6941bc"}  # Before 2.0.0 aka before move to md3
-
 kivymd2-widgets = "^0.0.3"
+asynckivy = "^0.6.2"
 
+[tool.poetry.group.app-io]
+optional = false
+
+[tool.poetry.group.app-io.dependencies]
 p4adev-tools = "^0.0.2"
 
-asynckivy = "^0.6.2"
 plyer = "^2.1.0"
 pyslet = "^0.7.20170805"
 aiofiles = "^23.2.1"
+pyscopedstorage = "^0.0.1"
 
+[tool.poetry.group.poetry-plugins]
+optional = true
+
+[tool.poetry.group.poetry-plugins.dependencies]
+poetry-plugin-commands = "^0.0.9"
+poetry-plugin-deps-juice = "^0.0.3"
+
+# TODO: Cut to sub-groups..
 [tool.poetry.group.dev]
 optional = false
 
@@ -170,7 +190,7 @@ ipykernel = "^6.29.4"
 ipython = "8.12.3"
 background-zmq-ipython = "^1.20220901.135250"
 jedi = "0.19.1"
-poetry-plugin-commands = "^0.0.8"
+poetry-plugin-commands = "^0.0.9"
 mypy = {extras = ["mypyc"], version = "^1.9.0"}
 
 [tool.poetry.group.performance]

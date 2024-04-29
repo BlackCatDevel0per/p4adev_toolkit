@@ -19,14 +19,15 @@ BASENAME = SRC.split('/')[-1]
 extensions = []
 
 for py in glob.glob(f'{SRC}/**/*.py', recursive=True):
-	# Exclude scoped storage lib dir
-	# TODO: Release to PyPi!
-	if 'PyScopedStorage' in py:
-		continue
-
 	pyp = Path(py)
-
-	extensions.append(Extension('.'.join(list(pyp.parts[:-1]) + [pyp.parts[-1].split('.')[0]]), [py]))
+	extensions.append(
+		Extension(
+			'.'.join(
+				[*list(pyp.parts[:-1]), pyp.parts[-1].split('.')[0]],  ##
+			),
+			[py],
+		),
+	)
 
 # from rich import print
 # print(extensions)

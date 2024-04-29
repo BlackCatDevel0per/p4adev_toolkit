@@ -1,25 +1,30 @@
-# coding=utf-8
+from __future__ import annotations
 
-from pythonforandroid.recipe import CythonRecipe, Recipe
+import glob
 from os.path import join
-from pythonforandroid.util import current_directory
+from typing import TYPE_CHECKING
+
 import sh
 from pythonforandroid.logger import shprint
-import glob
+from pythonforandroid.recipe import CythonRecipe, Recipe
+from pythonforandroid.util import current_directory
+
+if TYPE_CHECKING:
+    from typing import ClassVar
 
 
 class PyZMQRecipe(CythonRecipe):
     name = 'pyzmq'
     # Version depends on Cython
-    version = '25.1.1'
+    version = '26.0.2'
     url = 'https://github.com/zeromq/pyzmq/archive/v{version}.zip'
     site_packages_name = 'zmq'
     depends = ['setuptools', 'libzmq']
-    cython_args = [
-                    '-Izmq/utils',
-                    '-Izmq/backend/cython',
-                    # '-Izmq/backend/cffi',
-                    '-Izmq/devices',
+    cython_args: ClassVar[list[str]] = [
+        '-Izmq/utils',
+        '-Izmq/backend/cython',
+        # '-Izmq/backend/cffi',
+        '-Izmq/devices',
     ]
 
     def get_recipe_env(self, arch=None):

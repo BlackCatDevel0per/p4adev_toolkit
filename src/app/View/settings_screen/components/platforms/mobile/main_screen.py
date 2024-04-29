@@ -3,13 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from app.libs.PyScopedStorage.filechooser import filechooser
 from app.View.base_screen import BaseScreenView
 from kivy.logger import Logger
 from kivy.properties import StringProperty
 from kivymd.toast import toast
 from kivymd.uix.relativelayout import MDRelativeLayout
 from plyer.utils import platform
+from PyScopedStorage.filechooser import filechooser
 
 if TYPE_CHECKING:
 	from typing import Callable
@@ -44,7 +44,7 @@ class SettingsScreenView(BaseScreenView):
 
 		self.app.config.write()
 
-		toast('Download path set!')
+		toast('Docs path set!')
 
 
 	def set_scdir_callback(self: 'SettingsScreenView', sel: 'list[android.net.Uri]') -> None:
@@ -54,7 +54,7 @@ class SettingsScreenView(BaseScreenView):
 		uri = sel[0]
 
 		if platform != 'android':
-			self.set_docs_dir_conf(Path(uri))
+			self.set_docs_dir_conf(Path(uri))  # TODO: Solve normally -_-
 			return
 
 		Logger.warning(f'ACCESS URI: {uri.toString()}')
