@@ -25,9 +25,6 @@ rebuild-debug = "scripts/clean_build.sh debug dev"
 
 build-release = "scripts/clean_build.sh release app"
 
-[tool.mypy]
-plugins = ["src/p4a_mypy_plugins/platrundec.py"]
-
 [tool.ruff]
 line-length = 100
 select = [
