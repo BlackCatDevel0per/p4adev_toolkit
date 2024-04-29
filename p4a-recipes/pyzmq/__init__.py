@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class PyZMQRecipe(CythonRecipe):
     name = 'pyzmq'
     # Version depends on Cython
-    version = '26.0.2'
+    version = '25.1.1'
     url = 'https://github.com/zeromq/pyzmq/archive/v{version}.zip'
     site_packages_name = 'zmq'
     depends = ['setuptools', 'libzmq']

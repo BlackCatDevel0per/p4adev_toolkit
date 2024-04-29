@@ -78,5 +78,5 @@ setup(
 
 	# cmdclass={'build_ext': build_ext},
 
-	setup_requires=['cython<=0.29.37'],
+	##setup_requires=['cython<=0.29.37'],
 )
