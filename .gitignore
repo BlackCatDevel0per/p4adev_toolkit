@@ -26,6 +26,5 @@ bin.bak
 temp
 
 src/app/**/*.c
-src/app/entry/*.ini
-src/app/libs/dev/ipython_kernel.json
+**/*.ini
 

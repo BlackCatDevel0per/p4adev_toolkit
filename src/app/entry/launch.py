@@ -1,22 +1,14 @@
 # NOTE: If you want to use partly-working annotations with cython 0.29.x please use this fork:
 # https://github.com/BlackCatDevel0per/cython
-from __future__ import annotations
-
-from typing import TYPE_CHECKING
 
 # NOTE: Relative imports don't works!!!
 # Mb can work something like `.some_module_pkg` but not other ways instead of absolute import..
 
-if TYPE_CHECKING:
-	# NOTE: Type annotations from typing block are still quoted because
-	# cython will raise errors in functions & methods annotations.. (but still ok for vars)
-	from typing import Any
+from __future__ import annotations
 
-	from app.View.base_screen import BaseScreenView
-	from app.View.screens import ScreenParams
-
-
+from os import environ as os_env
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from kivy.config import Config
 from kivy.utils import platform
@@ -24,16 +16,28 @@ from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd2_widgets.pickers import MDThemePicker
 
+from app import module_dir
 from app.View.screens import screens
 
 if platform == 'android':
 	from android import mActivity
-	context: 'android.content.Context' = mActivity.getApplicationContext()
+	# TODO: Find or make stubs for java android api used from pyjnius.. or better make mypy plugin..
+	context: 'jni[android.content.Context]' = mActivity.getApplicationContext()
 	from jnius import autoclass
 else:
 	import sys
 	from multiprocessing import Process
 	from subprocess import Popen
+
+if TYPE_CHECKING:
+	# NOTE: Type annotations from typing block are still quoted because
+	# cython will raise errors in functions & methods annotations.. (but still ok for vars)
+	from typing import Any
+
+	from kivy.config import ConfigParser
+
+	from app.View.base_screen import BaseScreenView
+	from app.View.screens import ScreenParams
 
 
 class App(MDApp):
@@ -43,15 +47,26 @@ class App(MDApp):
 
 	def __init__(self: 'App', **kwargs: 'Any') -> None:
 		super().__init__(**kwargs)
-		# FIXME: Do it properly..
-		self.module_directory = str(Path(self.directory).parent)
+		self.module_directory: str = module_dir
 		self.load_all_kv_files(self.module_directory)
 		# This is the screen manager that will contain all the screens of your
 		# application.
 		self.manager_screens = MDScreenManager()
 
 
-	def build_config(self: 'App', config):
+	def get_application_config(
+		self: 'App',
+		default_path: str = os_env.get(
+			'ANDROID_APP_PATH',
+			str(Path(Path.cwd(), 'config.ini')),
+		)
+	) -> str:
+		"""Set default config path."""
+		return default_path
+
+
+	def build_config(self: 'App', config: 'ConfigParser') -> None:
+		# TODO: Use TypedDict with Literal(s).. (for easier lint)
 		config.setdefaults(
 			'theme',
 			{
