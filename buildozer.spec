@@ -317,6 +317,7 @@ android.archs = arm64-v8a
 # android.numeric_version = 1
 
 # (bool) enables Android auto backup feature (Android API >=23)
+# ex. files inside `/data/user/0/com.app.domain/files`
 android.allow_backup = True
 
 # (str) XML file for custom backup rules (see official auto backup documentation)
