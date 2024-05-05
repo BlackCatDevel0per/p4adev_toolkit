@@ -174,6 +174,12 @@ class App(MDApp):
 
 def run() -> None:
 	"""Run the app."""
+	# TODO: Set config file path..
+	# TODO: Handle back button press
+	# TODO: Write some info on main screen..
+
+	# TODO: Cookiecutter or etc. template
+
 	Config.set('graphics', 'maxfps', '15')
 
 	# Set startup orientation because value from manifest is ignored..
