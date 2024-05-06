@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from kivy.utils import platform
+from kivy.core.window import Window
+from plyer.utils import platform
 
 from app.bases.abc import AppBaseABCLike
 
@@ -21,7 +22,12 @@ if TYPE_CHECKING:
 class AppTweaks(AppBaseABCLike):
 
     def on_app_init(self: 'AppTweaks', **kwargs: 'Any') -> None:
-        self.bind_to({'android_set_handle_native_autorotate': 'on_start'})
+        self.bind_to(
+            {
+                'android_set_handle_native_autorotate': 'on_start',
+                'set_mobilelike_resolution': 'on_start',
+            },
+        )
 
 
     def android_set_handle_native_autorotate(self: 'AppTweaks') -> None:
@@ -35,3 +41,11 @@ class AppTweaks(AppBaseABCLike):
         mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_USER)
 
         del ActivityInfo
+
+
+    def set_mobilelike_resolution(self: 'AppTweaks') -> None:
+        """Set mobile-like resolution for easier tests."""
+        if platform == 'android':
+            return
+
+        Window.size = (480, 800)

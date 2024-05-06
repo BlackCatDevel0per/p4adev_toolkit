@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 
 from kivy.config import Config
 
-from app.bases import AppBase, AppConf, AppServices, AppStyle, AppTweaks
+from app.bases import AppBase, AppConf, AppDebug, AppServices, AppStyle, AppTweaks
 
 if TYPE_CHECKING:
 	# NOTE: Type annotations from typing block are still quoted because
@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 	from typing import Any
 
 
-class App(AppTweaks, AppConf, AppServices, AppStyle, AppBase):
+class App(AppTweaks, AppConf, AppServices, AppStyle, AppDebug, AppBase):
 	...
 
 

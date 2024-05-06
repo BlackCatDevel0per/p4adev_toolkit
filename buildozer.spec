@@ -484,6 +484,7 @@ warn_on_root = 1
 [app@dev]
 title = P4ADev Toolkit [DEV]
 
+# By default debug enables if package domain name ends with `bdev` (aka build debug)
 package.name = p4a_bdev
 
 version = 0.1

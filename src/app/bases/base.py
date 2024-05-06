@@ -59,6 +59,7 @@ class AppBase(MDApp):
 
 
 	def bind_to(self: 'AppBase', dct: 'BindsType') -> None:
+		# TODO: Mb need more params with more plexible options..
 		self._binds.update(dct)
 
 
