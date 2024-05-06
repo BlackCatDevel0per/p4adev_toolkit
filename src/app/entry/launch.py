@@ -4,9 +4,12 @@
 # NOTE: Relative imports don't works!!!
 # Mb can work something like `.some_module_pkg` but not other ways instead of absolute import..
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 from typing import TYPE_CHECKING
+
+# Log conf
+from app.utility import logger  # noqa: F401
 
 from kivy.config import Config
 
