@@ -18,8 +18,8 @@ Repository = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 # List commands with `poetry user-commands`
 [tool.poetry-plugin-commands]
 stree = "tree src"
-run-app = "PYTHONPATH=src:. poetry run python src/app_launch/main.py"
-run-app-rd = "DEBUG_ACCESS_APP=1 PYTHONPATH=src:. poetry run python src/app_launch/main.py"
+run-app = "PYTHONPATH=src:. .venv/bin/python src/app_launch/main.py"
+run-app-rd = "DEBUG_ACCESS_APP=1 PYTHONPATH=src:. .venv/bin/pythonpython src/app_launch/main.py"
 
 build-debug = "scripts/build.sh debug dev"
 rebuild-debug = "scripts/clean_build.sh debug dev"
