@@ -14,9 +14,14 @@ class AppConf(AppBaseABCLike):
 
     def get_application_config(
         self: 'AppConf',
-        default_path: str = os_env.get(
-            'ANDROID_APP_PATH',
-            str(Path(Path.cwd(), 'config.ini')),
+        default_path: str = str(
+            Path(
+                os_env.get(
+                    'ANDROID_APP_PATH',
+                    Path.cwd(),
+                ),
+            'config.ini',
+            ),
         ),
     ) -> str:
         """Set default config path."""
