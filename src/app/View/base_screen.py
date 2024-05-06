@@ -58,7 +58,7 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=BSVMetas):
 
 
 	def __post_init__(self: 'BaseScreenView') -> None:
-		"""Run after this and subclass `__init__` call."""
+		"""Run after this class and subclass `__init__` constructor method call."""
 		self._p_log_prefix: str = f'View of Model `{self.model._p_log_name}`'  # noqa: SLF001
 
 		super().__post_init__()
