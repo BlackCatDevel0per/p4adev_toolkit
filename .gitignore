@@ -28,4 +28,3 @@ temp
 src/app/**/*.c
 **/*.ini
 
-/python-for-android
