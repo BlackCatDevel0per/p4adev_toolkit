@@ -84,7 +84,7 @@ paplay $start_sound >/dev/null 2>&1
 
 # NOTE: You can replace by your poetry path and call python
 ## Build4Android
-.venv/bin/python -m buildozer -v --profile $2 android $1
+poetry run python -m buildozer -v --profile $2 android $1
 
 # FIXME: Use it as option (to avoid stopping multiple builds..)
 # Kill gradle daemon after build
