@@ -3,8 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from app.utility.utils import StrCall
 from app.View.base_screen import BaseScreenView
-from kivy.logger import Logger
 from kivy.properties import StringProperty
 from kivymd.toast import toast
 from kivymd.uix.relativelayout import MDRelativeLayout
@@ -54,10 +54,11 @@ class SettingsScreenView(BaseScreenView):
 		uri = sel[0]
 
 		if platform != 'android':
-			self.set_docs_dir_conf(Path(uri))  # TODO: Solve normally -_-
+			self.log.debug('Uri is path: `%s`', uri)
+			self.set_docs_dir_conf(uri)  # TODO: Solve normally -_-
 			return
 
-		Logger.warning(f'ACCESS URI: {uri.toString()}')
+		self.log.debug('Access SS Uri: %s', StrCall(uri.toString))
 
 		dir_full_path = uri.toString()
 
@@ -66,7 +67,7 @@ class SettingsScreenView(BaseScreenView):
 
 	def set_scdir(self: 'SettingsScreenView') -> None:
 		filechooser.choose_dir(
-			# on_selection=lambda s: Logger.warning(f'result: {s}'),
+			# on_selection=lambda s: self.log.warning(f'result: {s}'),
 			on_selection=self.set_scdir_callback,
 		)
 
