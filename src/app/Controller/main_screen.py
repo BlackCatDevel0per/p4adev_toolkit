@@ -2,13 +2,14 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from app.View.main_screen.main_screen import MainScreenView
+from app.Controller.base_controller import BaseController
+from app.View.main_screen import MainScreenView
 
 if TYPE_CHECKING:
-	from app.Model.main_screen import MainScreenModel
+	from typing import Any
 
 
-class MainScreenController:
+class MainScreenController(BaseController):
 	"""The `MainScreenController` class represents a controller implementation.
 
 	Coordinates work of the view with the model.
@@ -16,10 +17,7 @@ class MainScreenController:
 	the view to control its actions.
 	"""
 
-	def __init__(self: 'MainScreenController', model: 'MainScreenModel') -> None:
-		self.model: 'MainScreenModel' = model
-		self._view = MainScreenView(controller=self, model=self.model)
+	def __init__(self: 'MainScreenController', *args: 'Any', **kwargs: 'Any') -> None:
+		super().__init__(*args, **kwargs)
 
-	@property
-	def view(self: 'MainScreenController') -> MainScreenView:
-		return self._view
+		self._view = MainScreenView(controller=self, model=self.model)
