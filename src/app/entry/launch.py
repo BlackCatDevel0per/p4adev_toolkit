@@ -27,6 +27,10 @@ def run() -> None:
 	# TODO: Handle back button press
 	# TODO: Write some info on main screen..
 
+	# TODO: i18n
+	# TODO: Google ADMob integrate.. (& mb some other third party apis..)
+	# TODO: Make docker container with all stuff & notebook on google colab
+
 	# TODO: Cookiecutter or etc. template
 
 	Config.set('graphics', 'maxfps', '15')
