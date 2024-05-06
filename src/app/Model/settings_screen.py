@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-# from kivy.logger import Logger
 from kivy.metrics import dp
 from plyer.utils import platform
 

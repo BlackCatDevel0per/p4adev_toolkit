@@ -8,26 +8,41 @@
 
 # TODO: Annotate..
 
+from __future__ import annotations
 
-class BaseScreenModel:
-    """Implements a base class for model modules."""
+from typing import TYPE_CHECKING
 
-    _observers = []
+from app.utility.logger import Loggable
 
-    def add_observer(self: 'BaseScreenModel', observer) -> None:
-        self._observers.append(observer)
+if TYPE_CHECKING:
+	...
 
-    def remove_observer(self: 'BaseScreenModel', observer) -> None:
-        self._observers.remove(observer)
+# TODO: Some post init stuff for better logging..
 
-    def notify_observers(self: 'BaseScreenModel', name_screen: str) -> None:
-        """Call by the observer when the model data change.
 
-        :param name_screen:
-            name of the view for which the method should be called
-            :meth:`model_is_changed`.
-        """
-        for observer in self._observers:
-            if observer.name == name_screen:
-                observer.model_is_changed()
-                break
+class BaseScreenModel(Loggable):
+	"""Implements a base class for model modules."""
+
+	_p_log_prefix: str = 'Model'
+
+	# TODO: init..
+
+	_observers = []
+
+	def add_observer(self: 'BaseScreenModel', observer) -> None:
+		self._observers.append(observer)
+
+	def remove_observer(self: 'BaseScreenModel', observer) -> None:
+		self._observers.remove(observer)
+
+	def notify_observers(self: 'BaseScreenModel', name_screen: str) -> None:
+		"""Call by the observer when the model data change.
+
+		:param name_screen:
+			name of the view for which the method should be called
+			:meth:`model_is_changed`.
+		"""
+		for observer in self._observers:
+			if observer.name == name_screen:
+				observer.model_is_changed()
+				break
