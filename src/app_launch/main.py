@@ -17,7 +17,11 @@ os_env['DEBUG_ACCESS_APP'] = '1'
 is_debug: 'Final[bool]' = os_env.get('DEBUG_ACCESS_APP') is not None
 
 
+# TODO: Move main stuff into the app.bases..
+
+
 def main() -> None:
+    """Wrap to run debug helpers before app."""
     if not is_debug:
         run()
         return
