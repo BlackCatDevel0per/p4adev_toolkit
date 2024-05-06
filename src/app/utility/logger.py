@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from logging import DEBUG, INFO, basicConfig, getLogger
+from logging import DEBUG, INFO, getLogger
 from os import environ as os_env
 from typing import TYPE_CHECKING
 
@@ -15,8 +15,9 @@ CURRENT_LEVEL: int = INFO
 if any((os_env.get('DEBUG_ACCESS_APP'), os_env.get('DEBUG_LOG_APP'))):
 	CURRENT_LEVEL = DEBUG
 
-# TODO: More configuration and use rich handler optionally..
 # TODO: Fully overwrite kivy logging format..
+# TODO: More configuration and use rich handler optionally..
+# NOTE: Change 'KIVY_LOG_MODE' env var to `PYTHON` if you want handle logs fully by your self
 # basicConfig(
 # 	format='[%(levelname)s] - %(module)s %(message)s',
 # 	level=CURRENT_LEVEL,

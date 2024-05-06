@@ -64,6 +64,8 @@ class SettingsScreenView(BaseScreenView):
 
 		self.set_docs_dir_conf(dir_full_path)
 
+		del uri, dir_full_path
+
 
 	def set_scdir(self: 'SettingsScreenView') -> None:
 		filechooser.choose_dir(
