@@ -29,7 +29,7 @@ class StrCall:
 class PostInitableMeta(type):
 	"""Just automatically call `__post_init__` method of the class instance after `__init__`."""
 
-	def __call__(cls: type, *args: 'Any', **kwargs: 'Any') -> object:
+	def __call__(cls: object, *args: 'Any', **kwargs: 'Any') -> object:
 		"""Make class instance and call `__post_init__`."""
 		obj = type.__call__(cls, *args, **kwargs)
 		obj.__post_init__()
