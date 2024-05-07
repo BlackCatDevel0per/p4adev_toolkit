@@ -21,10 +21,10 @@ stree = "tree src"
 run-app = "PYTHONPATH=src:. .venv/bin/python src/app_launch/main.py"
 run-app-rd = "DEBUG_ACCESS_APP=1 PYTHONPATH=src:. .venv/bin/pythonpython src/app_launch/main.py"
 
-build-debug = "scripts/build.sh debug dev"
-rebuild-debug = "scripts/clean_build.sh debug dev"
+build-debug = "bash -c 'scripts/build.sh debug dev'"
+rebuild-debug = "bash -c 'scripts/clean_build.sh debug dev'"
 
-build-release = "scripts/clean_build.sh release app"
+build-release = "bash -c 'scripts/clean_build.sh release app'"
 
 [tool.ruff]
 line-length = 100
