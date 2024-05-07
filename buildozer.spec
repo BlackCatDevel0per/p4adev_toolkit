@@ -480,6 +480,8 @@ warn_on_root = 1
 #
 #buildozer --profile demo android debug
 
+# TODO: Move recipes to another repo..
+
 # [PROFILE - DEV]
 [app@dev]
 title = P4ADev Toolkit [DEV]
