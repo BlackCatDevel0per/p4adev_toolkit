@@ -2736,13 +2736,13 @@ tomli = {version = ">=1.1.0", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "pyscopedstorage"
-version = "0.0.1"
+version = "0.0.2"
 description = "Python library to simplify storage interaction in Android apps."
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "pyscopedstorage-0.0.1-py3-none-any.whl", hash = "sha256:4abac52db5fcefdacb097f6433a9f55e011ccb86b01f847037a04e3d05fe533a"},
-    {file = "pyscopedstorage-0.0.1.tar.gz", hash = "sha256:bcd36ccffc1e43dca9685e675e41029e991d1b3c41bf1ab90343c9c2bb5516c8"},
+    {file = "pyscopedstorage-0.0.2-py3-none-any.whl", hash = "sha256:e6953a82e8c7ac9bba631eb125bd38a2b7e6473efa05e810b562aaab4afb58f1"},
+    {file = "pyscopedstorage-0.0.2.tar.gz", hash = "sha256:0bb4d979c6cdbef715a11d7b7c886100882eda8f86c09785393777920f19a8fe"},
 ]
 
 [package.dependencies]
@@ -4136,4 +4136,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.1,<4.0"
-content-hash = "59e6335fe1c069a2ffdbbb4b1eb52e3ecfe368675f6a74f947ba704014da9cd3"
+content-hash = "3e3231341279b3d57065eaaaf994f9cff983f024f4c616ba8100948aa7ce369b"
