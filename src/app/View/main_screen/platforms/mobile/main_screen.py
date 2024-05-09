@@ -15,6 +15,8 @@ class MainScreenView(BaseScreenView):
 
 	def startup(self: 'MainScreenView') -> None:
 		# self.manager_screens.current = 'settings_screen'
+		# from app.View.widgets.about_dialog import AboutDialog
+		# AboutDialog().open()
 		...
 
 
