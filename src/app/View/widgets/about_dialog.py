@@ -4,10 +4,19 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.label import MDIcon
+from plyer.utils import platform
 
 from app.utility.logger import Loggable
 from app.utility.utils import UniteMetas
 from app.View.widgets.single_ins import SingleInstance
+
+if platform == 'android':
+	from android import mActivity
+	from jnius import autoclass
+
+	Intent = autoclass('android.content.Intent')
+	Uri = autoclass('android.net.Uri')
+
 
 if TYPE_CHECKING:
 	from typing import Any
@@ -36,7 +45,8 @@ class AboutDialog(SingleInstance, Loggable, MDDialog, metaclass=UniteMetas(Logga
 			kwargs['buttons'] = [
 				MDFlatButton(
 					text='OK',
-					# FIXME: Dismiss softer.. (after press animation)
+					# FIXME: Dismiss softer.. (after press animation - looks like only desktop bug..)
+					# FIXME: Why dismiss closes menubar too?
 					on_press=lambda btn: self.dismiss(),
 				),
 			]
@@ -100,3 +110,12 @@ class AboutDialog(SingleInstance, Loggable, MDDialog, metaclass=UniteMetas(Logga
 	def on_text_ref_press(self: 'AboutDialog', ref: str) -> None:
 		# TODO: Open browser..
 		self.log.info('Press ref: %s', ref)
+
+		# TODO: Move into advanced text label itself
+		if platform == 'android':
+			uri_url = Uri.parse(ref)
+			browser_intent = Intent(Intent.ACTION_VIEW, uri_url)
+
+			mActivity.startActivity(browser_intent)
+
+			del browser_intent, uri_url
