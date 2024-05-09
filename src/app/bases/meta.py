@@ -14,7 +14,7 @@ class NoInheritMeta(type):
 	"""
 
 	def __new__(
-		cls: 'type',
+		cls: 'type',  # FIXME: Annotate it right..
 		name: str, bases: 'Tuple[type, ...]', dct: 'Dict[str, Any]',
 	):
 		# TODO: Generate methods using bases, but without code - on `NotImplementedError`
