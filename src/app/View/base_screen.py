@@ -8,17 +8,13 @@ from kivymd.uix.screen import MDScreen
 
 from app.utility.logger import Loggable
 from app.utility.observer import Observer
+from app.utility.utils import UniteMetas
 
 if TYPE_CHECKING:
 	from typing import Any
 
 
-# TODO: Make some stuff to avoid doing it manually..
-class BSVMetas(type(MDScreen), type(Loggable)):
-	"""Unite MDScreen metaclass with PostInitableMeta to avoid metaclass conflicts."""
-
-
-class BaseScreenView(MDScreen, Observer, Loggable, metaclass=BSVMetas):
+class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen, Loggable)):
 	"""A base class that implements a visual representation of the model data.
 
 	The view class must be inherited from this class.
