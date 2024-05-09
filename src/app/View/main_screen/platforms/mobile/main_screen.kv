@@ -1,4 +1,5 @@
-##:import AboutDialog app.View.main_screen.components.platforms.mobile.main_screen.AboutDialog
+#:import MDExtendedTextField app.View.widgets.ext_txtfield.MDExtendedTextField
+#:import AboutDialog app.View.widgets.about_dialog.AboutDialog
 
 <DrawerClickableItem@MDNavigationDrawerItem>
 	focus_color: "#e7e4c0"
@@ -99,8 +100,8 @@
 
 				on_press: root.manager_screens.current = 'settings_screen'
 
-			# DrawerClickableItem:
-			# 	icon: "information-slab-circle"
-			# 	text: "About"
+			DrawerClickableItem:
+				icon: "information-slab-circle"
+				text: "About"
 
-			# 	#on_press: AboutDialog().open()
+				on_press: AboutDialog().open()
