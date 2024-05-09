@@ -16,7 +16,7 @@ class NoInheritMeta(type):
 	def __new__(
 		cls: 'type',  # FIXME: Annotate it right..
 		name: str, bases: 'Tuple[type, ...]', dct: 'Dict[str, Any]',
-	):
+	) -> 'type':
 		# TODO: Generate methods using bases, but without code - on `NotImplementedError`
 		if name.endswith('ABCLike'):
 			return type.__new__(cls, name, (), dct)
