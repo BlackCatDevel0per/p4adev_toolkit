@@ -21,7 +21,6 @@ class AboutDialog(SingleInstance, Loggable, MDDialog, metaclass=UniteMetas(Logga
 	title = 'Info'
 	markup = True
 	text = (
-		'\n'  # FIXME: Why spacer works incorrectly??
 		'Template from:'
 		' '
 		'[u][ref=https://github.com/BlackCatDevel0per/p4adev_toolkit]p4adev_toolkit[/ref][/u]'
@@ -60,31 +59,44 @@ class AboutDialog(SingleInstance, Loggable, MDDialog, metaclass=UniteMetas(Logga
 
 		dcont.remove_widget(label_title)
 
-		label_title_with_icon: 'MDBoxLayout' = MDBoxLayout(
-			# ??
-			# height=label_title.height,
-			# size_hint_y=label_title.size_hint_y,
+		label_title_with_icon: MDBoxLayout = MDBoxLayout(
+			size_hint_y=None,
+			height=label_title.height,
 		)
 
-		spacer_box: 'MDBoxLayout' = MDBoxLayout(
+		spacer_box: MDBoxLayout = MDBoxLayout(
 			size_hint_y=None,
 			size_hint_x=0.03,
 			height=MDBoxLayout.minimum_height.defaultvalue,  # self.minimum_height in kv
 		)
 
-		# Add icon before title label
+		# Add icon before title label with between spacer
 		# TODO: Mb better make it as self setter-properties to easier update ui..
 		icon = MDIcon(
 			icon=self.icon,
 		)
 
+		# (Inside labled-icon widget) y ->
 		label_title_with_icon.add_widget(icon)
 		label_title_with_icon.add_widget(spacer_box)
 		label_title_with_icon.add_widget(label_title)
+
+		# (Dialog widget) x ->
+		ltwi_spacer: MDBoxLayout = MDBoxLayout(
+			size_hint_y=None,
+			height=self._spacer_top,
+		)
+
+		# New spacer between future title and existent text
+		dcont.add_widget(
+			ltwi_spacer,
+			index=-1,
+		)
 
 		# On old label_title pos
 		dcont.add_widget(label_title_with_icon, index=-1)
 
 
 	def on_text_ref_press(self: 'AboutDialog', ref: str) -> None:
+		# TODO: Open browser..
 		self.log.info('Press ref: %s', ref)
