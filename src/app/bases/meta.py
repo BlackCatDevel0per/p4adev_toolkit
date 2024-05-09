@@ -1,9 +1,12 @@
 # TODO: Find another workarounds to not write abcs XD
+from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-	from typing import Any, Dict, Tuple  # noqa: UP035
+	# old `Type` used to avoid compiled app errors like:
+	# TypeError: Expected type, got NoInheritMeta
+	from typing import Any, Dict, Tuple, Type  # noqa: UP035
 
 
 class NoInheritMeta(type):
@@ -14,9 +17,9 @@ class NoInheritMeta(type):
 	"""
 
 	def __new__(
-		cls: 'type',  # FIXME: Annotate it right..
+		cls: 'Type',  # FIXME: Annotate it right..
 		name: str, bases: 'Tuple[type, ...]', dct: 'Dict[str, Any]',
-	) -> 'type':
+	) -> 'Type':
 		# TODO: Generate methods using bases, but without code - on `NotImplementedError`
 		if name.endswith('ABCLike'):
 			return type.__new__(cls, name, (), dct)

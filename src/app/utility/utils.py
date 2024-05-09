@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
 	from collections.abc import Callable
-	from typing import Any
+	from typing import Any, Type  # noqa: UP035
 
 
 # NOTE: Lol looks like coroutine..
@@ -40,7 +40,7 @@ def UniteMetas(*args: 'type', name: str = 'UnitedMetas') -> 'type':  # noqa: N80
 class PostInitableMeta(type):
 	"""Just automatically call `__post_init__` method of the class instance after `__init__`."""
 
-	def __call__(cls: 'type', *args: 'Any', **kwargs: 'Any') -> object:
+	def __call__(cls: 'Type', *args: 'Any', **kwargs: 'Any') -> object:
 		"""Make class instance and call `__post_init__`."""
 		# NOTE: If you use Singleton, it will still work properly
 		obj = type.__call__(cls, *args, **kwargs)
