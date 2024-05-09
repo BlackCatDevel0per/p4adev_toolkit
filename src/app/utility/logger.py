@@ -33,7 +33,7 @@ class Loggable(metaclass=PostInitableMeta):
 		self._p_log_name: str = f'{self.__module__}.{self.__class__.__name__}'
 		self.log: 'Logger' = getLogger(self._p_log_name)
 		self.log.setLevel(DEBUG)
-		self.log.debug('[%s] Init `%s`', self._log_prefix, self._log_name)
+		self.log.debug('[%s] Post-Init `%s`', self._log_prefix, self._log_name)
 
 
 	@property
