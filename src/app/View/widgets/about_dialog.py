@@ -21,6 +21,7 @@ class AboutDialog(SingleInstance, Loggable, MDDialog, metaclass=UniteMetas(Logga
 	title = 'Info'
 	markup = True
 	text = (
+		'\n'  # FIXME: Why spacer works incorrectly??
 		'Template from:'
 		' '
 		'[u][ref=https://github.com/BlackCatDevel0per/p4adev_toolkit]p4adev_toolkit[/ref][/u]'
@@ -71,7 +72,7 @@ class AboutDialog(SingleInstance, Loggable, MDDialog, metaclass=UniteMetas(Logga
 			height=MDBoxLayout.minimum_height.defaultvalue,  # self.minimum_height in kv
 		)
 
-		# Add icon before title label with spacer at the end
+		# Add icon before title label
 		# TODO: Mb better make it as self setter-properties to easier update ui..
 		icon = MDIcon(
 			icon=self.icon,
@@ -80,14 +81,6 @@ class AboutDialog(SingleInstance, Loggable, MDDialog, metaclass=UniteMetas(Logga
 		label_title_with_icon.add_widget(icon)
 		label_title_with_icon.add_widget(spacer_box)
 		label_title_with_icon.add_widget(label_title)
-
-		# New spacer between future title and existent text
-		dcont.add_widget(
-			MDBoxLayout(
-				# size_hint_y=3,
-			),
-			index=-1,
-		)
 
 		# On old label_title pos
 		dcont.add_widget(label_title_with_icon, index=-1)
