@@ -33,6 +33,10 @@ class AppStyle(AppBaseABCLike):
 
 
 	def switch_accent_style(self: 'AppStyle') -> None:
-		theme_picker = MDThemePicker()
-		theme_picker.on_dismiss = self.save_accent_style
-		theme_picker.open()
+		if not hasattr(self, 'theme_picker'):
+			# TODO: Remove on screen change to save memory..
+			# & with some singleton widgets do the same..
+			self.theme_picker = MDThemePicker()
+			self.theme_picker.on_dismiss = self.save_accent_style
+
+		self.theme_picker.open()
