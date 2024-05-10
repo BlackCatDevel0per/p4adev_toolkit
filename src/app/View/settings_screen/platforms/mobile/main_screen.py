@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 from app.utility.utils import StrCall
@@ -51,16 +50,17 @@ class SettingsScreenView(BaseScreenView):
 		if not sel:
 			return
 
-		uri = sel[0]
+		uri_or_path: 'android.net.Uri | str' = sel[0]
 
 		if platform != 'android':
-			self.log.debug('Uri is path: `%s`', uri)
-			self.set_docs_dir_conf(uri)  # TODO: Solve normally -_-
+			self.log.debug('Access path: `%s`', uri_or_path)
+			assert isinstance(uri_or_path, str)  # linter plug
+			self.set_docs_dir_conf(uri_or_path)  # TODO: Solve normally -_-
 			return
 
-		self.log.debug('Access SS Uri: %s', StrCall(uri.toString))
+		self.log.debug('Access SS Uri: %s', StrCall(uri_or_path.toString))
 
-		dir_full_path = uri.toString()
+		dir_full_path: str = uri_or_path.toString()
 
 		self.set_docs_dir_conf(dir_full_path)
 
