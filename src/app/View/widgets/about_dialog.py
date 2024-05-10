@@ -47,9 +47,7 @@ class AboutDialog(SingleInstance, Loggable, MDDialog, metaclass=UniteMetas(Logga
 			kwargs['buttons'] = [
 				MDFlatButton(
 					text='OK',
-					# FIXME: Dismiss softer.. (after press animation - looks like only desktop bug..)
-					# FIXME: Why dismiss closes menubar too?
-					on_press=lambda btn: self.dismiss(),
+					on_release=lambda btn: self.dismiss(),
 				),
 			]
 
@@ -122,4 +120,3 @@ class AboutDialog(SingleInstance, Loggable, MDDialog, metaclass=UniteMetas(Logga
 		browser_intent = Intent(Intent.ACTION_VIEW, uri_url)
 
 		mActivity.startActivity(browser_intent)
-
