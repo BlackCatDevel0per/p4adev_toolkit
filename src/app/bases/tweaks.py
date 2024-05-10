@@ -18,8 +18,16 @@ if TYPE_CHECKING:
 	# cython will raise errors in functions & methods annotations.. (but still ok for vars)
 	from typing import Any
 
+	from app.View.base_screen import BaseScreenView
+
 
 class AppTweaks(AppBaseABCLike):
+
+	def __init__(self: 'AppTweaks', *args: 'Any', **kwargs: 'Any') -> None:
+		super().__init__(*args, **kwargs)
+
+		Window.bind(on_keyboard=self.handle_esc_or_back)
+
 
 	def on_app_init(self: 'AppTweaks', **kwargs: 'Any') -> None:
 		self.bind_to(
@@ -39,6 +47,23 @@ class AppTweaks(AppBaseABCLike):
 		ActivityInfo = autoclass('android.content.pm.ActivityInfo')
 
 		mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_USER)
+
+
+	def handle_esc_or_back(
+		self: 'AppTweaks', window, key: int,
+		scancode, codepoint, modifier,
+	) -> bool:
+		"""Handle back button press or esc."""
+		print(window, key, scancode, codepoint, modifier)
+		current_screen: 'BaseScreenView' = self.manager_screens.current_screen
+		if key == 27 and current_screen.name != 'main_screen':
+			# FIXME: Use `self.manager_screens.screens` instead..
+			self.manager_screens.current = current_screen.parent_screen
+			# key event consumed by app
+			return True
+
+		# key event passed to OS
+		return False
 
 
 	def set_mobilelike_resolution(self: 'AppTweaks') -> None:
