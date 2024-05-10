@@ -10,7 +10,9 @@ from app.utility.logger import Loggable
 from app.utility.utils import UniteMetas
 from app.View.widgets.single_ins import SingleInstance
 
-if platform == 'android':
+if platform != 'android':
+	from webbrowser import open_new_tab as wb_urlopen
+else:
 	from android import mActivity
 	from jnius import autoclass
 
@@ -108,14 +110,16 @@ class AboutDialog(SingleInstance, Loggable, MDDialog, metaclass=UniteMetas(Logga
 
 
 	def on_text_ref_press(self: 'AboutDialog', ref: str) -> None:
-		# TODO: Open browser..
 		self.log.info('Press ref: %s', ref)
 
 		# TODO: Move into advanced text label itself
-		if platform == 'android':
-			uri_url = Uri.parse(ref)
-			browser_intent = Intent(Intent.ACTION_VIEW, uri_url)
+		if platform != 'android':
+			wb_urlopen(ref)
 
-			mActivity.startActivity(browser_intent)
+			return
 
-			del browser_intent, uri_url
+		uri_url = Uri.parse(ref)
+		browser_intent = Intent(Intent.ACTION_VIEW, uri_url)
+
+		mActivity.startActivity(browser_intent)
+
