@@ -40,8 +40,6 @@ class AppTweaks(AppBaseABCLike):
 
 		mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_USER)
 
-		del ActivityInfo
-
 
 	def set_mobilelike_resolution(self: 'AppTweaks') -> None:
 		"""Set mobile-like resolution for easier tests."""

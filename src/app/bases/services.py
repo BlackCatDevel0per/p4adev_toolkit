@@ -35,7 +35,6 @@ class AppServices(AppBaseABCLike):
 		if platform == 'android':
 			sn: str = f'{self.app_site}.Service{name}'
 			service = autoclass(sn)
-			del sn
 			service.start(mActivity, '')
 			return service
 

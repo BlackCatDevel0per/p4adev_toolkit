@@ -39,7 +39,7 @@ class LibSDL2Image(BootstrapNDKRecipe):
 							'git clone', f'{select_git(allow_cache=True, force_cache=True)} clone',
 						)
 						df.write(data)
-						del data
+
 				shprint(sh.Command("./download.sh"))
 		super().prebuild_arch(arch)
 
