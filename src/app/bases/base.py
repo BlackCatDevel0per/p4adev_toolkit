@@ -39,8 +39,8 @@ class AppBase(MDApp):
 	if platform == 'android':
 		app_site = str(context.getPackageName())
 
-	def __init__(self: 'AppBase', **kwargs: 'Any') -> None:
-		super().__init__(**kwargs)
+	def __init__(self: 'AppBase', *args: 'Any', **kwargs: 'Any') -> None:
+		super().__init__(*args, **kwargs)
 		self.module_directory: str = module_dir
 		self.load_all_kv_files(self.module_directory)
 		# This is the screen manager that will contain all the screens of your
