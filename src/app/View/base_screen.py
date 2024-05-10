@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, StringProperty
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 
@@ -43,6 +43,8 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 	:attr:`manager_screens` is an :class:`~kivy.properties.ObjectProperty`
 	and defaults to `None`.
 	"""
+
+	parent_screen = StringProperty('main_screen')
 
 	def __init__(self: 'BaseScreenView', **kw: 'Any') -> None:
 		super().__init__(**kw)
