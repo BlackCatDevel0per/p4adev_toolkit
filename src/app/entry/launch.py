@@ -27,7 +27,6 @@ class App(AppTweaks, AppConf, AppServices, AppStyle, AppDebug, AppBase):
 
 def run() -> None:
 	"""Run the app."""
-	# TODO: Handle back button press
 	# TODO: Write some info on main screen..
 
 	# TODO: i18n
@@ -37,5 +36,7 @@ def run() -> None:
 	# TODO: Cookiecutter or etc. template
 
 	Config.set('graphics', 'maxfps', '15')
+
+	# Config.set('kivy', 'exit_on_escape', '0')
 
 	App().run()
