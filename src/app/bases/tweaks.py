@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from kivy.config import Config
 from kivy.core.window import Window
 from plyer.utils import platform
 
@@ -26,7 +27,9 @@ class AppTweaks(AppBaseABCLike):
 	def __init__(self: 'AppTweaks', *args: 'Any', **kwargs: 'Any') -> None:
 		super().__init__(*args, **kwargs)
 
-		Window.bind(on_keyboard=self.handle_esc_or_back)
+		# FIXME: Kivy bug (handles from second time)
+		# Window.bind(on_keyboard=self.handle_esc_or_back)
+		Window.bind(on_key_up=self.handle_esc_or_back)
 
 
 	def on_app_init(self: 'AppTweaks', **kwargs: 'Any') -> None:
@@ -34,6 +37,7 @@ class AppTweaks(AppBaseABCLike):
 			{
 				'android_set_handle_native_autorotate': 'on_start',
 				'set_mobilelike_resolution': 'on_start',
+				'disable_esc_exit_on_desktop': 'on_start',
 			},
 		)
 
@@ -51,19 +55,26 @@ class AppTweaks(AppBaseABCLike):
 
 	def handle_esc_or_back(
 		self: 'AppTweaks', window, key: int,
-		scancode, codepoint, modifier,
+		scancode  #, codepoint, modifier,
 	) -> bool:
 		"""Handle back button press or esc."""
-		print(window, key, scancode, codepoint, modifier)
+		# print(window, key, scancode, codepoint, modifier)
 		current_screen: 'BaseScreenView' = self.manager_screens.current_screen
 		if key == 27 and current_screen.name != 'main_screen':
-			# FIXME: Use `self.manager_screens.screens` instead..
 			self.manager_screens.current = current_screen.parent_screen_name
 			# key event consumed by app
 			return True
 
 		# key event passed to OS
 		return False
+
+
+	def disable_esc_exit_on_desktop(self: 'AppTweaks') -> None:
+		"""Disable app exit on esc for desktop platforms."""
+		if platform == 'android':
+			return
+
+		Config.set('kivy', 'exit_on_escape', '0')
 
 
 	def set_mobilelike_resolution(self: 'AppTweaks') -> None:

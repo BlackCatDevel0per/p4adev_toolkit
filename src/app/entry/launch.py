@@ -37,6 +37,4 @@ def run() -> None:
 
 	Config.set('graphics', 'maxfps', '15')
 
-	# Config.set('kivy', 'exit_on_escape', '0')
-
 	App().run()
