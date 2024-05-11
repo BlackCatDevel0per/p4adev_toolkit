@@ -44,7 +44,7 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 	and defaults to `None`.
 	"""
 
-	parent_screen = StringProperty('main_screen')
+	parent_screen_name = StringProperty('main_screen')
 
 	def __init__(self: 'BaseScreenView', **kw: 'Any') -> None:
 		super().__init__(**kw)

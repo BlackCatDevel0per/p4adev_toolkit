@@ -58,7 +58,7 @@ class AppTweaks(AppBaseABCLike):
 		current_screen: 'BaseScreenView' = self.manager_screens.current_screen
 		if key == 27 and current_screen.name != 'main_screen':
 			# FIXME: Use `self.manager_screens.screens` instead..
-			self.manager_screens.current = current_screen.parent_screen
+			self.manager_screens.current = current_screen.parent_screen_name
 			# key event consumed by app
 			return True
 
