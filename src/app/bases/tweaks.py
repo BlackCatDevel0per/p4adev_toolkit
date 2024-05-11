@@ -58,7 +58,6 @@ class AppTweaks(AppBaseABCLike):
 		scancode  #, codepoint, modifier,
 	) -> bool:
 		"""Handle back button press or esc."""
-		# print(window, key, scancode, codepoint, modifier)
 		current_screen: 'BaseScreenView' = self.manager_screens.current_screen
 		if key == 27 and current_screen.name != 'main_screen':
 			self.manager_screens.current = current_screen.parent_screen_name
