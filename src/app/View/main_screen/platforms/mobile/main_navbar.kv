@@ -1,0 +1,69 @@
+# TODO: Make colors based on style & primary..
+<DrawerClickableItem@MDNavigationDrawerItem>
+	focus_color: "#e7e4c0"
+	text_color: "#4a4939"
+	icon_color: "#4a4939"
+	ripple_color: "#c5bdd2"
+	selected_color: "#0c6c4d"
+
+
+<DrawerLabelItem@MDNavigationDrawerItem>
+	text_color: "#4a4939"
+	icon_color: "#4a4939"
+	focus_behavior: False
+	selected_color: "#4a4939"
+	_no_ripple_effect: True
+
+
+# lol, it's finds `MDList` from kv using custom `add_widget`, but fails on include,
+# but all's ok from inhetirated python object.. -_-
+# NOTE: I've tried this too: `<ExtMDNavigationDrawerMenu@MDNavigationDrawerMenu>`
+#:import ExtMDNavigationDrawerMenu app.View.main_screen.platforms.mobile.main_navbar.ExtMDNavigationDrawerMenu
+
+
+<MainNavDrawer@MDNavigationDrawer>
+
+	radius: (0, 8, 8, 0)
+
+	ExtMDNavigationDrawerMenu:
+
+		MDNavigationDrawerHeader
+			id: header
+
+			title: "P4ADev Toolkit"
+			title_font_size: "28sp"
+			title_color: "#4a4939"
+			# text: "Header text"
+			spacing: "4dp"
+			padding: "12dp", 0, 0, "56dp"
+
+		MDNavigationDrawerLabel
+			id: label_view
+			text: "View"
+
+		DrawerClickableItem
+			id: accent_btn
+
+			icon: "brush-variant"
+			text: "Accent"
+
+			on_press: app.switch_accent_style()
+
+		MDNavigationDrawerLabel
+			id: label_app
+			text: "App"
+
+		# TODO: Correctly rename in other places..
+		DrawerClickableItem
+			id: app_settings_btn
+			icon: "cog"
+			text: "Settings"
+
+			on_press: app.manager_screens.current = 'settings_screen'
+
+		DrawerClickableItem
+			id: about_btn
+			icon: "information-slab-circle"
+			text: "About"
+
+			on_press: AboutDialog().open()
