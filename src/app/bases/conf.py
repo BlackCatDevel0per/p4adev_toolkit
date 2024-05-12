@@ -42,6 +42,6 @@ class AppConf(AppBaseABCLike):
 		config.setdefaults(
 			'app',
 			{
-				'docs_dir': '',
+				'docs_path': '',
 			},
 		)

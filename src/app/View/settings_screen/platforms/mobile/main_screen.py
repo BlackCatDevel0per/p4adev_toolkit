@@ -4,9 +4,7 @@ from typing import TYPE_CHECKING
 
 from app.utility.utils import StrCall
 from app.View.base_screen import BaseScreenView
-from kivy.properties import StringProperty
 from kivymd.toast import toast
-from kivymd.uix.relativelayout import MDRelativeLayout
 from plyer.utils import platform
 from PyScopedStorage.filechooser import filechooser
 
@@ -15,11 +13,6 @@ if TYPE_CHECKING:
 
 
 # TODO: Full screen mode & hide status bar & more comfartable read functions..
-
-
-class SecretTextFieldRound(MDRelativeLayout):
-	text = StringProperty()
-	hint_text = StringProperty()
 
 
 class SettingsScreenView(BaseScreenView):
@@ -38,8 +31,8 @@ class SettingsScreenView(BaseScreenView):
 		return not bool(text)
 
 
-	def set_docs_dir_conf(self: 'SettingsScreenView', uri: str) -> None:
-		self.app.config.set('app', 'docs_dir', uri)
+	def set_docs_path_conf(self: 'SettingsScreenView', uri: str) -> None:
+		self.app.config.set('app', 'docs_path', uri)
 
 		self.app.config.write()
 
@@ -55,14 +48,14 @@ class SettingsScreenView(BaseScreenView):
 		if platform != 'android':
 			self.log.debug('Access path: `%s`', uri_or_path)
 			assert isinstance(uri_or_path, str)  # linter plug
-			self.set_docs_dir_conf(uri_or_path)  # TODO: Solve normally -_-
+			self.set_docs_path_conf(uri_or_path)  # TODO: Solve normally -_-
 			return
 
 		self.log.debug('Access SS Uri: %s', StrCall(uri_or_path.toString))
 
 		dir_full_path: str = uri_or_path.toString()
 
-		self.set_docs_dir_conf(dir_full_path)
+		self.set_docs_path_conf(dir_full_path)
 
 
 	def set_scdir(self: 'SettingsScreenView') -> None:
