@@ -1,6 +1,7 @@
 #:import MDExtendedTextField app.View.widgets.ext_txtfield.MDExtendedTextField
 #:import AboutDialog app.View.widgets.about_dialog.AboutDialog
 
+# TODO: Make colors based on style & primary..
 <DrawerClickableItem@MDNavigationDrawerItem>
 	focus_color: "#e7e4c0"
 	text_color: "#4a4939"
@@ -38,6 +39,33 @@
 				id: start_btn
 				anchor_x: 'center'
 				anchor_y: 'center'
+
+				MDScrollView:
+					id: log_view
+					size_hint: .95, .95
+
+					canvas.before:
+						Color:
+							# FIXME: Correctly handle colors..
+							rgba: self.parent.theme_cls.primary_color
+						Line:
+							width: 2
+							rounded_rectangle:
+								self.x, \
+								self.y, \
+								self.width, \
+								self.height, \
+								root.radius[0]
+
+					MDLabel:
+						id: log_label
+						# text: 'data \n'*100
+
+						padding: '5dp'
+						size_hint_y: None
+						height: self.texture_size[1]
+
+						halign: 'left'
 
 				# MDExtendedTextField:
 				# 	id: input_urls
