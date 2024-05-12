@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import os
 from typing import TYPE_CHECKING
 
+from kivy.lang import Builder
+from kivy.logger import Logger
+from kivy.resources import resource_add_path
 from kivy.utils import platform
 from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
@@ -35,6 +39,16 @@ class AppBase(MDApp):
 	_binds: 'BindsType' = None
 	on_app_init: 'Callable[[], Any]'
 
+	# Exclude helpers
+	exclude_kvs: 'tuple[str, ...]' = (
+		# FIXME: Add exclude by full path..
+		# TODO: Add exclude by dir..
+		'main_navbar.kv',
+		'secret_txtfield.kv',
+		'logview.kv',
+		'highlighted_border.kv',
+	)
+
 	app_site: str = ''
 	if platform == 'android':
 		app_site = str(context.getPackageName())
@@ -43,7 +57,10 @@ class AppBase(MDApp):
 		super().__init__(*args, **kwargs)
 
 		self.module_directory: str = module_dir
-		self.load_all_kv_files(self.module_directory)
+		# for include work
+		resource_add_path(self.module_directory)
+		# load kvs
+		self.load_all_kv_files(self.module_directory, self.exclude_kvs)
 		# This is the screen manager that will contain all the screens of your
 		# application.
 		self.manager_screens = MDScreenManager()
@@ -54,6 +71,47 @@ class AppBase(MDApp):
 		for cls in type(self).mro():
 			if hasattr(cls, 'on_app_init'):
 				cls.on_app_init(self, **kwargs)
+
+
+	def load_all_kv_files(
+		self: 'AppBase',
+		path_to_directory: str,
+		exclude_filenames: 'tuple[str] | tuple' = (),
+	) -> None:
+
+		for path_to_dir, dirs, files in os.walk(path_to_directory):
+			# When using the `load_all_kv_files` method, all KV files
+			# from the `KivyMD` library were loaded twice, which leads to
+			# failures when using application built using `PyInstaller`.
+			if "kivymd" in path_to_directory:
+				Logger.critical(
+					"KivyMD: "
+					"Do not use the word 'kivymd' in the name of the directory "
+					"from where you download KV files",
+				)
+			if (
+				"venv" in path_to_dir
+				or
+				".buildozer" in path_to_dir
+				or
+				os.path.join("kivymd") in path_to_dir
+			):
+				continue
+
+			for filename in files:
+				if (
+					os.path.splitext(filename)[1] == ".kv"
+					and
+					filename != "style.kv"  # if use PyInstaller
+					and
+					"__MACOS" not in path_to_dir  # if use Mac OS
+					and
+					filename not in exclude_filenames
+				):
+					path_to_kv_file = os.path.join(path_to_dir, filename)
+					# TODO: Exclude full path in log..
+					Logger.info('kv: Loading "%s"', path_to_kv_file)
+					Builder.load_file(path_to_kv_file)
 
 
 	# TODO: Not recreate set..
