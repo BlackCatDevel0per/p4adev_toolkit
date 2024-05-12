@@ -1,0 +1,18 @@
+<HighlightedBorderWidget@Widget>
+	border_color: 0, 0, 0, 1
+	border_radius: 5
+	border_width: 2
+
+	canvas.before:
+		Color:
+			# FIXME: Correctly handle colors..
+			rgba: self.border_color
+		# SmoothLine:
+		Line:
+			width: self.border_width
+			rounded_rectangle:
+				self.x, \
+				self.y, \
+				self.width, \
+				self.height, \
+				self.border_radius

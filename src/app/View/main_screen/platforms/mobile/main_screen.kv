@@ -1,23 +1,9 @@
 #:import MDExtendedTextField app.View.widgets.ext_txtfield.MDExtendedTextField
 #:import AboutDialog app.View.widgets.about_dialog.AboutDialog
 
-# TODO: Make colors based on style & primary..
-<DrawerClickableItem@MDNavigationDrawerItem>
-	focus_color: "#e7e4c0"
-	text_color: "#4a4939"
-	icon_color: "#4a4939"
-	ripple_color: "#c5bdd2"
-	selected_color: "#0c6c4d"
+#:include View/main_screen/platforms/mobile/main_navbar.kv
+#:include View/widgets/logview.kv
 
-
-<DrawerLabelItem@MDNavigationDrawerItem>
-	text_color: "#4a4939"
-	icon_color: "#4a4939"
-	focus_behavior: False
-	selected_color: "#4a4939"
-	_no_ripple_effect: True
-
-# TODO: About ui & some things..
 
 <MainScreenView>
 
@@ -29,107 +15,28 @@
 			id: main_bar
 			# title: "MDTopAppBar"
 			left_action_items:
-				[["menu", lambda x: main_naw_drawer.set_state("open")]]
+				[["menu", lambda x: main_nav_drawer.set_state("open")]]
 
 		MDBoxLayout:
 			id: main_bl_startup_tools
 			orientation: "vertical"
 
 			MDAnchorLayout:
-				id: start_btn
+				id: tools
 				anchor_x: 'center'
 				anchor_y: 'center'
 
-				MDScrollView:
+				MDLogView:
 					id: log_view
-					size_hint: .95, .95
+					# text: 'data\n'*100
 
-					canvas.before:
-						Color:
-							# FIXME: Correctly handle colors..
-							rgba: self.parent.theme_cls.primary_color
-						Line:
-							width: 2
-							rounded_rectangle:
-								self.x, \
-								self.y, \
-								self.width, \
-								self.height, \
-								root.radius[0]
+					border_color: self.parent.theme_cls.primary_color
 
-					MDLabel:
-						id: log_label
-						# text: 'data \n'*100
+				# TODO: Startup check if `docs_path` exists & available permission
+				# TODO: Checkboxes for: read, write
+				# TODO: Mode text input (with validation by category - read, write)
+				# TODO: Data text input on write checkbox
+				# TODO: Execute button.. (raised, flat or etc.)
 
-						padding: '5dp'
-						size_hint_y: None
-						height: self.texture_size[1]
-
-						halign: 'left'
-
-				# MDExtendedTextField:
-				# 	id: input_urls
-
-				# 	size_hint: (0.7, 0.8)
-				# 	multiline: True
-				# 	# required: True
-				# 	mode: "rectangle"
-				# 	hint_text: "Urls"
-
-				# 	def_helper_text: 'Paste Galleries urls list separated by "," or newline.'
-				# 	helper_text: self.def_helper_text
-				# 	helper_text_mode: "on_focus"
-
-				# 	# TODO: Set error if incorrect input.. & urls list validator
-				# 	validator: root.text_input_validate
-				# 	# on_text_validate: self.error = True
-				# 	# on_focus: self.error = True
-
-				# TODO: Archive checkbox
-				# TODO: Some other options..
-
-		# NOTE: Remove!
-		# MDRaisedButton:
-		# 	size_hint: (0.08, 0.09)
-		# 	text: "TEST"
-
-		# 	on_release:
-		# 		[setattr(cr, 'text', 'blah..') for cr in root.data_table.table_data.ids.row_controller.children]
-
-	MDNavigationDrawer:
-		id: main_naw_drawer
-		radius: (0, 8, 8, 0)
-
-		MDNavigationDrawerMenu:
-
-			MDNavigationDrawerHeader:
-				title: "P4ADev Toolkit"
-				title_font_size: "28sp"
-				title_color: "#4a4939"
-				# text: "Header text"
-				spacing: "4dp"
-				padding: "12dp", 0, 0, "56dp"
-
-			MDNavigationDrawerLabel:
-				text: "View"
-
-			DrawerClickableItem:
-				icon: "brush-variant"
-				text: "Accent"
-
-				on_press: app.switch_accent_style()
-
-			MDNavigationDrawerLabel:
-				text: "App"
-
-			DrawerClickableItem:
-				icon: "cog"
-				text: "Settings"
-
-				on_press: root.manager_screens.current = 'settings_screen'
-
-			DrawerClickableItem:
-				icon: "information-slab-circle"
-				text: "About"
-
-				on_press: AboutDialog().open()
+	MainNavDrawer:
+		id: main_nav_drawer

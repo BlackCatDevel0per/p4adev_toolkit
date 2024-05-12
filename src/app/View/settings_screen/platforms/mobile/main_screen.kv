@@ -1,29 +1,7 @@
 #:import MDExtendedTextField app.View.widgets.ext_txtfield.MDExtendedTextField
 
-<SecretTextFieldRound>:
-	size_hint_y: None
-	height: text_field.height
 
-	text: text_field.text
-	validator: None
-
-	MDExtendedTextField:
-		id: text_field
-		hint_text: root.hint_text
-		text: root.text
-		password: True
-		icon_left: "key-variant"
-		validator: root.validator
-
-	MDIconButton:
-		icon: "eye-off"
-		pos_hint: {"center_y":  .5}
-		pos: text_field.width - self.width + dp(8), 0
-		theme_text_color: "Hint"
-		on_release:
-			self.icon = "eye" if self.icon == "eye-off" else "eye-off"
-			text_field.password = not text_field.password
-
+# TODO: Move to helper & make separate dir for kv helpers..
 <ButtonWithLabel@MDBoxLayout>:
 	size_hint_y: None
 	width: btn.width
@@ -31,7 +9,8 @@
 	orientation: 'horizontal'
 
 	btn_text: 'Button'
-	btn_on_press: None
+	btn_on_press: lambda: None
+	btn_on_release: lambda: None
 
 	label_text: 'Label'
 
@@ -40,6 +19,7 @@
 		text: root.btn_text
 
 		on_press: root.btn_on_press()
+		on_release: root.btn_on_release()
 
 	# Spacer
 	MDBoxLayout:
@@ -65,6 +45,7 @@
 		MDTopAppBar:
 			id: main_bar
 			# title: "Settings"  # FIXME: Wrong position..
+			# TODO: Set icon near title for ux..
 			# TODO: Change screen animation..
 			# TODO: Warnings if unsaved changes..
 			# FIXME: Handle back btn press..
@@ -86,28 +67,13 @@
 			# 	# pos_hint: {"center_x": .5, "center_y": .5}
 			# 	pos_hint: {"center_x": .5}
 
-			# SecretTextFieldRound:
-			# 	id: input_client_secret
-			# 	width: "600dp"
-			# 	hint_text: "client secret"
-			# 	text: app.config.get('app', 'client_secret')
-			# 	validator: root._validate_app_client_secret
-			# 	# pos_hint: {"center_x": .5, "center_y": .5}
-			# 	pos_hint: {"center_x": .5}
-
-			# TODO: Mature content checkbox..
-			# TODO: Requests delay num set
-			# TODO: Filenaming section
-			# TODO: Mb better use some widgets under the text field (hide under some layout..)
-			# TODO: Localization using i18n..
-
 			ButtonWithLabel:
-				id: main_bl_startup_tools_set_docs_dir_tool
+				id: main_bl_startup_tools_set_docs_path_tool
 				
-				btn_text: 'Set docs dir'
-				##
-				label_text: app.config.get('app', 'docs_dir')
-				# label_text: app.config.get('app', 'docs_dir').split('/')[-1]
+				btn_text: 'Set docs path'
+				# TODO: Show scheme from uri.. or short it using any ways..
+				# TODO: Update label with function callback..
+				label_text: app.config.get('app', 'docs_path')
 
 				btn_on_press: root.set_scdir
 

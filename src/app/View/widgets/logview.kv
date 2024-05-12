@@ -1,0 +1,24 @@
+#:include View/widgets/highlighted_border.kv
+
+<MDLogViewBase@MDScrollView>
+	size_hint: .95, .95
+
+	text: ''
+
+	MDLabel:
+		id: log_label
+		text: root.text
+
+		# TODO: Some other props to root..
+
+		padding: '5dp'
+		size_hint_y: None
+		height: self.texture_size[1]
+
+		halign: 'left'
+
+
+# TODO: Unite classes using add_widget handle..?
+<MDLogViewNoBorder@MDLogViewBase>
+
+<MDLogView@MDLogViewBase+HighlightedBorderWidget>
