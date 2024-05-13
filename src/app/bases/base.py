@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-import os
+from os import walk as os_walk_dir
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 from kivy.lang import Builder
@@ -79,36 +80,36 @@ class AppBase(MDApp):
 		exclude_filenames: 'tuple[str] | tuple' = (),
 	) -> None:
 
-		for path_to_dir, dirs, files in os.walk(path_to_directory):
+		for path_to_dir, _, files in os_walk_dir(path_to_directory):
 			# When using the `load_all_kv_files` method, all KV files
 			# from the `KivyMD` library were loaded twice, which leads to
 			# failures when using application built using `PyInstaller`.
-			if "kivymd" in path_to_directory:
+			if 'kivymd' in path_to_directory:
 				Logger.critical(
 					"KivyMD: "
 					"Do not use the word 'kivymd' in the name of the directory "
 					"from where you download KV files",
 				)
-			if (
-				"venv" in path_to_dir
-				or
-				".buildozer" in path_to_dir
-				or
-				os.path.join("kivymd") in path_to_dir
+
+			if any(
+				(
+					'venv' in path_to_dir,
+					'.buildozer' in path_to_dir,
+					'kivymd' in path_to_dir,
+				),
 			):
 				continue
 
 			for filename in files:
-				if (
-					os.path.splitext(filename)[1] == ".kv"
-					and
-					filename != "style.kv"  # if use PyInstaller
-					and
-					"__MACOS" not in path_to_dir  # if use Mac OS
-					and
-					filename not in exclude_filenames
+				if all(
+					(
+						Path(filename).suffix == '.kv',
+						filename != 'style.kv',  # if use PyInstaller
+						'__MACOS' not in path_to_dir,  # if use Mac OS
+						filename not in exclude_filenames,
+					),
 				):
-					path_to_kv_file = os.path.join(path_to_dir, filename)
+					path_to_kv_file: str = str(Path(path_to_dir, filename))
 					# TODO: Exclude full path in log..
 					Logger.info('kv: Loading "%s"', path_to_kv_file)
 					Builder.load_file(path_to_kv_file)
