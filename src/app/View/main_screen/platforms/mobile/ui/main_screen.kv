@@ -5,6 +5,12 @@
 #:include View/widgets/ui/logview.kv
 
 
+<ModeSelection@MDCheckbox>
+	group: 'group'
+	size_hint: None, None
+	size: dp(48), dp(48)
+
+
 <MainScreenView>
 
 	MDBoxLayout:
@@ -21,22 +27,34 @@
 			id: main_bl_startup_tools
 			orientation: "vertical"
 
-			MDAnchorLayout:
-				id: tools
-				anchor_x: 'center'
-				anchor_y: 'center'
+			# FIXME: Property issues on multiple widgets..
+			# MDLogView:
+			MDLogView:
+				id: log_view
+				# text: 'data\n'*100
 
-				MDLogView:
-					id: log_view
-					# text: 'data\n'*100
+				border_color: self.parent.theme_cls.primary_color
 
-					border_color: self.parent.theme_cls.primary_color
+			# TODO: Startup check if `docs_path` exists & available permission
+			# TODO: Checkboxes for: read, write
+			MDBoxLayout:
+				id: rw_checkboxes
+				orientation: "horizontal"
 
-				# TODO: Startup check if `docs_path` exists & available permission
-				# TODO: Checkboxes for: read, write
-				# TODO: Mode text input (with validation by category - read, write)
-				# TODO: Data text input on write checkbox
-				# TODO: Execute button.. (raised, flat or etc.)
+				# TODO: Checkbox with.. label?
+				ModeSelection:
+					id: read
+
+					active: True
+					# text: "read"
+
+				ModeSelection:
+					id: write
+					# text: "write"
+
+			# TODO: Mode text input (with validation by category - read, write)
+			# TODO: Data text input on write checkbox
+			# TODO: Execute button.. (raised, flat or etc.)
 
 	MainNavDrawer:
 		id: main_nav_drawer
