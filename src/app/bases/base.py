@@ -113,7 +113,9 @@ class AppBase(MDApp):
 			for epath in exclude_paths:
 				if any(
 					(
+						# Exclude filename
 						(len(epath.parents) == 1 and str(epath) == filepath_relative.name),
+						# Exclude relative path (directory or file)
 						(len(epath.parents) > 1 and (
 							epath == filepath_relative or epath in filepath_relative.parents)),
 					),
