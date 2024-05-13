@@ -1,18 +1,25 @@
-<HighlightedBorderWidget@Widget>
+# Helper class with params for HighlightedBorderWidgetBase class
+<HighlightedBorderWidgetParams@Widget>
 	border_color: 0, 0, 0, 1
 	border_radius: 5
 	border_width: 2
 
+# Widget with highlighted border
+<HighlightedBorderWidgetBase@HighlightedBorderWidgetParams>
 	canvas.before:
 		Color:
 			# FIXME: Correctly handle colors..
-			rgba: self.border_color
+			rgba: root.border_color
 		# SmoothLine:
 		Line:
-			width: self.border_width
+			width: root.border_width
 			rounded_rectangle:
 				self.x, \
 				self.y, \
 				self.width, \
 				self.height, \
-				self.border_radius
+				root.border_radius
+
+
+# Alias class
+<HighlightedBorderWidget@HighlightedBorderWidgetBase>

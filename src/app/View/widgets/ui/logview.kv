@@ -1,10 +1,13 @@
 #:include View/widgets/ui/highlighted_border.kv
 
-<MDLogViewBase@MDScrollView>
-	size_hint: .95, .95
 
+# TODO: Make other base class for params
+# Log widget helper class with params
+<MDLogViewParams@Widget>
 	text: ''
 
+# Log widget itself
+<MDLogViewBase@MDScrollView+MDLogViewParams>
 	MDLabel:
 		id: log_label
 		text: root.text
@@ -18,7 +21,40 @@
 		halign: 'left'
 
 
-# TODO: Unite classes using add_widget handle..?
-<MDLogViewNoBorder@MDLogViewBase>
+# Log widget highlighted
+<MDLogViewBaseBordered@MDLogViewBase+HighlightedBorderWidgetBase>
 
-<MDLogView@MDLogViewBase+HighlightedBorderWidget>
+
+<MDLogViewCentralizedParams@Widget>
+	anchor_x: 'center'
+	anchor_y: 'center'
+
+# TODO: Make this stuff automatically.. (bind params, extra widgets mixing..)
+# Log widget itself, inside anchor layout
+<MDLogViewCentralized@MDAnchorLayout+MDLogViewCentralizedParams+MDLogViewParams>
+	MDLogViewBase:
+		size_hint: .95, .95
+
+		# bind params
+		text: root.text
+
+
+# TODO: Try to update attrs by ids..
+# Log widget highlighted, inside anchor layout
+<MDLogViewCentralizedBordered@MDAnchorLayout+MDLogViewCentralizedParams+MDLogViewParams+HighlightedBorderWidgetParams>
+	MDLogViewBaseBordered:
+		size_hint: .95, .95
+
+		# bind params
+		text: root.text
+
+		border_color: root.border_color
+		border_radius: root.border_radius
+		border_width: root.border_width
+
+
+# TODO: Unite classes using add_widget handle..?
+# Alias classes
+<MDLogViewNoBorder@MDLogViewCentralized>
+
+<MDLogView@MDLogViewCentralizedBordered>
