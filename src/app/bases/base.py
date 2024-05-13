@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from os import walk as os_walk_dir
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -40,14 +39,21 @@ class AppBase(MDApp):
 	_binds: 'BindsType' = None
 	on_app_init: 'Callable[[], Any]'
 
-	# Exclude helpers
+	# Exclude helpers (filename, relative path, dirname)
 	exclude_kvs: 'tuple[str, ...]' = (
-		# FIXME: Add exclude by full path..
-		# TODO: Add exclude by dir..
-		'main_navbar.kv',
-		'secret_txtfield.kv',
-		'logview.kv',
-		'highlighted_border.kv',
+		# app
+		'View/main_screen/platforms/mobile/main_navbar.kv',
+		'View/widgets',
+
+		# default
+		'kivymd',
+		'.buildozer',
+		'.venv',
+		'venv',
+
+		'__MACOS',
+		'__MACOSX',
+		'style.kv',
 	)
 
 	app_site: str = ''
@@ -77,42 +83,51 @@ class AppBase(MDApp):
 	def load_all_kv_files(
 		self: 'AppBase',
 		path_to_directory: str,
-		exclude_filenames: 'tuple[str] | tuple' = (),
+		excludes: 'tuple[str, ...] | tuple' = (),
 	) -> None:
+		exclude_paths: 'tuple[Path, ...] | tuple' = tuple(Path(path) for path in excludes)
 
-		for path_to_dir, _, files in os_walk_dir(path_to_directory):
+		search_path = Path(path_to_directory)
+		# Filter only kv
+		for filepath in search_path.rglob('**/*.kv'):
+			path_to_dir = Path(filepath).parent
+			# Convert to relative for easier comparison
+			path_to_dir_relative: Path = Path(path_to_dir).relative_to(path_to_directory)
+			filepath_relative: Path = filepath.relative_to(path_to_directory)
+			del path_to_dir, filepath
+
+			# Stuff from standard load:
+
 			# When using the `load_all_kv_files` method, all KV files
 			# from the `KivyMD` library were loaded twice, which leads to
 			# failures when using application built using `PyInstaller`.
-			if 'kivymd' in path_to_directory:
+			if 'kivymd' in path_to_dir_relative.parents:
 				Logger.critical(
 					"KivyMD: "
 					"Do not use the word 'kivymd' in the name of the directory "
 					"from where you download KV files",
 				)
 
-			if any(
-				(
-					'venv' in path_to_dir,
-					'.buildozer' in path_to_dir,
-					'kivymd' in path_to_dir,
-				),
-			):
-				continue
-
-			for filename in files:
-				if all(
+			# Exclude filter
+			is_excluded = False
+			for epath in exclude_paths:
+				if any(
 					(
-						Path(filename).suffix == '.kv',
-						filename != 'style.kv',  # if use PyInstaller
-						'__MACOS' not in path_to_dir,  # if use Mac OS
-						filename not in exclude_filenames,
+						(len(epath.parents) == 1 and str(epath) == filepath_relative.name),
+						(len(epath.parents) > 1 and (
+							epath == filepath_relative or epath in filepath_relative.parents)),
 					),
 				):
-					path_to_kv_file: str = str(Path(path_to_dir, filename))
-					# TODO: Exclude full path in log..
-					Logger.info('kv: Loading "%s"', path_to_kv_file)
-					Builder.load_file(path_to_kv_file)
+					is_excluded = True
+					break
+
+			if is_excluded:
+				Logger.info('kv: Excluded "%s"', str(filepath_relative))
+				continue
+
+			path_to_kv_file: str = str(filepath_relative)
+			Logger.info('kv: Loading "%s"', path_to_kv_file)
+			Builder.load_file(path_to_kv_file)
 
 
 	# TODO: Not recreate set..
