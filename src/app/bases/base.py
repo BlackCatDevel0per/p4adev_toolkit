@@ -42,8 +42,8 @@ class AppBase(MDApp):
 	# Exclude helpers (filename, relative path, dirname)
 	exclude_kvs: 'tuple[str, ...]' = (
 		# app
-		'View/main_screen/platforms/mobile/main_navbar.kv',
-		'View/widgets',
+		'View/main_screen/platforms/mobile/ui/main_navbar.kv',
+		'View/widgets/ui',
 
 		# default
 		'kivymd',
