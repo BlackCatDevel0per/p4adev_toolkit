@@ -1,0 +1,65 @@
+#:include View/widgets/ui/highlighted_border.kv
+
+# Selection with text label
+<LabledSelection@ButtonBehavior+BoxLayout+HighlightedBorderWidget>
+	orientation: "horizontal"
+
+	text: ''
+
+	on_press: selection_checkbox._do_press()
+
+	group: 'group'
+
+	MDAnchorLayout:
+		id: checkbox_anchor
+
+		anchors: "center"
+
+		MDCheckbox:
+			id: selection_checkbox
+			group: root.group
+			size_hint: None, None
+			size: dp(48), dp(48)
+
+	MDAnchorLayout:
+		id: label_anchor
+
+		anchors: "center"
+
+		MDLabel:
+			id: text_label
+
+			text: root.text
+
+			size_hint_x: None
+			size_hint_y: None
+
+	MDBoxLayout:
+		id: spacer
+
+		size_hint_x: None
+
+
+# <ModeSelection@LabledSelection>
+# 	size_hint_y: .30
+
+
+<ModeSelection@HighlightedBorderWidget>
+	size_hint_y: .30
+
+
+<SelectMode@MDBoxLayout+HighlightedBorderWidget>
+	orientation: "horizontal"
+
+	height: self.minimum_height
+	# size_hint_y: .50
+	border_color: 0, 1, 0, 1
+
+	ModeSelection:
+		id: read
+		active: True
+		text: "read"
+
+	ModeSelection:
+		id: write
+		text: "write"
