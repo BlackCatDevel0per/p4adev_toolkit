@@ -31,18 +31,28 @@
 				# FIXME: Mb better use app's theme class directly to choose color?
 				border_color: self.parent.theme_cls.primary_color
 
+			# cleanable layout for field widget
+			MDAnchorLayout:
+				id: layout_write_txtfield
+
+				# There will be text input
+
 			# TODO: Startup check if `docs_path` exists & available permission
 			# TODO: Checkboxes for: read, write
 			SelectMode:
 				id: rw_checkboxes
 				size_hint_y: .15
 
-			MDBoxLayout:
-				size_hint_x: None
+				# FIXME: Make read uncheckable & design && handle it
+				read_on_active: root.controller.selection_on_read_active
 
 			# TODO: Mode text input (with validation by category - read, write)
 			# TODO: Data text input on write checkbox
 			# TODO: Execute button.. (raised, flat or etc.)
+
+			# Spacer
+			MDBoxLayout:
+				size_hint_x: None
 
 	MainNavDrawer:
 		id: main_nav_drawer

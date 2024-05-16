@@ -5,10 +5,13 @@
 	orientation: "horizontal"
 
 	text: ''
+	active: False
+	state_active: lambda ch, val: None
 
 	on_press: selection_checkbox._do_press()
 
-	group: 'group'
+	# NOTE: Don't forget to est group in other widgets!
+	group: 'select_rw'
 
 	MDAnchorLayout:
 		id: checkbox_anchor
@@ -20,6 +23,10 @@
 			group: root.group
 			size_hint: None, None
 			size: dp(48), dp(48)
+
+			label_text: root.text
+			active: root.active
+			on_active: root.state_active(*args)
 
 	MDAnchorLayout:
 		id: label_anchor
@@ -46,18 +53,35 @@
 	border_color: self.parent.theme_cls.divider_color
 	border_width: 1
 
+	read_on_active: lambda ch, val: None
+	write_on_active: lambda ch, val: None
+
 	LabledSelection:
 		id: read
 		active: True
 		text: "read"
 
+		state_active: root.read_on_active
+
 	LabledSelection:
 		id: write
 		text: "write"
+
+		state_active: root.write_on_active
 
 
 <SelectMode@MDAnchorLayout>
 	anchors: "center"
 
+	read_on_active: lambda ch, val: None
+	write_on_active: lambda ch, val: None
+
+	read_checkbox: mode_box.ids.read
+	write_checkbox: mode_box.ids.write
+
 	ModeBox:
+		id: mode_box
 		size_hint: .95, .95
+
+		read_on_active: root.read_on_active
+		write_on_active: root.write_on_active
