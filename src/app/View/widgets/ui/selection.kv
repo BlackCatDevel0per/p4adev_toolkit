@@ -3,18 +3,23 @@
 <LabledSelectionParams@Widget>
 	text: ''
 	active: False
+	# like radio button
+	allow_no_selection: False
 	chbx_active: lambda ch, val: None
 	chbx_state: lambda ch, val: None
 
 
+<ButtonLabel@ButtonBehavior+MDLabel>
+
+
 # Selection with text label
-<LabledSelection@ButtonBehavior+BoxLayout+LabledSelectionParams>
+<LabledSelection@BoxLayout+LabledSelectionParams>
 	orientation: "horizontal"
 
-	on_press: selection_checkbox._do_press()
-
 	# NOTE: Don't forget to set group in other widgets!
-	group: 'select_rw'
+	group: 'root'
+
+	chbx_do_press: selection_checkbox.external_press
 
 	MDCheckbox:
 		id: selection_checkbox
@@ -24,13 +29,18 @@
 
 		label_text: root.text
 		active: root.active
+		allow_no_selection: root.allow_no_selection
+		# FIXME: Strange press animation..
+		external_press: self._do_press
 		on_active: root.chbx_active(*args)
 		on_state: root.chbx_state(*args)
 
-	MDLabel:
+	ButtonLabel:
 		id: text_label
 
 		text: root.text
+
+		on_press: selection_checkbox.external_press()
 
 		pos_hint: {"center_y": .5}
 
@@ -50,6 +60,7 @@
 
 	LabledSelection:
 		id: read
+		group: 'select_rw'
 		active: True
 		text: "read"
 
@@ -58,6 +69,7 @@
 
 	LabledSelection:
 		id: write
+		group: 'select_rw'
 		text: "write"
 
 		chbx_active: root.write_on_active
@@ -67,8 +79,8 @@
 <SelectMode@MDAnchorLayout+ModeBoxParams>
 	anchors: "center"
 
-	read_checkbox: mode_box.ids.read
-	write_checkbox: mode_box.ids.write
+	read_selection: mode_box.ids.read
+	write_selection: mode_box.ids.write
 
 	ModeBox:
 		id: mode_box

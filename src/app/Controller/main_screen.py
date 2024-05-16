@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.textfield import MDTextField
 
 from app.Controller.base_controller import BaseController
@@ -11,7 +12,6 @@ if TYPE_CHECKING:
 	from typing import Any
 
 	from kivymd.uix.anchorlayout import MDAnchorLayout
-	from kivymd.uix.selectioncontrol import MDCheckbox
 
 	from app.Model.main_screen import MainScreenModel
 
@@ -40,8 +40,9 @@ class MainScreenController(BaseController):
 		# get object by usually ref
 		self.model.write_txtfield = MDTextField()
 
-		read_checkbox: 'MDCheckbox' = self.view.ids.rw_checkboxes.read_checkbox.ids.selection_checkbox
-		self.selection_on_read_active(read_checkbox, read_checkbox.active)
+		read_selection: 'MDCheckbox' = self.view.ids.rw_checkboxes.\
+			read_selection.ids.selection_checkbox
+		self.selection_on_read_active(read_selection, read_selection.active)
 
 
 	def selection_on_read_active(
@@ -53,8 +54,9 @@ class MainScreenController(BaseController):
 
 		if checkbox.group != 'select_rw':
 			self.log.warning(
-				'Widget SM: Callback was called by incorrect widget `%s`, must be `SelectMode`.read_checkbox',
-				checkbox.group,
+				'Widget SM: Callback was called by incorrect widget `%s`, '
+				'must be `SelectMode`.{read,write}_checkbox',
+				checkbox,
 			)
 
 		if value:
