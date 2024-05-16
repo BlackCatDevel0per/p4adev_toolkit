@@ -163,6 +163,7 @@ class AppBase(MDApp):
 		architecture.
 		"""
 		# FIXME: DRYS..
+		# TODO: More annotate..
 		screen: 'ScreenParams'
 		for screen_name, screen in screens.items():
 			model = screen['model']()
@@ -170,6 +171,7 @@ class AppBase(MDApp):
 			view: BaseScreenView = controller.view
 
 			# TODO: Use other way to set these properties..
+			##
 			view.manager_screens = self.manager_screens
 			view.name = screen_name
 			self.manager_screens.add_widget(view)

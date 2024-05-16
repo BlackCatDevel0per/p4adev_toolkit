@@ -7,7 +7,7 @@ from app.utility.logger import Loggable
 if TYPE_CHECKING:
 	from typing import Any
 
-	from app.Model.main_screen import MainScreenModel
+	from app.Model.base_model import BaseScreenModel
 	from app.View.base_screen import BaseScreenView
 
 
@@ -21,10 +21,10 @@ class BaseController(Loggable):
 
 	_view: 'BaseScreenView'
 
-	def __init__(self: 'BaseController', model: 'MainScreenModel') -> None:
+	def __init__(self: 'BaseController', model: 'BaseScreenModel') -> None:
 		self._check_props()
 
-		self.model: 'MainScreenModel' = model
+		self.model: 'BaseScreenModel' = model
 
 
 	def __post_init__(self: 'BaseController') -> None:
@@ -57,5 +57,3 @@ class BaseController(Loggable):
 	def view(self: 'BaseController') -> 'BaseScreenView':
 		"""Controller's view."""
 		return self._view
-
-# BaseController(123)

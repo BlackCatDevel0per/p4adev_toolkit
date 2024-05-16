@@ -13,6 +13,12 @@ from app.utility.utils import UniteMetas
 if TYPE_CHECKING:
 	from typing import Any
 
+	from kivymd.uix.screenmanager import ScreenManager
+
+	from app.Controller.base_controller import BaseController
+	from app.entry.launch import App
+	from app.Model.base_controller import BaseModel
+
 
 class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen, Loggable)):
 	"""A base class that implements a visual representation of the model data.
@@ -20,7 +26,8 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 	The view class must be inherited from this class.
 	"""
 
-	controller = ObjectProperty()
+	# TODO: Better annotate kivy properties..
+	controller: 'BaseController' = ObjectProperty()
 	"""
 	controller object - :class:`~controller.controller_screen.ClassScreenControler`.
 
@@ -28,7 +35,7 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 	and defaults to `None`.
 	"""
 
-	model = ObjectProperty()
+	model: 'BaseModel' = ObjectProperty()
 	"""
 	model object - :class:`~model.model_screen.ClassScreenModel`.
 
@@ -36,7 +43,7 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 	and defaults to `None`.
 	"""
 
-	manager_screens = ObjectProperty()
+	manager_screens: 'ScreenManager' = ObjectProperty()
 	"""
 	Screen manager object - :class:`~kivymd.uix.screenmanager.MDScreenManager`.
 
@@ -44,13 +51,13 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 	and defaults to `None`.
 	"""
 
-	parent_screen_name = StringProperty('main_screen')
+	parent_screen_name: str = StringProperty('main_screen')
 
 	def __init__(self: 'BaseScreenView', **kw: 'Any') -> None:
 		super().__init__(**kw)
 		# Often you need to get access to the application object from the view
 		# class. You can do this using this attribute.
-		self.app = MDApp.get_running_app()
+		self.app: 'App' = MDApp.get_running_app()
 		# Adding a view class as observer.
 		self.model.add_observer(self)
 
