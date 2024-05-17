@@ -10,7 +10,7 @@ from kivy.utils import platform
 from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 
-from app import module_dir
+from app import APP_CONF_PATH, module_dir
 from app.View.screens import screens
 
 if platform == 'android':
@@ -59,6 +59,8 @@ class AppBase(MDApp):
 	app_site: str = ''
 	if platform == 'android':
 		app_site = str(context.getPackageName())
+
+	app_conf_path: str = APP_CONF_PATH
 
 	def __init__(self: 'AppBase', *args: 'Any', **kwargs: 'Any') -> None:
 		super().__init__(*args, **kwargs)

@@ -17,7 +17,7 @@ class AppConf(AppBaseABCLike):
 		default_path: str = str(
 			Path(
 				os_env.get(
-					'ANDROID_APP_PATH',
+					'ANDROID_APP_CONF_PATH',  # FIXME: Check platform..
 					Path.cwd(),
 				),
 				'config.ini',
