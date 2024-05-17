@@ -321,7 +321,8 @@ android.archs = arm64-v8a
 android.allow_backup = True
 
 # (str) XML file for custom backup rules (see official auto backup documentation)
-# android.backup_rules =
+# See: https://developer.android.com/guide/topics/data/autobackup#include-exclude-android-11
+android.backup_rules = src/android_conf/backup_rules.xml
 
 # (str) If you need to insert variables into your AndroidManifest.xml file,
 # you can do so with the manifestPlaceholders property.
