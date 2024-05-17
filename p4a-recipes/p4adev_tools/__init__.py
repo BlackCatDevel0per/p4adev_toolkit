@@ -10,8 +10,8 @@ from p4adev_recipes.recipe.no_setup_pypi_recipe import NoSetupPyPiRecipe
 
 
 class P4ADevToolsRecipe(NoSetupPyPiRecipe):
-	version = 'v0.0.2'
-	url = 'https://files.pythonhosted.org/packages/5c/a7/425b81a53dd7de59bfaecb6976d987b381ec80d018fdf7f5cbd09bdf7dbf/p4adev_tools-0.0.2-py3-none-any.whl'
+	version = 'v0.0.3'
+	url = 'https://files.pythonhosted.org/packages/cd/25/d9105a3fcaec2cb42c66375ccf83b0249fe558f9dcb1f6b734112b24917b/p4adev_tools-0.0.3-py3-none-any.whl'
 
 	depends: ClassVar[list[str]] = [
 		'pyftpdlib',
