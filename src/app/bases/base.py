@@ -39,6 +39,7 @@ class AppBase(MDApp):
 	_binds: 'BindsType' = None
 	on_app_init: 'Callable[[], Any]'
 
+	# TODO: Move into the external module
 	# Exclude helpers (filename, relative path, dirname)
 	exclude_kvs: 'tuple[str, ...]' = (
 		# app
@@ -56,6 +57,15 @@ class AppBase(MDApp):
 		'style.kv',
 	)
 
+	force_include_kvs: 'tuple[str, ...]' = (
+		'View/widgets/ui/override',
+		'View/widgets/ui/textinput.kv',
+	)
+
+	unload_kvs: 'tuple[str, ...]' = (
+		# str(Path(uix_path, 'some', 'style.kv')),
+	)
+
 	app_site: str = ''
 	if platform == 'android':
 		app_site = str(context.getPackageName())
@@ -68,8 +78,15 @@ class AppBase(MDApp):
 		self.module_directory: str = module_dir
 		# for include work
 		resource_add_path(self.module_directory)
+		# unload some kvs
+		# TODO: Move to method..
+		fn = None
+		for fn in self.unload_kvs:
+			Logger.info('kv: Unloading: %s', fn)
+			Builder.unload_file(fn)
+		del fn
 		# load kvs
-		self.load_all_kv_files(self.module_directory, self.exclude_kvs)
+		self.load_all_kv_files(self.module_directory, self.exclude_kvs, self.force_include_kvs)
 		# This is the screen manager that will contain all the screens of your
 		# application.
 		self.manager_screens = MDScreenManager()
@@ -86,8 +103,10 @@ class AppBase(MDApp):
 		self: 'AppBase',
 		path_to_directory: str,
 		excludes: 'tuple[str, ...] | tuple' = (),
+		force_includes: 'tuple[str, ...] | tuple' = (),
 	) -> None:
 		exclude_paths: 'tuple[Path, ...] | tuple' = tuple(Path(path) for path in excludes)
+		force_include_paths: 'tuple[Path, ...] | tuple' = tuple(Path(path) for path in force_includes)
 
 		search_path = Path(path_to_directory)
 		# Filter only kv
@@ -105,13 +124,14 @@ class AppBase(MDApp):
 			# failures when using application built using `PyInstaller`.
 			if 'kivymd' in path_to_dir_relative.parents:
 				Logger.critical(
-					"KivyMD: "
+					'KivyMD: '
 					"Do not use the word 'kivymd' in the name of the directory "
-					"from where you download KV files",
+					'from where you download KV files',
 				)
 
 			# Exclude filter
-			is_excluded = False
+			is_excluded: bool = False
+			epath = None
 			for epath in exclude_paths:
 				if any(
 					(
@@ -124,10 +144,33 @@ class AppBase(MDApp):
 				):
 					is_excluded = True
 					break
+			del epath
+
+			# TODO: Unite..
+			# Force include filter
+			is_force_included: bool = False
+			ipath = None
+			for ipath in force_include_paths:
+				if any(
+					(
+						# Include filename
+						(len(ipath.parents) == 1 and str(ipath) == filepath_relative.name),
+						# Include relative path (directory or file)
+						(len(ipath.parents) > 1 and (
+							ipath == filepath_relative or ipath in filepath_relative.parents)),
+					),
+				):
+					is_excluded = False
+					is_force_included = True
+					break
+			del ipath
 
 			if is_excluded:
 				Logger.info('kv: Excluded "%s"', str(filepath_relative))
 				continue
+
+			if is_force_included:
+				Logger.info('kv: Force included "%s"', str(filepath_relative))
 
 			path_to_kv_file: str = str(filepath_relative)
 			Logger.info('kv: Loading "%s"', path_to_kv_file)
