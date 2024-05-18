@@ -20,6 +20,7 @@ from app.Controller.main_screen import MainScreenController
 from app.Model.settings_screen import MainScreenModel as SettingsScreenModel
 from app.Controller.settings_screen import MainScreenController as SettingsScreenController
 
+# TODO: Use enums..
 screens: dict[str, ScreenParams] = {
     'main_screen': {
         'model': MainScreenModel,
