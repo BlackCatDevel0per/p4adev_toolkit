@@ -20,6 +20,7 @@ class MainScreenModel(BaseScreenModel):
 	def write_txtfield(self: 'MainScreenModel') -> 'MDTextField':
 		return self._write_txtfield
 
+
 	@write_txtfield.setter
 	def write_txtfield(self: 'MainScreenModel', value: 'MDTextField') -> None:
 		self._write_txtfield = value
