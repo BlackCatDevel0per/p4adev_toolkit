@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from app.View.base_screen import BaseScreenView
+from kivymd.uix.textfield import MDTextField
 
 if TYPE_CHECKING:
 	from app.Controller.main_screen import MainScreenController
@@ -21,7 +22,20 @@ class MainScreenView(BaseScreenView):
 		# self.manager_screens.current = 'settings_screen'
 		# from app.View.widgets.about_dialog import AboutDialog
 		# AboutDialog().open()
-		...
+
+		# get object by usually ref
+		self._write_txtfield = MDTextField()
+
+
+	# TODO: Make special metaclass for this stuff..
+	@property
+	def write_txtfield(self: 'MainScreenView') -> 'MDTextField':
+		return self._write_txtfield
+
+
+	@write_txtfield.setter
+	def write_txtfield(self: 'MainScreenView', widget: 'MDTextField') -> None:
+		self._write_txtfield = widget
 
 
 	def model_is_changed(self: 'MainScreenView') -> None:

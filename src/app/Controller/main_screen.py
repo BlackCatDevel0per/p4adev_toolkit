@@ -2,9 +2,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from kivymd.uix.selectioncontrol import MDCheckbox
-from kivymd.uix.textfield import MDTextField
-
 from app.Controller.base_controller import BaseController
 from app.View.main_screen import MainScreenView
 
@@ -12,6 +9,7 @@ if TYPE_CHECKING:
 	from typing import Any
 
 	from kivymd.uix.anchorlayout import MDAnchorLayout
+	from kivymd.uix.selectioncontrol import MDCheckbox
 
 	from app.Model.main_screen import MainScreenModel
 
@@ -36,9 +34,6 @@ class MainScreenController(BaseController):
 
 	def __post_init__(self: 'MainScreenController') -> None:
 		super().__post_init__()
-
-		# get object by usually ref
-		self.model.write_txtfield = MDTextField()
 
 		read_selection: 'MDCheckbox' = self.view.ids.rw_checkboxes.\
 			read_selection.ids.selection_checkbox
@@ -72,4 +67,4 @@ class MainScreenController(BaseController):
 					layout.children,
 				)
 				return
-			layout.add_widget(self.model.write_txtfield)
+			layout.add_widget(self.view.write_txtfield)
