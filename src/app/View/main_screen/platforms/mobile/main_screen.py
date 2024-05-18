@@ -3,7 +3,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from app.View.base_screen import BaseScreenView
-from kivymd.uix.textfield import MDTextField
+from app.View.widgets.textinput import MDTextInput
+
+# from kivymd.uix.textfield import MDTextField
 
 if TYPE_CHECKING:
 	from app.Controller.main_screen import MainScreenController
@@ -23,19 +25,20 @@ class MainScreenView(BaseScreenView):
 		# from app.View.widgets.about_dialog import AboutDialog
 		# AboutDialog().open()
 
-		# get object by usually ref
-		self._write_txtfield = MDTextField()
+		# ?? ..
+		# print(tf.uid)
+		# Builder.unbind_widget(tf.uid)
+
+		# FIXME: Cursor goes over widget..
+		# to get object by usually ref
+		self._write_txtfield = MDTextInput()
+		# self.ids.rw_checkboxes.ids.write.chbx_do_press()
 
 
 	# TODO: Make special metaclass for this stuff..
 	@property
-	def write_txtfield(self: 'MainScreenView') -> 'MDTextField':
+	def write_txtfield(self: 'MainScreenView') -> 'MDTextInput':
 		return self._write_txtfield
-
-
-	@write_txtfield.setter
-	def write_txtfield(self: 'MainScreenView', widget: 'MDTextField') -> None:
-		self._write_txtfield = widget
 
 
 	def model_is_changed(self: 'MainScreenView') -> None:

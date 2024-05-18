@@ -6,12 +6,6 @@
 #:include View/widgets/ui/selection.kv
 
 
-<HighlightedBorderScrollView@MDScrollView+HighlightedBorderWidget>
-
-
-<HighlightedBorderLayout@MDAnchorLayout+HighlightedBorderWidget>
-
-
 <MainScreenView>
 
 	MDBoxLayout:
@@ -40,28 +34,23 @@
 				border_color: self.parent.theme_cls.primary_color
 
 			# cleanable layout for field widget
-			# HighlightedBorderScrollView:
-			HighlightedBorderLayout:
+			MDScrollView:
 				id: layout_write_txtfield
 				border_color: self.parent.theme_cls.divider_color
 				border_width: 1
-				# always_overscroll: False
+				always_overscroll: False
 				size_hint_y: .20
 
 				# There will be text input
 
 			# TODO: Startup check if `docs_path` exists & available permission
-			# TODO: Checkboxes for: read, write
 			SelectMode:
 				id: rw_checkboxes
 				size_hint_y: .15
 
-				# FIXME: Make read uncheckable & design && handle it
 				read_on_active: root.controller.selection_on_read_active
 
-			# TODO: Mode text input (with validation by category - read, write)
-			# TODO: Data text input on write checkbox
-			# TODO: Execute button.. (raised, flat or etc.)
+			# TODO: Execute button.. (raised, flat or etc.) (with validation by category - read, write)
 
 			# Spacer
 			MDBoxLayout:
