@@ -22,6 +22,8 @@ run-app = "PYTHONPATH=src:. .venv/bin/python src/app_launch/main.py"
 run-app-rd = "DEBUG_ACCESS_APP=1 PYTHONPATH=src:. .venv/bin/pythonpython src/app_launch/main.py"
 
 build-debug = "bash -c 'scripts/build.sh debug dev'"
+# Remove built app & build again
+rebuild-app-debug = "rm -rf .buildozer/android/platform/build-armeabi-v7a/build/other_builds/app && bash -c 'scripts/build.sh debug dev'"
 rebuild-debug = "bash -c 'scripts/clean_build.sh debug dev'"
 
 build-release = "bash -c 'scripts/clean_build.sh release app'"
