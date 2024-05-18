@@ -25,31 +25,12 @@
 <MDLogViewBaseBordered@MDLogViewBase+HighlightedBorderWidgetBase>
 
 
-<MDLogViewCentralizedParams@Widget>
-	anchors: "center"
-
-# TODO: Make this stuff automatically.. (bind params, extra widgets mixing..)
-# Log widget itself, inside anchor layout
-<MDLogViewCentralized@MDAnchorLayout+MDLogViewCentralizedParams+MDLogViewParams>
-	MDLogViewBase:
-		# bind params
-		text: root.text
+# TODO: Unite classes using add_widget handle..?
+# Alias classes
+<MDLogViewNoBorder@MDLogViewBase>
 
 
 # TODO: Try to update attrs by ids or `self.parent`..
+# TODO: Make this stuff automatically.. (bind params, extra widgets mixing..)
 # Log widget highlighted, inside anchor layout
-<MDLogViewCentralizedBordered@MDAnchorLayout+MDLogViewCentralizedParams+MDLogViewParams+HighlightedBorderWidgetParams>
-	MDLogViewBaseBordered:
-		# bind params
-		text: root.text
-
-		border_color: root.border_color
-		border_radius: root.border_radius
-		border_width: root.border_width
-
-
-# TODO: Unite classes using add_widget handle..?
-# Alias classes
-<MDLogViewNoBorder@MDLogViewCentralized>
-
-<MDLogView@MDLogViewCentralizedBordered>
+<MDLogView@MDLogViewBaseBordered+MDLogViewParams+HighlightedBorderWidgetParams>
