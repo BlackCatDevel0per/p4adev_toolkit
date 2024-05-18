@@ -3,15 +3,13 @@
 # TODO: Publish p4a-samples with review recipes..
 # TODO: Review packaging setuptools
 
-# TODO: Scoped storage utils package to simplify fs routines on new Android versions..
-
 # TODO: Fix ftp_sync & publish to PyPi && unify all tools in one cli pkg..
 
 # TODO: Better look at bootstraps..
 # TODO: App restart button..
-# TODO: Log widget on main screen..
-# TODO: Use Profiles (prod, dev, mb demo)
+# TODO: Add demo Profile(s)..
 # TODO: Update ui..
+# TODO: Cache some pip deps.. (optionally)
 # (str) Title of your application
 title = P4ADev Toolkit
 
