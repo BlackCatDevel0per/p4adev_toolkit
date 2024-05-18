@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from os import environ as os_env
 from os import makedirs as mkdirs
 from pathlib import Path
@@ -21,4 +23,4 @@ else:
 
 mkdirs(_app_path, exist_ok=True)
 
-APP_CONF_PATH: 'Final[str]' = _app_path
+APP_CONF_PATH: Final[str] = _app_path
