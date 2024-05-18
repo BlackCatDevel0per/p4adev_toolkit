@@ -72,10 +72,10 @@
 				
 				btn_text: 'Set docs path'
 				# TODO: Show scheme from uri.. or short it using any ways..
-				# TODO: Update label with function callback..
-				label_text: app.config.get('app', 'docs_path')
+				label_text: root.model.docs_path_conf
 
-				btn_on_press: root.set_scdir
+				# TODO: Mb better use self for methods..? (to easier read)
+				btn_on_press: root.model.set_docs_path
 
 
 			# Spacer
