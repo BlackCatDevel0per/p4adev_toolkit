@@ -6,6 +6,12 @@
 #:include View/widgets/ui/selection.kv
 
 
+<HighlightedBorderScrollView@MDScrollView+HighlightedBorderWidget>
+
+
+<HighlightedBorderLayout@MDAnchorLayout+HighlightedBorderWidget>
+
+
 <MainScreenView>
 
 	MDBoxLayout:
@@ -21,10 +27,11 @@
 		MDBoxLayout:
 			id: main_bl_startup_tools
 			orientation: "vertical"
-			padding: "20dp", "20dp"
+			padding: "20dp"
+			spacing: "5dp"
 
 			# FIXME: Property issues on multiple widgets..
-			# MDLogView:
+			# TODO: Autoscroll down option & checkbox
 			MDLogView:
 				id: log_view
 				# text: 'data\n'*100
@@ -33,8 +40,13 @@
 				border_color: self.parent.theme_cls.primary_color
 
 			# cleanable layout for field widget
-			MDAnchorLayout:
+			# HighlightedBorderScrollView:
+			HighlightedBorderLayout:
 				id: layout_write_txtfield
+				border_color: self.parent.theme_cls.divider_color
+				border_width: 1
+				# always_overscroll: False
+				size_hint_y: .20
 
 				# There will be text input
 
