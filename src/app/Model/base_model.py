@@ -6,18 +6,20 @@
 # method). For this, observers must be descendants of an abstract class,
 # inheriting which, the `model_is_changed` method must be overridden.
 
-# TODO: Annotate..
-
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from kivymd.app import MDApp
+
 from app.utility.logger import Loggable
 
 if TYPE_CHECKING:
-	...
+	from typing import ClassVar
 
-# TODO: Some post init stuff for better logging..
+	from kivy.config import ConfigParser
+
+	from app.View.base_screen import BaseScreenView
 
 
 class BaseScreenModel(Loggable):
@@ -25,15 +27,30 @@ class BaseScreenModel(Loggable):
 
 	_p_log_prefix: str = 'Model'
 
-	# TODO: init..
+	_observers: 'ClassVar[list[BaseScreenView]]' = []
 
-	_observers = []
 
-	def add_observer(self: 'BaseScreenModel', observer) -> None:
+	def __init__(self: 'BaseScreenModel', *args, **kwargs) -> None:
+		super().__init__(*args, **kwargs)
+
+		self.config: 'ConfigParser' = MDApp.get_running_app().config
+
+
+	def startup(self: 'BaseScreenModel') -> None:
+		raise NotImplementedError
+
+
+	def add_observer(self: 'BaseScreenModel', observer: 'BaseScreenView') -> None:
 		self._observers.append(observer)
 
-	def remove_observer(self: 'BaseScreenModel', observer) -> None:
+
+	def remove_observer(self: 'BaseScreenModel', observer: 'BaseScreenView') -> None:
 		self._observers.remove(observer)
+
+
+	def model_is_changed(self: 'BaseScreenModel') -> None:
+		raise NotImplementedError
+
 
 	def notify_observers(self: 'BaseScreenModel', name_screen: str) -> None:
 		"""Call by the observer when the model data change.
