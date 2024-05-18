@@ -1,5 +1,6 @@
 #:include View/widgets/ui/highlighted_border.kv
 
+
 <LabledSelectionParams@Widget>
 	text: ''
 	active: False
@@ -55,8 +56,16 @@
 	border_width: 1
 
 
-<ModeBox@MDBoxLayout+HighlightedBorderWidget+ModeBoxParams>
+<SelectMode@MDBoxLayout+HighlightedBorderWidget+ModeBoxParams>
 	orientation: "horizontal"
+
+	read_selection: read
+	write_selection: write
+
+	read_on_active: root.read_on_active
+	read_on_state: root.read_on_state
+	write_on_active: root.write_on_active
+	write_on_state: root.write_on_state
 
 	LabledSelection:
 		id: read
@@ -74,19 +83,3 @@
 
 		chbx_active: root.write_on_active
 		chbx_state: root.write_on_state
-
-
-<SelectMode@MDAnchorLayout+ModeBoxParams>
-	anchors: "center"
-
-	read_selection: mode_box.ids.read
-	write_selection: mode_box.ids.write
-
-	ModeBox:
-		id: mode_box
-		size_hint: .95, .95
-
-		read_on_active: root.read_on_active
-		read_on_state: root.read_on_state
-		write_on_active: root.write_on_active
-		write_on_state: root.write_on_state

@@ -4,8 +4,6 @@
 # TODO: Move to helper & make separate dir for kv helpers..
 <ButtonWithLabel@MDBoxLayout>:
 	size_hint_y: None
-	width: btn.width
-	height: btn.height
 	orientation: 'horizontal'
 
 	btn_text: 'Button'
@@ -16,24 +14,19 @@
 
 	MDRectangleFlatButton:
 		id: btn
+		pos_hint: {"center_y": .5}
+
 		text: root.btn_text
 
 		on_press: root.btn_on_press()
 		on_release: root.btn_on_release()
 
-	# Spacer
-	MDBoxLayout:
-		id: spacer
-		size_hint_x: None
-		size_hint_y: None
-		width: btn.width / 2
-
 	MDLabel:
 		id: label
-		size_hint_y: None
-		height: btn.height
+		pos_hint: {"center_y": .5}
+		halign: "center"
 
-		text: root.label_text
+		text: root.label_text if len(root.label_text) < 30 else '...' + root.label_text[-27:]
 
 
 <SettingsScreenView>
@@ -48,7 +41,6 @@
 			# TODO: Set icon near title for ux..
 			# TODO: Change screen animation..
 			# TODO: Warnings if unsaved changes..
-			# FIXME: Handle back btn press..
 			left_action_items: [["arrow-left", lambda x: setattr(root.manager_screens, 'current', 'main_screen')]]
 
 			right_action_items: [["content-save", root.model.save_settings]]
@@ -56,20 +48,21 @@
 		MDBoxLayout:
 			id: main_bl_startup_tools
 			orientation: "vertical"
-			padding: dp(20), dp(20)
+			padding: "20dp", "20dp"
 
 			# SecretTextFieldRound:
 			# 	id: input_client_id
 			# 	width: "600dp"
 			# 	hint_text: "client id"
 			# 	text: app.config.get('app', 'client_id')
-			# 	validator: root._validate_app_client_id
+			# 	validator: root.controller._validate_app_client_id
 			# 	# pos_hint: {"center_x": .5, "center_y": .5}
 			# 	pos_hint: {"center_x": .5}
 
 			ButtonWithLabel:
 				id: main_bl_startup_tools_set_docs_path_tool
-				
+				size_hint_y: .1
+
 				btn_text: 'Set docs path'
 				# TODO: Show scheme from uri.. or short it using any ways..
 				label_text: root.model.docs_path_conf
