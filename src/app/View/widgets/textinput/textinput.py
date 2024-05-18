@@ -1,5 +1,5 @@
-"""
-Components/TextField
+"""Components/TextField.
+
 ====================
 
 .. seealso::
@@ -277,12 +277,11 @@ Clickable icon for MDTextInput
 	See more information in the :class:`~MDTextInputRect` class.
 """
 
-__all__ = ("MDTextInput", "MDTextInputRect")
+from __future__ import annotations
 
-import os
 import re
 from datetime import date
-from typing import Union
+from typing import TYPE_CHECKING
 
 from kivy.animation import Animation
 from kivy.clock import Clock
@@ -300,18 +299,19 @@ from kivy.properties import (
 )
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
-
-from kivymd import uix_path
 from kivymd.font_definitions import theme_font_styles
 from kivymd.theming import ThemableBehavior
 from kivymd.uix.behaviors import DeclarativeBehavior
 from kivymd.uix.label import MDIcon
 
-with open(
-	os.path.join(uix_path, "textfield", "textfield.kv"), encoding="utf-8"
-) as kv_file:
-	Builder.load_string(kv_file.read())
+if TYPE_CHECKING:
+	from kivy.properties import ObservableList
 
+
+__all__ = ('MDTextInput', 'MDTextInputRect')
+
+
+# TODO: Better annotate..
 
 # TODO: Add a class to work with the phone number mask.
 
@@ -537,7 +537,7 @@ class MDTextInputRect(ThemableBehavior, TextInput):
 	classes documentation.
 	"""
 
-	line_anim = BooleanProperty(True)
+	line_anim = BooleanProperty(defaultvalue=True)
 	"""
 	If True, then text field shows animated line when on focus.
 
@@ -545,7 +545,7 @@ class MDTextInputRect(ThemableBehavior, TextInput):
 	and defaults to `True`.
 	"""
 
-	def get_rect_instruction(self):
+	def get_rect_instruction(self: 'MDTextInput'):
 		canvas_instructions = self.canvas.after.get_group("rectangle")
 		return canvas_instructions[0]
 
@@ -557,7 +557,7 @@ class MDTextInputRect(ThemableBehavior, TextInput):
 	:attr:`_rectangle` is an :class:`~kivy.properties.AliasProperty`.
 	"""
 
-	def get_color_instruction(self):
+	def get_color_instruction(self: 'MDTextInput'):
 		canvas_instructions = self.canvas.after.get_group("color")
 		return canvas_instructions[0]
 
@@ -615,8 +615,7 @@ class MDTextInput(
 	Validator,
 	AutoFormatTelephoneNumber,
 ):
-	"""
-	Textfield class.
+	"""Textfield class.
 
 	For more information, see in the
 	:class:`~kivymd.uix.behaviors.DeclarativeBehavior` and
@@ -636,7 +635,7 @@ class MDTextInput(
 	"""
 
 	helper_text_mode = OptionProperty(
-		"on_focus", options=["on_error", "persistent", "on_focus"]
+		'on_focus', options=['on_error', 'persistent', 'on_focus']
 	)
 	"""
 	Helper text mode. Available options are: `'on_error'`, `'persistent'`,
@@ -663,7 +662,7 @@ class MDTextInput(
 	"""
 
 	mode = OptionProperty(
-		"line", options=["rectangle", "round", "fill", "line"]
+		'line', options=['rectangle', 'round', 'fill', 'line'],
 	)
 	"""
 	Text field mode.
@@ -673,9 +672,9 @@ class MDTextInput(
 	and defaults to `'line'`.
 	"""
 
-	phone_mask = StringProperty("")
+	phone_mask = StringProperty('')
 
-	validator = OptionProperty(None, options=["date", "email", "time", "phone"])
+	validator = OptionProperty(None, options=['date', 'email', 'time', 'phone'])
 	"""
 	The type of text field for entering Email, time, etc.
 	Automatically sets the type of the text field as "error" if the user input
@@ -1288,7 +1287,7 @@ class MDTextInput(
 	# application color palette.
 	_colors_to_updated = ListProperty()
 
-	def __init__(self, *args, **kwargs):
+	def __init__(self: 'MDTextInput', *args, **kwargs):
 		self.set_objects_labels()
 		Clock.schedule_once(self._set_attr_names_to_updated)
 		Clock.schedule_once(self.set_colors_to_updated)
@@ -1330,13 +1329,13 @@ class MDTextInput(
 				"_hint_text_font_size",
 			)
 
-	def set_colors_to_updated(self, interval: Union[float, int]) -> None:
+	def set_colors_to_updated(self: 'MDTextInput', interval: 'float | int') -> None:
 		for attr_name in self._attr_names_to_updated.keys():
 			if getattr(self, attr_name) == [0, 0, 0, 0]:
 				self._colors_to_updated.append(attr_name)
 
 	def set_default_colors(
-		self, interval: Union[float, int], updated: bool = False
+		self, interval: 'float | int', updated: bool = False
 	) -> None:
 		"""
 		Sets the default text field colors when initializing a text field
@@ -1349,7 +1348,7 @@ class MDTextInput(
 		self._set_attr_names_to_updated(0)
 		for attr_name in self._attr_names_to_updated.keys():
 			self._set_color(
-				attr_name, self._attr_names_to_updated[attr_name], updated
+				attr_name, self._attr_names_to_updated[attr_name], updated=updated,
 			)
 
 		if self.error_color == [0, 0, 0, 0] or updated:
@@ -1380,7 +1379,7 @@ class MDTextInput(
 		self._line_color_normal = self.line_color_normal
 		self._line_color_focus = self.line_color_focus
 
-	def set_notch_rectangle(self, joining: bool = False) -> None:
+	def set_notch_rectangle(self: 'MDTextInput', joining: bool = False) -> None:
 		"""
 		Animates a notch for the hint text in the rectangle of the text field
 		of type `rectangle`.
@@ -1402,7 +1401,7 @@ class MDTextInput(
 			animation.bind(on_progress=on_progress)
 			animation.start(self)
 
-	def set_active_underline_width(self, width: Union[float, int]) -> None:
+	def set_active_underline_width(self: 'MDTextInput', width: 'float | int') -> None:
 		"""Animates the width of the active underline line."""
 
 		Animation(
@@ -1411,7 +1410,7 @@ class MDTextInput(
 			t="out_quad",
 		).start(self)
 
-	def set_static_underline_color(self, color: list) -> None:
+	def set_static_underline_color(self: 'MDTextInput', color: 'list | ObservableList') -> None:
 		"""Animates the color of a static underline line."""
 
 		Animation(
@@ -1420,47 +1419,47 @@ class MDTextInput(
 			t="out_quad",
 		).start(self)
 
-	def set_active_underline_color(self, color: list) -> None:
+	def set_active_underline_color(self: 'MDTextInput', color: 'list | ObservableList') -> None:
 		"""Animates the fill color for 'fill' mode."""
 
 		Animation(_line_color_focus=color, duration=0.2, t="out_quad").start(
 			self
 		)
 
-	def set_fill_color(self, color: list) -> None:
+	def set_fill_color(self: 'MDTextInput', color: 'list | ObservableList') -> None:
 		"""Animates the color of the hint text."""
 
 		Animation(_fill_color=color, duration=0.2, t="out_quad").start(self)
 
-	def set_helper_text_color(self, color: list) -> None:
+	def set_helper_text_color(self: 'MDTextInput', color: 'list | ObservableList') -> None:
 		"""Animates the color of the hint text."""
 
 		Animation(_helper_text_color=color, duration=0.2, t="out_quad").start(
 			self
 		)
 
-	def set_max_length_text_color(self, color: list) -> None:
+	def set_max_length_text_color(self: 'MDTextInput', color: 'list | ObservableList') -> None:
 		"""Animates the color of the max length text."""
 
 		Animation(
 			_max_length_text_color=color, duration=0.2, t="out_quad"
 		).start(self)
 
-	def set_icon_right_color(self, color: list) -> None:
+	def set_icon_right_color(self: 'MDTextInput', color: 'list | ObservableList') -> None:
 		"""Animates the color of the icon right."""
 
 		Animation(_icon_right_color=color, duration=0.2, t="out_quad").start(
 			self
 		)
 
-	def set_icon_left_color(self, color: list) -> None:
+	def set_icon_left_color(self: 'MDTextInput', color: 'list | ObservableList') -> None:
 		"""Animates the color of the icon left."""
 
 		Animation(_icon_left_color=color, duration=0.2, t="out_quad").start(
 			self
 		)
 
-	def set_hint_text_color(self, focus: bool, error: bool = False) -> None:
+	def set_hint_text_color(self: 'MDTextInput', *, focus: bool, error: bool = False) -> None:
 		"""Animates the color of the hint text."""
 
 		if self.mode != "round":
@@ -1476,7 +1475,7 @@ class MDTextInput(
 				t="out_quad",
 			).start(self)
 
-	def set_pos_hint_text(self, y: float, x: float = 12) -> None:
+	def set_pos_hint_text(self: 'MDTextInput', y: float, x: float = 12) -> None:
 		"""Animates the x-axis width and y-axis height of the hint text."""
 
 		if self.mode != "round":
@@ -1508,7 +1507,7 @@ class MDTextInput(
 					t="out_quad",
 				).start(self)
 
-	def set_hint_text_font_size(self, font_size: float) -> None:
+	def set_hint_text_font_size(self: 'MDTextInput', font_size: float) -> None:
 		"""Animates the font size of the hint text."""
 
 		if self.mode != "round":
@@ -1516,7 +1515,7 @@ class MDTextInput(
 				_hint_text_font_size=font_size, duration=0.2, t="out_quad"
 			).start(self)
 
-	def set_max_text_length(self) -> None:
+	def set_max_text_length(self: 'MDTextInput') -> None:
 		"""Called when text is entered into a text field."""
 
 		if self.max_text_length:
@@ -1524,10 +1523,10 @@ class MDTextInput(
 				f"{len(self.text)}/{self.max_text_length}"
 			)
 
-	def check_text(self, interval: Union[float, int]) -> None:
+	def check_text(self: 'MDTextInput', interval: 'float | int') -> None:
 		self.set_text(self, self.text)
 
-	def set_text(self, instance_text_field, text: str) -> None:
+	def set_text(self: 'MDTextInput', instance_text_field, text: str) -> None:
 		"""Called when text is entered into a text field."""
 
 		self.text = re.sub("\n", " ", text) if not self.multiline else text
@@ -1566,10 +1565,10 @@ class MDTextInput(
 		if self.mode == "round" and not self.text:
 			self.hint_text = self.__hint_text
 
-	def set_x_pos(self):
+	def set_x_pos(self: 'MDTextInput'):
 		pass
 
-	def set_objects_labels(self) -> None:
+	def set_objects_labels(self: 'MDTextInput') -> None:
 		"""
 		Creates labels objects for the parameters`helper_text`,`hint_text`,
 		etc.
@@ -1595,10 +1594,10 @@ class MDTextInput(
 		self._icon_right_label = MDIcon(theme_text_color="Custom")
 		self._icon_left_label = MDIcon(theme_text_color="Custom")
 
-	def on_helper_text(self, instance_text_field, helper_text: str) -> None:
+	def on_helper_text(self: 'MDTextInput', instance_text_field, helper_text: str) -> None:
 		self._helper_text_label.text = helper_text
 
-	def on_focus(self, instance_text_field, focus: bool) -> None:
+	def on_focus(self: 'MDTextInput', instance_text_field, focus: bool) -> None:
 		# TODO: See `cancel_all_animations_on_double_click` method.
 		# self.cancel_all_animations_on_double_click()
 
@@ -1626,7 +1625,7 @@ class MDTextInput(
 				if self.mode != "rectangle"
 				else dp(10)
 			)
-			Clock.schedule_once(lambda x: self.set_hint_text_color(focus))
+			Clock.schedule_once(lambda x: self.set_hint_text_color(focus=focus))
 			self.set_hint_text_font_size(sp(12))
 
 			if self.max_text_length:
@@ -1651,7 +1650,7 @@ class MDTextInput(
 			if self.error:
 				if self.hint_text:
 					Clock.schedule_once(
-						lambda x: self.set_hint_text_color(focus, self.error)
+						lambda x: self.set_hint_text_color(focus=focus, error=self.error)
 					)
 				if self.helper_text:
 					Clock.schedule_once(
@@ -1708,7 +1707,7 @@ class MDTextInput(
 				)
 			if self.hint_text:
 				Clock.schedule_once(
-					lambda x: self.set_hint_text_color(focus, self.error)
+					lambda x: self.set_hint_text_color(focus=focus, error=self.error)
 				)
 
 			self.set_active_underline_width(0)
@@ -1727,20 +1726,20 @@ class MDTextInput(
 			else:
 				Clock.schedule_once(
 					lambda x: self.set_static_underline_color(
-						self.line_color_normal
-					)
+						self.line_color_normal,
+					),
 				)
 
-	def on_icon_left(self, instance_text_field, icon_name: str) -> None:
+	def on_icon_left(self: 'MDTextInput', instance_text_field, icon_name: str) -> None:
 		self._icon_left_label.icon = icon_name
 
-	def on_icon_right(self, instance_text_field, icon_name: str) -> None:
+	def on_icon_right(self: 'MDTextInput', instance_text_field, icon_name: str) -> None:
 		self._icon_right_label.icon = icon_name
 
-	def on_disabled(self, instance_text_field, disabled_value: bool) -> None:
+	def on_disabled(self: 'MDTextInput', instance_text_field, disabled_value: bool) -> None:
 		pass
 
-	def on_error(self, instance_text_field, error: bool) -> None:
+	def on_error(self: 'MDTextInput', instance_text_field, error: bool) -> None:
 		"""
 		Changes the primary colors of the text box to match the `error` value
 		(text field is in an error state or not).
@@ -1752,7 +1751,7 @@ class MDTextInput(
 			)
 			self.set_active_underline_color(self.error_color)
 			if self.hint_text:
-				self.set_hint_text_color(self.focus, self.error)
+				self.set_hint_text_color(focus=self.focus, error=self.error)
 			if self.helper_text:
 				Clock.schedule_once(
 					lambda x: self.set_helper_text_color(self.error_color)
@@ -1777,7 +1776,7 @@ class MDTextInput(
 			)
 			self.set_active_underline_color(self.line_color_focus)
 			if self.hint_text:
-				self.set_hint_text_color(self.focus)
+				self.set_hint_text_color(focus=self.focus)
 			if self.helper_text:
 				Clock.schedule_once(
 					lambda x: self.set_helper_text_color(
@@ -1803,58 +1802,61 @@ class MDTextInput(
 					)
 				)
 
-	def on_hint_text(self, instance_text_field, hint_text: str) -> None:
+	def on_hint_text(self: 'MDTextInput', instance_text_field, hint_text: str) -> None:
 		if hint_text:
 			self.__hint_text = hint_text
 		self._hint_text_label.text = hint_text
 		self._hint_text_label.font_size = sp(16)
 
-	def on_width(self, instance_text_field, width: float) -> None:
+	def on_width(self: 'MDTextInput', instance_text_field, width: float) -> None:
 		"""Called when the application window is resized."""
 
 		if self.focus:
 			self._underline_width = self.width
 
-	def on_height(self, instance_text_field, value_height: float) -> None:
+	def on_height(self: 'MDTextInput', instance_text_field, value_height: float) -> None:
 		if value_height >= self.max_height and self.max_height:
 			self.height = self.max_height
 
 	def on_text_color_normal(
-		self, instance_text_field, color: Union[list, str]
+		self, instance_text_field, color: 'list | str'
 	) -> None:
 		self._text_color_normal = color
 
 	def on_hint_text_color_normal(
-		self, instance_text_field, color: Union[list, str]
+		self, instance_text_field, color: 'list | str'
 	) -> None:
 		self._hint_text_color = color
 
 	def on_helper_text_color_normal(
-		self, instance_text_field, color: Union[list, str]
+		self, instance_text_field, color: 'list | str'
 	) -> None:
 		self._helper_text_color = color
 
 	def on_icon_right_color_normal(
-		self, instance_text_field, color: Union[list, str]
+		self, instance_text_field, color: 'list | str'
 	) -> None:
 		self._icon_right_color = color
 
 	def on_line_color_normal(
-		self, instance_text_field, color: Union[list, str]
+		self, instance_text_field, color: 'list | str'
 	) -> None:
 		self._line_color_normal = color
 
 	def on_max_length_text_color(
-		self, instance_text_field, color: Union[list, str]
+		self, instance_text_field, color: 'list | str'
 	) -> None:
 		self._max_length_text_color = color
 
-	def _set_color(self, attr_name: str, color: str, updated: bool) -> None:
-		if attr_name in self._colors_to_updated or updated:
-			if attr_name in self._colors_to_updated:
-				setattr(self, attr_name, color)
 
-	def _set_attr_names_to_updated(self, interval: Union[float, int]) -> None:
+	def _set_color(self: 'MDTextInput', attr_name: str, color: 'list | ObservableList', *, updated: bool) -> None:
+		if attr_name not in self._colors_to_updated or updated:
+			return
+
+		setattr(self, attr_name, color)
+
+
+	def _set_attr_names_to_updated(self: 'MDTextInput', interval: 'float | int') -> None:
 		"""
 		Sets and update the default color dictionary for text field textures.
 		"""
@@ -1876,7 +1878,7 @@ class MDTextInput(
 			"icon_left_color_focus": self.theme_cls.primary_color,
 		}
 
-	def _get_has_error(self) -> bool:
+	def _get_has_error(self: 'MDTextInput') -> bool:
 		"""
 		Returns `False` or `True` depending on the state of the text field,
 		for example when the allowed character limit has been exceeded or when
@@ -1899,7 +1901,7 @@ class MDTextInput(
 				has_error = False
 		return has_error
 
-	def _refresh_hint_text(self):
+	def _refresh_hint_text(self: 'MDTextInput'):
 		"""Method override to avoid duplicate hint text texture."""
 
 
