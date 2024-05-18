@@ -21,3 +21,13 @@ class MainScreenController(BaseController):
 		super().__init__(*args, **kwargs)
 
 		self._view = MainScreenView(controller=self, model=self.model)
+
+
+	def _validate_app_client_id(self: 'MainScreenController', text: str) -> bool:
+		return not text.isnumeric()
+
+
+	def _validate_app_client_secret(self: 'MainScreenController', text: str) -> bool:
+		# TODO
+		# return re.finditer(, ,)
+		return not bool(text)

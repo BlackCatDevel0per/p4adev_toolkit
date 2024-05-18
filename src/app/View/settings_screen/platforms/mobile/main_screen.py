@@ -17,17 +17,6 @@ class SettingsScreenView(BaseScreenView):
 		...
 
 
-	# FIXME: Move into controller
-	def _validate_app_client_id(self: 'SettingsScreenView', text: str) -> bool:
-		return not text.isnumeric()
-
-
-	def _validate_app_client_secret(self: 'SettingsScreenView', text: str) -> bool:
-		# TODO
-		# return re.finditer(, ,)
-		return not bool(text)
-
-
 	def model_is_changed(self: 'SettingsScreenView') -> None:
 		"""Call whenever any change has occurred in the data model.
 
