@@ -10,6 +10,7 @@ from kivy.utils import platform
 from kivymd.app import MDApp
 
 from app import APP_CONF_PATH, module_dir
+from app.utility.kv_conf import exclude_kvs, force_include_kvs, unload_kvs
 from app.View.screenmanager import AppScreenManager
 from app.View.screens import screens
 
@@ -39,32 +40,10 @@ class AppBase(MDApp):
 	_binds: 'BindsType' = None
 	on_app_init: 'Callable[[], Any]'
 
-	# TODO: Move into the external module
 	# Exclude helpers (filename, relative path, dirname)
-	exclude_kvs: 'tuple[str, ...]' = (
-		# app
-		'View/main_screen/platforms/mobile/ui/main_navbar.kv',
-		'View/widgets/ui',
-
-		# default
-		'kivymd',
-		'.buildozer',
-		'.venv',
-		'venv',
-
-		'__MACOS',
-		'__MACOSX',
-		'style.kv',
-	)
-
-	force_include_kvs: 'tuple[str, ...]' = (
-		'View/widgets/ui/override',
-		'View/widgets/ui/textinput.kv',
-	)
-
-	unload_kvs: 'tuple[str, ...]' = (
-		# str(Path(uix_path, 'some', 'style.kv')),
-	)
+	exclude_kvs: tuple[str, ...] = exclude_kvs
+	force_include_kvs: tuple[str, ...] = force_include_kvs
+	unload_kvs: tuple[str, ...] = unload_kvs
 
 	app_site: str = ''
 	if platform == 'android':
@@ -89,6 +68,7 @@ class AppBase(MDApp):
 		self.load_all_kv_files(self.module_directory, self.exclude_kvs, self.force_include_kvs)
 		# This is the screen manager that will contain all the screens of your
 		# application.
+		# TODO: Make transition & some other opts more configurable
 		self.manager_screens = AppScreenManager()
 
 		if not self._binds:
@@ -105,8 +85,9 @@ class AppBase(MDApp):
 		excludes: 'tuple[str, ...] | tuple' = (),
 		force_includes: 'tuple[str, ...] | tuple' = (),
 	) -> None:
-		exclude_paths: 'tuple[Path, ...] | tuple' = tuple(Path(path) for path in excludes)
-		force_include_paths: 'tuple[Path, ...] | tuple' = tuple(Path(path) for path in force_includes)
+		make_tpaths = lambda t: tuple(Path(p) for p in t)  # noqa: E731
+		exclude_paths: 'tuple[Path, ...] | tuple' = make_tpaths(excludes)
+		force_include_paths: 'tuple[Path, ...] | tuple' = make_tpaths(force_includes)
 
 		search_path = Path(path_to_directory)
 		# Filter only kv

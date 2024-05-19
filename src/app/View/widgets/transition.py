@@ -1,10 +1,15 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from kivy.animation import AnimationTransition
-from kivy.graphics import PopMatrix, PushMatrix
+from kivy.graphics import PopMatrix, PushMatrix, Scale
 from kivy.metrics import dp
 from kivy.properties import BooleanProperty, NumericProperty, OptionProperty
-
-# NOTE: In new 2.x+ version it's in single file module
 from kivymd.uix.transition.transition import MDTransitionBase
+
+if TYPE_CHECKING:
+	from kivymd.uix.screenmanager import MDScreenManager
 
 
 # Copied from 2.0.1.dev0
@@ -60,7 +65,7 @@ class MDSharedAxisTransition(MDTransitionBase):
 	defaults to `dp(15)`.
 	"""
 
-	opposite = BooleanProperty(False)
+	opposite = BooleanProperty(defaultvalue=False)
 	"""
 	Decides Transition direction.
 
@@ -68,10 +73,10 @@ class MDSharedAxisTransition(MDTransitionBase):
 	defaults to `False`.
 	"""
 
-	_s_map = {}  # scale instruction map
+	_s_map: dict[int, Scale] = {}  # scale instruction map
 	_slide_diff = 0
 
-	def start(self, manager):
+	def start(self: 'MDSharedAxisTransition', manager: 'MDScreenManager') -> None:
 		# Transition internal working (for developer only):
 		# x:
 		#    First half: screen_out opacity 1 ->  0, pos_x: 0 -> - slide distance
@@ -87,8 +92,8 @@ class MDSharedAxisTransition(MDTransitionBase):
 		self.ih = hash(self.screen_in)
 		self.oh = hash(self.screen_out)
 
-		if self.transition_axis == "z":
-			if self.ih not in self._s_map.keys():
+		if self.transition_axis == 'z':
+			if self.ih not in self._s_map:
 				# Save scale instructions.
 				with self.screen_in.canvas.before:
 					PushMatrix()
@@ -110,14 +115,15 @@ class MDSharedAxisTransition(MDTransitionBase):
 			self._slide_diff = (manager.width - self.slide_distance) * (
 				manager.height - self.slide_distance
 			) / (manager.width * manager.height) - 1
-		elif self.transition_axis in ["x", "y"]:
+		elif self.transition_axis in ['x', 'y']:
 			# Slide distance with opposite logic.
 			self._slide_diff = (
 				(1 if self.opposite else -1) * self.slide_distance * 2
 			)
+
 		super().start(manager)
 
-	def on_progress(self, progress):
+	def on_progress(self: 'MDSharedAxisTransition', progress: 'float | int') -> None:
 		# This code could be simplyfied with setattr, but it's slow.
 		progress = AnimationTransition.out_cubic(progress)
 		progress_i = progress - 1
@@ -125,12 +131,12 @@ class MDSharedAxisTransition(MDTransitionBase):
 		# First half.
 		if progress <= 0.5:
 			# Screen out animation.
-			if self.transition_axis == "z":
+			if self.transition_axis == 'z':
 				self._s_map[self.oh].xyz = (
 					*[1 + self._slide_diff * progress_d] * 2,
 					1,
 				)
-			elif self.transition_axis == "x":
+			elif self.transition_axis == 'x':
 				self.screen_out.pos = [
 					self.manager.pos[0] + self._slide_diff * progress,
 					self.manager.pos[1],
@@ -142,31 +148,35 @@ class MDSharedAxisTransition(MDTransitionBase):
 				]
 			self.screen_out.opacity = 1 - progress_d
 			self.screen_in.opacity = 0
-		# Second half.
-		else:
-			if self.transition_axis == "z":
-				self._s_map[self.ih].xyz = (
-					*[1 - self._slide_diff * progress_i * 2] * 2,
-					1,
-				)
-			elif self.transition_axis == "x":
-				self.screen_in.pos = [
-					self.manager.pos[0] + self._slide_diff * progress_i,
-					self.manager.pos[1],
-				]
-			else:
-				self.screen_in.pos = [
-					self.manager.pos[0],
-					self.manager.pos[1] - self._slide_diff * progress_i,
-				]
-			self.screen_in.opacity = progress_d - 1
-			self.screen_out.opacity = 0
 
-	def on_complete(self):
+			return
+
+		# Second half.
+		if self.transition_axis == 'z':
+			self._s_map[self.ih].xyz = (
+				*[1 - self._slide_diff * progress_i * 2] * 2,
+				1,
+			)
+		elif self.transition_axis == 'x':
+			self.screen_in.pos = [
+				self.manager.pos[0] + self._slide_diff * progress_i,
+				self.manager.pos[1],
+			]
+		else:
+			self.screen_in.pos = [
+				self.manager.pos[0],
+				self.manager.pos[1] - self._slide_diff * progress_i,
+			]
+		self.screen_in.opacity = progress_d - 1
+		self.screen_out.opacity = 0
+
+	def on_complete(self: 'MDSharedAxisTransition') -> None:
 		self.screen_in.pos = self.manager.pos
 		self.screen_out.pos = self.manager.pos
-		if self.oh in self._s_map.keys():
+		if self.oh in self._s_map:
 			self._s_map[self.oh].xyz = (1, 1, 1)
-		if self.ih in self._s_map.keys():
+
+		if self.ih in self._s_map:
 			self._s_map[self.ih].xyz = (1, 1, 1)
+
 		super().on_complete()
