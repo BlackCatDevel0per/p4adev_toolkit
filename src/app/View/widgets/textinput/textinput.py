@@ -596,7 +596,7 @@ class MDTextInputRect(ThemableBehavior, TextInput):
 		self._primary_color[3] = 0
 
 
-class TextfieldLabel(ThemableBehavior, Label):
+class TextInputLabel(ThemableBehavior, Label):
 	"""Base texture for :class:`~MDTextInput` class."""
 
 	font_style = OptionProperty("Body1", options=theme_font_styles)
@@ -1574,21 +1574,21 @@ class MDTextInput(
 		etc.
 		"""
 
-		self._helper_text_label = TextfieldLabel(
+		self._helper_text_label = TextInputLabel(
 			font_style="Caption",
 			halign="left",
 			valign="middle",
 			field=self,
 			font_name=self.font_name_helper_text,
 		)
-		self._max_length_label = TextfieldLabel(
+		self._max_length_label = TextInputLabel(
 			font_style="Caption",
 			halign="right",
 			valign="middle",
 			text="",
 			field=self,
 		)
-		self._hint_text_label = TextfieldLabel(
+		self._hint_text_label = TextInputLabel(
 			font_style="Subtitle1", halign="left", valign="middle", field=self
 		)
 		self._icon_right_label = MDIcon(theme_text_color="Custom")
