@@ -31,7 +31,9 @@ class MainScreenView(BaseScreenView):
 
 		# FIXME: Cursor goes over widget..
 		# to get object by usually ref
-		self._write_txtfield = MDTextInput()
+		self._write_txtfield = MDTextInput(
+			size_hint_y=None,
+		)
 		# self.ids.rw_checkboxes.ids.write.chbx_do_press()
 
 
