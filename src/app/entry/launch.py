@@ -31,6 +31,7 @@ def run() -> None:
 
 	# TODO: i18n
 	# TODO: Google ADMob integrate.. (& mb some other third party apis..)
+	# TODO: Set icons..
 	# TODO: Cythonize command to check if annotations are correct for build
 	# TODO: Make docker container with all stuff & notebook on google colab
 
