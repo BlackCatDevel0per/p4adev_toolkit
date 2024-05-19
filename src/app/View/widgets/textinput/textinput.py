@@ -1908,7 +1908,6 @@ class MDTextInput(
 if __name__ == "__main__":
 	from kivy.lang import Builder
 	from kivy.uix.textinput import TextInput
-
 	from kivymd.app import MDApp
 
 	KV = """
