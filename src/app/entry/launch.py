@@ -18,7 +18,7 @@ from app.bases import AppBase, AppConf, AppDebug, AppServices, AppStyle, AppTwea
 if TYPE_CHECKING:
 	# NOTE: Type annotations from typing block are still quoted because
 	# cython v0.29.37 will raise errors in functions & methods annotations.. (but still ok for vars)
-	from typing import Any
+	...
 
 
 class App(AppTweaks, AppConf, AppServices, AppStyle, AppDebug, AppBase):
@@ -31,6 +31,7 @@ def run() -> None:
 
 	# TODO: i18n
 	# TODO: Google ADMob integrate.. (& mb some other third party apis..)
+	# TODO: Cythonize command to check if annotations are correct for build
 	# TODO: Make docker container with all stuff & notebook on google colab
 
 	# TODO: Cookiecutter or etc. template
