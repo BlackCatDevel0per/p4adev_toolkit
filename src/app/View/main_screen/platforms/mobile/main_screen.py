@@ -4,8 +4,7 @@ from typing import TYPE_CHECKING
 
 from app.View.base_screen import BaseScreenView
 from app.View.widgets.textinput import MDTextInput
-
-# from kivymd.uix.textfield import MDTextField
+from kivy.factory import Factory
 
 if TYPE_CHECKING:
 	from app.Controller.main_screen import MainScreenController
@@ -20,24 +19,42 @@ class MainScreenView(BaseScreenView):
 	controller: 'MainScreenController'
 	model: 'MainScreenModel'
 
-	def startup(self: 'MainScreenView') -> None:
-		# self.manager_screens.current = 'settings_screen'
-		# from app.View.widgets.about_dialog import AboutDialog
-		# AboutDialog().open()
+
+	def __post_init__(self: 'MainScreenView') -> None:
+		"""Stuff after init."""
+		# Logger's post-init
+		super().__post_init__()
+
+		# TODO: Widget with List of dynamic Buttons
+		self._read_items = Factory.HighlightedBorderWidget()
 
 		# ?? ..
 		# print(tf.uid)
 		# Builder.unbind_widget(tf.uid)
 
-		# FIXME: Cursor goes over widget..
+		# FIXME: Cursor goes over widget.. (if no scroll layout)
+		# TODO: Make special metaclass for this stuff.. (properties)
 		# to get object by usually ref
 		self._write_txtfield = MDTextInput(
 			size_hint_y=None,
 		)
+
+
+	def startup(self: 'MainScreenView') -> None:
+		# self.manager_screens.current = 'settings_screen'
+		# from app.View.widgets.about_dialog import AboutDialog
+		# AboutDialog().open()
+
 		# self.ids.rw_checkboxes.ids.write.chbx_do_press()
 
+		...
 
-	# TODO: Make special metaclass for this stuff..
+
+	@property
+	def read_items(self: 'MainScreenView') -> '':
+		return self._read_items
+
+
 	@property
 	def write_txtfield(self: 'MainScreenView') -> 'MDTextInput':
 		return self._write_txtfield

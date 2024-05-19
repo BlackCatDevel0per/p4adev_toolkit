@@ -8,6 +8,8 @@ from app.View.main_screen import MainScreenView
 if TYPE_CHECKING:
 	from typing import Any
 
+	from kivy.uix.layout import Layout
+	from kivy.uix.widget import Widget
 	from kivymd.uix.anchorlayout import MDAnchorLayout
 	from kivymd.uix.selectioncontrol import MDCheckbox
 
@@ -40,14 +42,13 @@ class MainScreenController(BaseController):
 		self.selection_on_read_active(read_selection, read_selection.active)
 
 
-	def selection_on_read_active(
+	def layout_set_widget_on_chbx(
 		self: 'MainScreenController',
-		checkbox: 'MDCheckbox', value: bool,
+		layout: 'Layout',
+		widget: 'Widget',
+		checkbox: 'MDCheckbox', chbx_group: str, *, value: bool,
 	) -> None:
-		# TODO: Add attrs to model
-		layout: 'MDAnchorLayout' = self.view.ids.layout_write_txtfield
-
-		if checkbox.group != 'select_rw':
+		if checkbox.group != chbx_group:
 			self.log.warning(
 				'Widget SM: Callback was called by incorrect widget `%s`, '
 				'must be `SelectMode`.{read,write}_checkbox',
@@ -55,9 +56,6 @@ class MainScreenController(BaseController):
 			)
 
 		if value:
-			# Clear layout widgets
-			layout.clear_widgets()
-		else:
 			# Back add widget to layout
 			if layout.children:
 				self.log.warning(
@@ -67,4 +65,34 @@ class MainScreenController(BaseController):
 					layout.children,
 				)
 				return
-			layout.add_widget(self.view.write_txtfield)
+			layout.add_widget(widget)
+		# NOTE: If you have more than 2 checkboxes, please avoid multiple clear calls
+		else:
+			# Clear layout widgets
+			layout.clear_widgets()
+
+
+	def rw_layout_set_widget_on_chbx(
+		self: 'MainScreenController',
+		widget: 'Widget',
+		checkbox: 'MDCheckbox', value: bool,
+	) -> None:
+		layout: 'MDAnchorLayout' = self.view.ids.layout_rw_txtfield
+		self.layout_set_widget_on_chbx(
+			layout, widget,
+			checkbox, chbx_group='select_rw', value=value,
+		)
+
+
+	def selection_on_read_active(
+		self: 'MainScreenController',
+		checkbox: 'MDCheckbox', value: bool,
+	) -> None:
+		self.rw_layout_set_widget_on_chbx(self.view.read_items, checkbox, value)
+
+
+	def selection_on_write_active(
+		self: 'MainScreenController',
+		checkbox: 'MDCheckbox', value: bool,
+	) -> None:
+		self.rw_layout_set_widget_on_chbx(self.view.write_txtfield, checkbox, value)
