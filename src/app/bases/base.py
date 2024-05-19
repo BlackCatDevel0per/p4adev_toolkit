@@ -8,9 +8,9 @@ from kivy.logger import Logger
 from kivy.resources import resource_add_path
 from kivy.utils import platform
 from kivymd.app import MDApp
-from kivymd.uix.screenmanager import MDScreenManager
 
 from app import APP_CONF_PATH, module_dir
+from app.View.screenmanager import AppScreenManager
 from app.View.screens import screens
 
 if platform == 'android':
@@ -89,7 +89,7 @@ class AppBase(MDApp):
 		self.load_all_kv_files(self.module_directory, self.exclude_kvs, self.force_include_kvs)
 		# This is the screen manager that will contain all the screens of your
 		# application.
-		self.manager_screens = MDScreenManager()
+		self.manager_screens = AppScreenManager()
 
 		if not self._binds:
 			self._binds = {}
@@ -190,7 +190,7 @@ class AppBase(MDApp):
 		return self._binds
 
 
-	def build(self: 'AppBase') -> MDScreenManager:
+	def build(self: 'AppBase') -> AppScreenManager:
 		self.theme_cls.theme_style_switch_animation = True
 		self.binds_run('on_build')
 

@@ -13,11 +13,10 @@ from app.utility.utils import UniteMetas
 if TYPE_CHECKING:
 	from typing import Any
 
-	from kivymd.uix.screenmanager import ScreenManager
-
 	from app.Controller.base_controller import BaseController
 	from app.entry.launch import App
 	from app.Model.base_controller import BaseModel
+	from app.View.screenmanager import AppScreenManager
 
 
 class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen, Loggable)):
@@ -43,9 +42,9 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 	and defaults to `None`.
 	"""
 
-	manager_screens: 'ScreenManager' = ObjectProperty()
+	manager_screens: 'AppScreenManager' = ObjectProperty()
 	"""
-	Screen manager object - :class:`~kivymd.uix.screenmanager.MDScreenManager`.
+	Screen manager object - base on :class:`~kivymd.uix.screenmanager.MDScreenManager`.
 
 	:attr:`manager_screens` is an :class:`~kivy.properties.ObjectProperty`
 	and defaults to `None`.
@@ -69,5 +68,5 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 		super().__post_init__()
 
 
-	def startup(self) -> None:
+	def startup(self: 'BaseScreenView') -> None:
 		"""Startup screen view actions (example: dynamic menu & etc.)."""
