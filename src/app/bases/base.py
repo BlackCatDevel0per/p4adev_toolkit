@@ -10,7 +10,9 @@ from kivy.utils import platform
 from kivymd.app import MDApp
 
 from app import APP_CONF_PATH, module_dir
-from app.utility.kv_conf import exclude_kvs, force_include_kvs, unload_kvs
+from app.utility.kv_conf import exclude_kvs as ekvs
+from app.utility.kv_conf import force_include_kvs as fikvs
+from app.utility.kv_conf import unload_kvs as ukvs
 from app.View.screenmanager import AppScreenManager
 from app.View.screens import screens
 
@@ -40,10 +42,12 @@ class AppBase(MDApp):
 	_binds: 'BindsType' = None
 	on_app_init: 'Callable[[], Any]'
 
-	# Exclude helpers (filename, relative path, dirname)
-	exclude_kvs: tuple[str, ...] = exclude_kvs
-	force_include_kvs: tuple[str, ...] = force_include_kvs
-	unload_kvs: tuple[str, ...] = unload_kvs
+	manager_screens: AppScreenManager
+
+	# kv helpers (filename, relative path, dirname)
+	exclude_kvs: tuple[str, ...] = ekvs
+	force_include_kvs: tuple[str, ...] = fikvs
+	unload_kvs: tuple[str, ...] = ukvs
 
 	app_site: str = ''
 	if platform == 'android':
