@@ -81,4 +81,4 @@ class AppTweaks(AppBaseABCLike):
 		if platform == 'android':
 			return
 
-		Window.size = (480, 800)
+		Window.size = (480, 852)
