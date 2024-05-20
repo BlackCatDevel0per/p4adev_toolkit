@@ -17,9 +17,9 @@
 	},
 
 	"paths_bind": {
-		"app": "_python_bundle/site-packages",
+		"app": "app/_python_bundle/site-packages",
 
-		"plyer": "_python_bundle/site-packages"
+		"plyer": "app/_python_bundle/site-packages"
 	}
 }
 
