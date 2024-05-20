@@ -50,6 +50,9 @@ class MainScreenView(BaseScreenView):
 		...
 
 
+	# TODO: Use kivy properties here..?
+
+
 	@property
 	def read_items(self: 'MainScreenView') -> '':
 		return self._read_items
