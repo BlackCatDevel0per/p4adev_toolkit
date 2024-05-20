@@ -21,6 +21,7 @@ if platform == 'android':
 	# TODO: Find or make stubs for java android api used from pyjnius.. or better make mypy plugin..
 	context: 'jni[android.content.Context]' = mActivity.getApplicationContext()
 
+
 if TYPE_CHECKING:
 	# NOTE: Type annotations from typing block are still quoted because
 	# cython will raise errors in functions & methods annotations.. (but still ok for vars)
@@ -176,7 +177,6 @@ class AppBase(MDApp):
 
 
 	def build(self: 'AppBase') -> AppScreenManager:
-		self.theme_cls.theme_style_switch_animation = True
 		self.binds_run('on_build')
 
 		self.generate_application_screens()

@@ -17,6 +17,8 @@ class AppStyle(AppBaseABCLike):
 
 
 	def set_accent_style(self: 'AppStyle') -> None:
+		self.theme_cls.theme_style_switch_animation = True
+
 		self.theme_cls.primary_palette = self.config.get('theme', 'palette')
 		self.theme_cls.accent_palette = self.config.get('theme', 'accent')
 		self.theme_cls.theme_style = self.config.get('theme', 'style')
