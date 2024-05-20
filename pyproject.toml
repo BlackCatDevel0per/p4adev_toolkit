@@ -142,6 +142,7 @@ kivy = {extras = ["base"], version = "^2.2.1"}
 kivymd = {git = "https://github.com/kivymd/KivyMD", rev = "1152d3c31229b357336cb9e19cfaa2ba8c6941bc"}  # Before 2.0.0 aka before move to md3
 kivymd2-widgets = "^0.0.3"
 asynckivy = "^0.6.2"
+kivmob = "^2.0"
 
 [tool.poetry.group.app-io]
 optional = false

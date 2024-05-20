@@ -54,6 +54,7 @@ version = 0.1
 requirements = python3,hostpython3,
   app,
   kivy==2.2.1,
+  kivmob==2.0,
   certifi,
   pyslet==0.7.20170805,
   plyer==2.1.0,
@@ -229,6 +230,7 @@ android.accept_sdk_license = True
 
 # (list) Gradle dependencies to add
 # android.gradle_dependencies = androidx.documentfile:documentfile:1.0.1
+android.gradle_dependencies = com.google.firebase:firebase-ads:12.0.1
 
 # (bool) Enable AndroidX support. Enable when 'android.gradle_dependencies'
 # contains an 'androidx' package, or any package from Kotlin source.
@@ -280,7 +282,13 @@ android.manifest.orientation = fullUser
 #android.wakelock = False
 
 # (list) Android application meta-data to set (key=value format)
-#android.meta_data =
+# NOTE: Set your admob ads app-id here
+# For test ads, use application ID ca-app-pub-3940256099942544~3347511713
+# Sometimes more fails if lib source under version incompatible..
+# NOTE: Don't forget to set test device for these ids!
+android.meta_data = com.google.android.gms.ads.APPLICATION_ID={ADMOB_APP_ID_HERE}
+android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-3940256099942544~3347511713,
+  admob_main-banner=ca-app-pub-3940256099942544/6300978111
 
 # (list) Android library project to add (will be added in the
 # project.properties automatically.)
@@ -519,6 +527,7 @@ requirements = python3,hostpython3,
   app,
   # from prod
   kivy==2.2.1,
+  kivmob==2.0,
   certifi,
   pyslet==0.7.20170805,
   plyer==2.1.0,

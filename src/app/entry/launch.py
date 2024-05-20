@@ -13,7 +13,7 @@ from app.utility import logger  # noqa: F401
 
 from kivy.config import Config
 
-from app.bases import AppBase, AppConf, AppDebug, AppServices, AppStyle, AppTweaks
+from app.bases import AdsAdmob, AppBase, AppConf, AppDebug, AppServices, AppStyle, AppTweaks
 
 if TYPE_CHECKING:
 	# NOTE: Type annotations from typing block are still quoted because
@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 	...
 
 
-class App(AppTweaks, AppConf, AppServices, AppStyle, AppDebug, AppBase):
+class App(AppTweaks, AppConf, AppServices, AppStyle, AppDebug, AdsAdmob, AppBase):
 	...
 
 
@@ -30,7 +30,7 @@ def run() -> None:
 	# TODO: Write some info on main screen..
 
 	# TODO: i18n
-	# TODO: Google ADMob integrate.. (& mb some other third party apis..)
+	# TODO: More ads apis integrate..
 	# TODO: Set icons..
 	# TODO: Cythonize command to check if annotations are correct for build
 	# TODO: Make docker container with all stuff & notebook on google colab
