@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 	from collections.abc import Callable
 
 
+# FIXME: Use new base..
 class MDExtendedTextField(MDTextField):
 
 	validator: 'Callable[str, [bool]]' = ObjectProperty()

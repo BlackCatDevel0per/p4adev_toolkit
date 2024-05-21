@@ -1,4 +1,3 @@
-#:import MDExtendedTextField app.View.widgets.ext_txtfield.MDExtendedTextField
 #:import AboutDialog app.View.widgets.about_dialog.AboutDialog
 
 #:include View/main_screen/platforms/mobile/ui/main_navbar.kv
@@ -29,21 +28,19 @@
 			MDLogView:
 				id: log_view
 				# text: 'data\n'*100
+				size_hint_y: .85
 
 				# FIXME: Mb better use app's theme class directly to choose color?
 				border_color: self.parent.theme_cls.primary_color
 
 			# cleanable layout for field widget
 			MDScrollView:
-				id: layout_rw_txtfield
+				id: layout_rw_container
 				always_overscroll: False
-				size_hint_y: .30
+				size_hint_y: .35
 
-				# There will be text input
+				# There will be items selection or text input
 
-				# TODO: On read set file select widget (mb MDList with dynamic items)
-
-			# TODO: Startup check if `docs_path` exists & available permission
 			SelectMode:
 				id: rw_checkboxes
 				size_hint_y: .15
@@ -51,12 +48,24 @@
 				read_on_active: root.controller.selection_on_read_active
 				write_on_active: root.controller.selection_on_write_active
 
-			# TODO: Execute button.. (raised, flat or etc.) (lock if no docs_dir & with validation by category - read, write)
+			# Spacer
+			Widget:
+				size_hint_y: .20
+
+			# TODO: Startup check if `docs_path` exists & available permission
+			# (lock if no docs_dir & with validation by category - read, write)
+			MDRectangleFlatIconButton:
+				size_hint: (.65, .15)
+				pos_hint: {"center_x": .5}
+
+				icon: "language-python"
+				text: "Execute"
+
 			# TODO: License section..
 
 			# Spacer
-			MDBoxLayout:
-				size_hint_x: None
+			Widget:
+				size_hint_y: .20
 
 	MainNavDrawer:
 		id: main_nav_drawer

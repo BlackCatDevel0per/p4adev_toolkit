@@ -77,7 +77,7 @@ class MainScreenController(BaseController):
 		widget: 'Widget',
 		checkbox: 'MDCheckbox', value: bool,
 	) -> None:
-		layout: 'MDAnchorLayout' = self.view.ids.layout_rw_txtfield
+		layout: 'MDAnchorLayout' = self.view.ids.layout_rw_container
 		self.layout_set_widget_on_chbx(
 			layout, widget,
 			checkbox, chbx_group='select_rw', value=value,
@@ -95,4 +95,4 @@ class MainScreenController(BaseController):
 		self: 'MainScreenController',
 		checkbox: 'MDCheckbox', value: bool,
 	) -> None:
-		self.rw_layout_set_widget_on_chbx(self.view.write_txtfield, checkbox, value)
+		self.rw_layout_set_widget_on_chbx(self.view.write_txtin, checkbox, value)

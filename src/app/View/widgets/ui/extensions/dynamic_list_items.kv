@@ -27,6 +27,7 @@
 
 	MDIconButton:
 		id: btn_add
+		size_hint_y: .5
 		icon: "plus"
 
 		on_release: root.btn_on_add_release()
@@ -34,12 +35,13 @@
 	# FIXME: Clear button icon..
 	MDIconButton:
 		id: btn_del
+		size_hint_y: .5
 		icon: "minus"
 
 		on_release: root.btn_on_del_release()
 
 
-<ButtonItem@MDBoxLayout>
+<EditItem@MDBoxLayout>
 
 	orientation: "horizontal"
 
@@ -51,7 +53,10 @@
 		size_hint_x: 0.8
 
 	MDCheckbox:
+		group: 'edit_item'
 		size_hint_x: 0.2
+
+	# TODO: Self remove icon button..
 
 
 # ScrollView
