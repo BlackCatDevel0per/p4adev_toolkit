@@ -1,0 +1,94 @@
+#:import Factory kivy.factory.Factory
+
+
+#:include View/widgets/ui/highlighted_border.kv
+
+
+<ItemsManagerParams@Widget>
+	btn_on_add_release: lambda: None
+	btn_on_del_release: lambda: None
+
+
+<Divider@Widget>
+	color: 0, 0, 0, 1
+	size_hint_x: .01
+
+	canvas:
+		Color:
+			rgba: root.color
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+
+<ItemsManager@MDBoxLayout+ItemsManagerParams>
+	#border_color: 1, 0, 0, 1
+	orientation: "vertical"
+
+	MDIconButton:
+		id: btn_add
+		icon: "plus"
+
+		on_release: root.btn_on_add_release()
+
+	# FIXME: Clear button icon..
+	MDIconButton:
+		id: btn_del
+		icon: "minus"
+
+		on_release: root.btn_on_del_release()
+
+
+<ButtonItem@MDBoxLayout>
+
+	orientation: "horizontal"
+
+	padding: 2
+	size_hint_y: None
+	height: 40
+
+	MDTextInput:
+		size_hint_x: 0.8
+
+	MDCheckbox:
+		size_hint_x: 0.2
+
+
+# ScrollView
+<WidgetItems@MDScrollView>
+	#border_color: 0, 1, 0, 1
+
+	add_item: lambda item, index=0, canvas=None: widgets_container.add_widget(item, index, canvas)
+
+	MDBoxLayout:
+		id: widgets_container
+		orientation: "vertical"
+
+		size_hint_y: None
+		# NOTE: In declarative: self.bind(minimum_height=self.setter('height'))
+		height: self.minimum_height
+
+
+<DynamicWidgetItems@MDBoxLayout+HighlightedBorderWidget>
+	#border_color: 0, 0, 1, 1
+	border_width: 1
+	orientation: "horizontal"
+	spacing: 5
+
+	# must return widget
+	make_widget: None
+	items: widget_items.ids.widgets_container.children
+
+	WidgetItems:
+		id: widget_items
+		# padding: 2
+
+	Divider
+
+	ItemsManager:
+		id: container_manager
+		size_hint_x: .13
+
+		make_widget: root.make_widget
+		btn_on_add_release: lambda: widget_items.add_item(self.make_widget())
+		btn_on_del_release: lambda: widget_items.ids.widgets_container.clear_widgets()

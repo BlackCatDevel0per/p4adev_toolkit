@@ -9,6 +9,7 @@ from kivy.factory import Factory
 if TYPE_CHECKING:
 	from app.Controller.main_screen import MainScreenController
 	from app.Model.main_screen import MainScreenModel
+	from kivymd.uix.widget import MDBoxLayout
 
 
 # TODO: Full screen mode & hide status bar & more comfartable read functions..
@@ -26,7 +27,9 @@ class MainScreenView(BaseScreenView):
 		super().__post_init__()
 
 		# TODO: Widget with List of dynamic Buttons
-		self._read_items = Factory.HighlightedBorderWidget()
+		self._read_items: 'MDBoxLayout' = Factory.DynamicWidgetItems()
+		self._read_items.make_widget = Factory.ButtonItem
+		# TODO: Find ways to load widgets to factory before some other stuff..
 
 		# ?? ..
 		# print(tf.uid)
@@ -35,8 +38,9 @@ class MainScreenView(BaseScreenView):
 		# FIXME: Cursor goes over widget.. (if no scroll layout)
 		# TODO: Make special metaclass for this stuff.. (properties)
 		# to get object by usually ref
-		self._write_txtfield = MDTextInput(
+		self._write_txtfield: MDTextInput = MDTextInput(
 			size_hint_y=None,
+			radius=(0, 0, 0, 0),
 		)
 
 
@@ -54,7 +58,7 @@ class MainScreenView(BaseScreenView):
 
 
 	@property
-	def read_items(self: 'MainScreenView') -> '':
+	def read_items(self: 'MainScreenView') -> 'MDBoxLayout':
 		return self._read_items
 
 

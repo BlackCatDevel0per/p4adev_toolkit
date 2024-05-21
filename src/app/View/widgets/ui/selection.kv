@@ -62,23 +62,24 @@
 	read_selection: read
 	write_selection: write
 
-	read_on_active: root.read_on_active
-	read_on_state: root.read_on_state
-	write_on_active: root.write_on_active
-	write_on_state: root.write_on_state
+	##
+	# read_on_active: root.read_on_active
+	# read_on_state: root.read_on_state
+	# write_on_active: root.write_on_active
+	# write_on_state: root.write_on_state
 
 	LabledSelection:
 		id: read
-		group: 'select_rw'
+		group: "select_rw"
 		active: True
-		text: "read"
+		text: "read/select"
 
 		chbx_active: root.read_on_active
 		chbx_state: root.read_on_state
 
 	LabledSelection:
 		id: write
-		group: 'select_rw'
+		group: "select_rw"
 		text: "write"
 
 		chbx_active: root.write_on_active

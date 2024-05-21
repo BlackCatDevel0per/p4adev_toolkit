@@ -27,7 +27,9 @@ exclude_kvs: tuple[str, ...] = (
 
 force_include_kvs: tuple[str, ...] = (
 	'View/widgets/ui/override',
-	'View/widgets/ui/textinput.kv',
+    'View/widgets/ui/extensions',
+
+    'View/widgets/ui/textinput.kv',
 )
 
 unload_kvs: tuple[str, ...] = (
