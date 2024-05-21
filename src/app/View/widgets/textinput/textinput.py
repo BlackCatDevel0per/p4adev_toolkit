@@ -1207,7 +1207,7 @@ class MDTextInput(
 	defaults to `0`.
 	"""
 
-	radius = ListProperty([10, 10, 0, 0])
+	radius = ListProperty([10, 10, 10, 10])
 	"""
 	The corner radius for a text field in `fill/rectangle` mode.
 
