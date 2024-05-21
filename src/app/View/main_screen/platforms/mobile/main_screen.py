@@ -28,16 +28,10 @@ class MainScreenView(BaseScreenView):
 		# Logger's post-init
 		super().__post_init__()
 
-		# TODO: Widget with List of dynamic Buttons
 		self._read_items: 'MDBoxLayout' = Factory.DynamicWidgetItems()
 		self._read_items.make_widget = Factory.EditItem
-		# TODO: Find ways to load widgets to factory before some other stuff..
 
-		# ?? ..
-		# print(tf.uid)
-		# Builder.unbind_widget(tf.uid)
-
-		# FIXME: Cursor goes over widget.. (if no scroll layout)
+		# FIXME: Cursor goes over (outside) widget.. (if no scroll layout)
 		# TODO: Make special metaclass for this stuff.. (properties)
 		# to get object by usually ref
 		self._write_txtin: MDTextInput = MDTextInput(
@@ -56,6 +50,12 @@ class MainScreenView(BaseScreenView):
 		# TODO: How to declaratively unbind already bind property in imperative kv code?
 		# self._write_txtin.unbind(size_hint_y=self._write_txtin.setter('size_hint_y'))
 
+		# TODO: Find ways to load widgets to factory before some other stuff..
+
+		# ?? ..
+		# print(tf.uid)
+		# Builder.unbind_widget(tf.uid)
+
 
 	def startup(self: 'MainScreenView') -> None:
 		# self.manager_screens.current = 'settings_screen'
@@ -71,12 +71,12 @@ class MainScreenView(BaseScreenView):
 
 
 	@property
-	def read_items(self: 'MainScreenView') -> 'MDBoxLayout':
+	def read_items(self: 'MainScreenView') -> 'MDBoxLayout':  # -> <base on>
 		return self._read_items
 
 
 	@property
-	def write_txtin(self: 'MainScreenView') -> 'MDTextInput':
+	def write_txtin(self: 'MainScreenView') -> MDTextInput:
 		return self._write_txtin
 
 
