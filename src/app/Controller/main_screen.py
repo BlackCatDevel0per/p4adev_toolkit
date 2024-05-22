@@ -3,9 +3,15 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from kivymd.toast import toast
+from plyer.utils import platform
 
 from app.Controller.base_controller import BaseScreenController
 from app.View.main_screen import MainScreenView
+
+if platform != 'android':
+	fopen = lambda urip, fn, mode: open(f'{urip}/{fn}', mode)  # noqa: E731
+else:
+	from PyScopedStorage import sfopen_sync as fopen
 
 if TYPE_CHECKING:
 	from typing import Any
@@ -109,8 +115,32 @@ class MainScreenController(BaseScreenController):
 			stngs_c.set_docs_path()
 			return
 
-		# TODO..
-		print(self.model.docs_path)
+		files: 'list[str]' = [edit_item.text for edit_item in self.view.read_items if edit_item.active]
 
-		for edit_item in self.view.read_items:
-			print(edit_item, edit_item.text, edit_item.active)
+		if not files:
+			toast('Please add & select item(s)!')
+			return
+
+		# TODO: Enumerate items..
+		if not all(files):
+			toast('Please set filename to all items!')
+			return
+
+		is_read_job: bool = self.view.ids.rw_checkboxes.read_selection.active
+
+		try:
+			if is_read_job:
+				for fn in files:
+					with fopen(self.model.docs_path, fn, 'r') as f:
+						data: str = f.read()
+						log: str = f'*** {fn} ***\n{data}\n***\n'
+						self.view.ids.log_view.text += log
+				return
+
+			for fn in files:
+				with fopen(self.model.docs_path, fn, 'w') as f:
+					log = f'Wrote "{fn}"\n'
+					f.write(self.view.write_txtin.text)
+				self.view.ids.log_view.text += log
+		except Exception as e:
+			self.view.ids.log_view.text += f'!!!\nError: `{e}`\n!!!\n'

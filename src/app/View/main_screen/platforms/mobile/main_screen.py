@@ -29,7 +29,12 @@ class MainScreenView(BaseScreenView):
 		super().__post_init__()
 
 		self._read_items: 'MDBoxLayout' = Factory.DynamicWidgetItems()
-		self._read_items.make_widget = Factory.EditItem
+
+		def mkit() -> 'MDBoxLayout':
+			ei = Factory.EditItem()
+			ei.active = True
+			return ei
+		self._read_items.make_widget = mkit
 
 		# FIXME: Cursor goes over (outside) widget.. (if no scroll layout)
 		# TODO: Make special metaclass for this stuff.. (properties)
