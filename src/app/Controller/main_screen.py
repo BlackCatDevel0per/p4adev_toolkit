@@ -12,6 +12,9 @@ if platform != 'android':
 	fopen = lambda urip, fn, mode: open(f'{urip}/{fn}', mode)  # noqa: E731
 else:
 	from PyScopedStorage import sfopen_sync as fopen
+	from jnius import autoclass
+
+	Uri = autoclass('android.net.Uri')
 
 if TYPE_CHECKING:
 	from typing import Any
@@ -128,17 +131,23 @@ class MainScreenController(BaseScreenController):
 
 		is_read_job: bool = self.view.ids.rw_checkboxes.read_selection.active
 
+		# TODO: Platform-specific properties in model..
+		dpath = self.model.docs_path
+		if platform == 'android':
+			# FIXME: Recheck access..
+			dpath = Uri.parse(dpath)
+
 		try:
 			if is_read_job:
 				for fn in files:
-					with fopen(self.model.docs_path, fn, 'r') as f:
+					with fopen(dpath, fn, 'r') as f:
 						data: str = f.read()
 						log: str = f'*** {fn} ***\n{data}\n***\n'
 						self.view.ids.log_view.text += log
 				return
 
 			for fn in files:
-				with fopen(self.model.docs_path, fn, 'w') as f:
+				with fopen(dpath, fn, 'w') as f:
 					log = f'Wrote "{fn}"\n'
 					f.write(self.view.write_txtin.text)
 				self.view.ids.log_view.text += log
