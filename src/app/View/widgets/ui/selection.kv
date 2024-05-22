@@ -2,8 +2,6 @@
 
 
 <LabledSelectionParams@Widget>
-	text: ''
-	active: False
 	# like radio button
 	allow_no_selection: False
 	chbx_active: lambda ch, val: None
@@ -19,6 +17,9 @@
 
 	# NOTE: Don't forget to set group in other widgets!
 	group: 'root'
+
+	text: text_label.text
+	active: selection_checkbox.active
 
 	chbx_do_press: selection_checkbox.external_press
 
