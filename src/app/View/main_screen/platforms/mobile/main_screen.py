@@ -3,7 +3,7 @@ from __future__ import annotations
 from functools import partial
 from typing import TYPE_CHECKING
 
-from app.View.base_screen import BaseScreenView
+from app.View.base_view import BaseScreenView
 from app.View.widgets.textinput import MDTextInput
 from kivy.factory import Factory
 
@@ -42,6 +42,7 @@ class MainScreenView(BaseScreenView):
 		# FIXME: Move into the method..
 
 		rwc: 'MDScrollView' = self.ids.layout_rw_container
+		# FIXME: Find less crutchy way/val..
 		# initial size before scroll is 100, that's because we just add 33%
 		rwc.height = int(rwc.height + ((rwc.height / 100) * 33))
 		self._write_txtin.bind(minimum_height=partial(self._update_height, rwc))
@@ -61,6 +62,13 @@ class MainScreenView(BaseScreenView):
 		# self.manager_screens.current = 'settings_screen'
 		# from app.View.widgets.about_dialog import AboutDialog
 		# AboutDialog().open()
+
+		# For faster click test:
+		# rcm = self._read_items.ids.widget_items
+
+		# for i in range(0, -5, -1):
+		# 	rcm.add_item(self._read_items.make_widget())
+		# 	rcm.ids.widgets_container.children[i].ids.chbx._do_press()
 
 		# self.ids.rw_checkboxes.ids.write.chbx_do_press()
 

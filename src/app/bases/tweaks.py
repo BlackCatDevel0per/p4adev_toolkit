@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 	# cython will raise errors in functions & methods annotations.. (but still ok for vars)
 	from typing import Any
 
-	from app.View.base_screen import BaseScreenView
+	from app.View.base_view import BaseScreenView
 
 
 class AppTweaks(AppBaseABCLike):

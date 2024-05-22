@@ -11,12 +11,17 @@ from app.utility.observer import Observer
 from app.utility.utils import UniteMetas
 
 if TYPE_CHECKING:
-	from typing import Any
+	from typing import Any, TypeVar
 
-	from app.Controller.base_controller import BaseController
+	from app.Controller.base_controller import BaseScreenController
 	from app.entry.launch import App
-	from app.Model.base_controller import BaseModel
+	from app.Model.base_model import BaseScreenModel
 	from app.View.screenmanager import AppScreenManager
+
+	# Screen..
+	AnyModel = TypeVar('AnyModel', bound=BaseScreenModel)
+	AnyView = TypeVar('AnyView', bound='BaseScreenView')
+	AnyController = TypeVar('AnyController', bound=BaseScreenController)
 
 
 class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen, Loggable)):
@@ -26,7 +31,7 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 	"""
 
 	# TODO: Better annotate kivy properties..
-	controller: 'BaseController' = ObjectProperty()
+	controller: 'BaseScreenController' = ObjectProperty()
 	"""
 	controller object - :class:`~controller.controller_screen.ClassScreenControler`.
 
@@ -34,7 +39,7 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 	and defaults to `None`.
 	"""
 
-	model: 'BaseModel' = ObjectProperty()
+	model: 'BaseScreenModel' = ObjectProperty()
 	"""
 	model object - :class:`~model.model_screen.ClassScreenModel`.
 
@@ -52,7 +57,7 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 
 	parent_screen_name: str = StringProperty('main_screen')
 
-	def __init__(self: 'BaseScreenView', **kw: 'Any') -> None:
+	def __init__(self: 'AnyView', **kw: 'Any') -> None:
 		super().__init__(**kw)
 		# Often you need to get access to the application object from the view
 		# class. You can do this using this attribute.

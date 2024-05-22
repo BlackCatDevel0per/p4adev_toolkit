@@ -28,7 +28,7 @@ if TYPE_CHECKING:
 	from collections.abc import Callable
 	from typing import Any, TypeAlias
 
-	from app.View.base_screen import BaseScreenView
+	from app.View.base_view import BaseScreenView
 	from app.View.screens import ScreenParams
 
 	BindType: TypeAlias = 'Callable[[Any | str], str]'
