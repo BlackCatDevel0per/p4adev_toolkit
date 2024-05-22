@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from app.Controller.base_controller import BaseController
+from kivymd.toast import toast
+
+from app.Controller.base_controller import BaseScreenController
 from app.View.main_screen import MainScreenView
 
 if TYPE_CHECKING:
@@ -13,10 +15,11 @@ if TYPE_CHECKING:
 	from kivymd.uix.anchorlayout import MDAnchorLayout
 	from kivymd.uix.selectioncontrol import MDCheckbox
 
+	from app.Controller.settings_screen import MainScreenController as SettingsScreenController
 	from app.Model.main_screen import MainScreenModel
 
 
-class MainScreenController(BaseController):
+class MainScreenController(BaseScreenController):
 	"""The `MainScreenController` class represents a controller implementation.
 
 	Coordinates work of the view with the model.
@@ -96,3 +99,18 @@ class MainScreenController(BaseController):
 		checkbox: 'MDCheckbox', value: bool,
 	) -> None:
 		self.rw_layout_set_widget_on_chbx(self.view.write_txtin, checkbox, value)
+
+
+	def action_execute(self: 'MainScreenController') -> None:
+		if not self.model.docs_path:
+			# FIXME: It's sync..
+			toast('Please first set docs path!')
+			stngs_c: 'SettingsScreenController' = self._find_controller('settings_screen')
+			stngs_c.set_docs_path()
+			return
+
+		# TODO..
+		print(self.model.docs_path)
+
+		for edit_item in self.view.read_items:
+			print(edit_item, edit_item.text, edit_item.active)

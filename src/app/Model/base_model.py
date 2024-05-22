@@ -10,16 +10,17 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+# from kivy.event import EventDispatcher
 from kivymd.app import MDApp
 
 from app.utility.logger import Loggable
 
 if TYPE_CHECKING:
-	from typing import ClassVar
+	from typing import Any, ClassVar
 
 	from kivy.config import ConfigParser
 
-	from app.View.base_screen import BaseScreenView
+	from app.View.base_view import AnyModel, AnyView, BaseScreenView
 
 
 class BaseScreenModel(Loggable):
@@ -30,7 +31,7 @@ class BaseScreenModel(Loggable):
 	_observers: 'ClassVar[list[BaseScreenView]]' = []
 
 
-	def __init__(self: 'BaseScreenModel', *args, **kwargs) -> None:
+	def __init__(self: 'BaseScreenModel', *args: 'Any', **kwargs: 'Any') -> None:
 		super().__init__(*args, **kwargs)
 
 		self.config: 'ConfigParser' = MDApp.get_running_app().config
@@ -40,16 +41,29 @@ class BaseScreenModel(Loggable):
 		raise NotImplementedError
 
 
-	def add_observer(self: 'BaseScreenModel', observer: 'BaseScreenView') -> None:
+	def add_observer(self: 'BaseScreenModel', observer: 'AnyView') -> None:
 		self._observers.append(observer)
 
 
-	def remove_observer(self: 'BaseScreenModel', observer: 'BaseScreenView') -> None:
+	def remove_observer(self: 'BaseScreenModel', observer: 'AnyView') -> None:
 		self._observers.remove(observer)
 
 
 	def model_is_changed(self: 'BaseScreenModel') -> None:
 		raise NotImplementedError
+
+
+	def _find_oberver(self: 'BaseScreenModel', name_screen: str) -> 'AnyView':
+		for observer in self._observers:
+			if observer.name == name_screen:
+				return observer
+
+		raise NameError
+
+
+	# TODO: Cache..
+	def find_model(self: 'BaseScreenModel', name_screen: str) -> 'AnyModel':
+		return self._find_oberver(name_screen).model
 
 
 	def notify_observers(self: 'BaseScreenModel', name_screen: str) -> None:
@@ -59,7 +73,5 @@ class BaseScreenModel(Loggable):
 			name of the view for which the method should be called
 			:meth:`model_is_changed`.
 		"""
-		for observer in self._observers:
-			if observer.name == name_screen:
-				observer.model_is_changed()
-				break
+		observer: 'BaseScreenView' = self._find_oberver(name_screen)
+		observer.model_is_changed()
