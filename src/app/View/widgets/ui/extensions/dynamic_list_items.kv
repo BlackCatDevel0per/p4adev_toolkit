@@ -41,7 +41,11 @@
 		on_release: root.btn_on_del_release()
 
 
-<EditItem@MDBoxLayout>
+<EditItemParams@Widget>
+	active: False
+
+
+<EditItem@MDBoxLayout+EditItemParams>
 
 	orientation: "horizontal"
 
@@ -50,10 +54,16 @@
 	height: 40
 
 	MDTextInput:
+		id: txtin
 		size_hint_x: 0.8
 
 	MDCheckbox:
-		group: 'edit_item'
+		id: chbx
+		# group: 'edit_item'
+		always_release: True
+
+		active: root.active
+		allow_no_selection: True
 		size_hint_x: 0.2
 
 	# TODO: Self remove icon button..
