@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 	from typing import Any
 
 	from app.Model.base_screen import BaseScreenModel
-	from app.View.base_view import AnyController, AnyModel, BaseScreenView
+	from app.View.base_view import AnyScreenController, AnyScreenModel, BaseScreenView
 
 
 class BaseScreenController(Loggable):
@@ -21,7 +21,7 @@ class BaseScreenController(Loggable):
 
 	_view: 'BaseScreenView'
 
-	def __init__(self: 'BaseScreenController', model: 'AnyModel') -> None:
+	def __init__(self: 'BaseScreenController', model: 'AnyScreenModel') -> None:
 		self._check_props()
 
 		self.model: 'BaseScreenModel' = model
@@ -34,7 +34,7 @@ class BaseScreenController(Loggable):
 		super().__post_init__()
 
 
-	def _find_controller(self: 'AnyController', name_screen: str) -> 'AnyController':
+	def _find_controller(self: 'BaseScreenController', name_screen: str) -> 'AnyScreenController':
 		return self.model._find_oberver(name_screen).controller  # noqa: SLF001
 
 

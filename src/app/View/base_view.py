@@ -19,9 +19,9 @@ if TYPE_CHECKING:
 	from app.View.screenmanager import AppScreenManager
 
 	# Screen..
-	AnyModel = TypeVar('AnyModel', bound=BaseScreenModel)
-	AnyView = TypeVar('AnyView', bound='BaseScreenView')
-	AnyController = TypeVar('AnyController', bound=BaseScreenController)
+	AnyScreenModel = TypeVar('AnyScreenModel', bound=BaseScreenModel)
+	AnyScreenView = TypeVar('AnyScreenView', bound='BaseScreenView')
+	AnyScreenController = TypeVar('AnyScreenController', bound=BaseScreenController)
 
 
 class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen, Loggable)):
@@ -57,7 +57,7 @@ class BaseScreenView(MDScreen, Observer, Loggable, metaclass=UniteMetas(MDScreen
 
 	parent_screen_name: str = StringProperty('main_screen')
 
-	def __init__(self: 'AnyView', **kw: 'Any') -> None:
+	def __init__(self: 'AnyScreenView', **kw: 'Any') -> None:
 		super().__init__(**kw)
 		# Often you need to get access to the application object from the view
 		# class. You can do this using this attribute.

@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 	from kivy.config import ConfigParser
 
-	from app.View.base_view import AnyModel, AnyView, BaseScreenView
+	from app.View.base_view import AnyScreenModel, AnyScreenView, BaseScreenView
 
 
 class BaseScreenModel(Loggable):
@@ -41,11 +41,11 @@ class BaseScreenModel(Loggable):
 		raise NotImplementedError
 
 
-	def add_observer(self: 'BaseScreenModel', observer: 'AnyView') -> None:
+	def add_observer(self: 'BaseScreenModel', observer: 'AnyScreenView') -> None:
 		self._observers.append(observer)
 
 
-	def remove_observer(self: 'BaseScreenModel', observer: 'AnyView') -> None:
+	def remove_observer(self: 'BaseScreenModel', observer: 'AnyScreenView') -> None:
 		self._observers.remove(observer)
 
 
@@ -53,7 +53,7 @@ class BaseScreenModel(Loggable):
 		raise NotImplementedError
 
 
-	def _find_oberver(self: 'BaseScreenModel', name_screen: str) -> 'AnyView':
+	def _find_oberver(self: 'BaseScreenModel', name_screen: str) -> 'AnyScreenView':
 		for observer in self._observers:
 			if observer.name == name_screen:
 				return observer
@@ -62,7 +62,7 @@ class BaseScreenModel(Loggable):
 
 
 	# TODO: Cache..
-	def find_model(self: 'BaseScreenModel', name_screen: str) -> 'AnyModel':
+	def find_model(self: 'BaseScreenModel', name_screen: str) -> 'AnyScreenModel':
 		return self._find_oberver(name_screen).model
 
 
