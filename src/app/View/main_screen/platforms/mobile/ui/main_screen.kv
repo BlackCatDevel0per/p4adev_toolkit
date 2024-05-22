@@ -43,29 +43,32 @@
 
 			SelectMode:
 				id: rw_checkboxes
-				size_hint_y: .15
+				size_hint_y: .25
 
 				read_on_active: root.controller.selection_on_read_active
 				write_on_active: root.controller.selection_on_write_active
 
 			# Spacer
 			Widget:
-				size_hint_y: .20
+				size_hint_y: .10
 
 			# TODO: Startup check if `docs_path` exists & available permission
-			# (lock if no docs_dir & with validation by category - read, write)
+			# (lock if no docs_path & with validation by category - read, write)
 			MDRectangleFlatIconButton:
+				id: execute_btn
 				size_hint: (.65, .15)
 				pos_hint: {"center_x": .5}
 
 				icon: "language-python"
 				text: "Execute"
 
+				on_release: root.controller.action_execute()
+
 			# TODO: License section..
 
 			# Spacer
 			Widget:
-				size_hint_y: .20
+				size_hint_y: .10
 
 	MainNavDrawer:
 		id: main_nav_drawer

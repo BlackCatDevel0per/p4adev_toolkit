@@ -1857,10 +1857,7 @@ class MDTextInput(
 
 
 	def _set_attr_names_to_updated(self: 'MDTextInput', interval: 'float | int') -> None:
-		"""
-		Sets and update the default color dictionary for text field textures.
-		"""
-
+		"""Set and update the default color dictionary for text field textures."""
 		self._attr_names_to_updated = {
 			"line_color_normal": self.theme_cls.disabled_hint_text_color,
 			"line_color_focus": self.theme_cls.primary_color,
@@ -1879,26 +1876,27 @@ class MDTextInput(
 		}
 
 	def _get_has_error(self: 'MDTextInput') -> bool:
-		"""
-		Returns `False` or `True` depending on the state of the text field,
-		for example when the allowed character limit has been exceeded or when
+		"""Return `False` or `True` depending on the state of the text field.
+
+		For example when the allowed character limit has been exceeded or when
 		the :attr:`~MDTextInput.required` parameter is set to `True`.
 		"""
-
 		if self.validator and self.validator != "phone":
 			has_error = {
-				"date": self.is_date_valid,
-				"email": self.is_email_valid,
-				"time": self.is_time_valid,
+				'date': self.is_date_valid,
+				'email': self.is_email_valid,
+				'time': self.is_time_valid,
 			}[self.validator](self.text)
 			return has_error
-		if self.max_text_length and len(self.text) > self.max_text_length:
+		if any(
+			(
+				(self.max_text_length and len(self.text) > self.max_text_length),
+				all((self.required, len(self.text) == 0)),
+			),
+		):
 			has_error = True
 		else:
-			if all((self.required, len(self.text) == 0)):
-				has_error = True
-			else:
-				has_error = False
+			has_error = False
 		return has_error
 
 	def _refresh_hint_text(self: 'MDTextInput'):

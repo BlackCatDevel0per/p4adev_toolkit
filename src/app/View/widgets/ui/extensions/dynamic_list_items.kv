@@ -9,6 +9,7 @@
 	btn_on_del_release: lambda: None
 
 
+# FIXME: Move this widget to other place..
 <Divider@Widget>
 	color: 0, 0, 0, 1
 	size_hint_x: .01
@@ -21,41 +22,52 @@
 			pos: self.pos
 
 
+<ManageButton@MDIconButton>
+	size_hint_y: .5
+	pos_hint: {"center_x": .5, "center_y": .5}
+
+
 <ItemsManager@MDBoxLayout+ItemsManagerParams>
 	#border_color: 1, 0, 0, 1
 	orientation: "vertical"
 
-	MDIconButton:
+	ManageButton:
 		id: btn_add
-		size_hint_y: .5
 		icon: "plus"
 
 		on_release: root.btn_on_add_release()
 
 	# FIXME: Clear button icon..
-	MDIconButton:
+	ManageButton:
 		id: btn_del
-		size_hint_y: .5
 		icon: "minus"
 
 		on_release: root.btn_on_del_release()
 
 
-<EditItemParams@Widget>
-	active: False
-
-
-<EditItem@MDBoxLayout+EditItemParams>
+<EditItem@MDBoxLayout>
 
 	orientation: "horizontal"
 
 	padding: 2
 	size_hint_y: None
-	height: 40
+	height: 65
+
+	# bind
+	active: chbx.active
+	text: txtin.text
 
 	MDTextInput:
 		id: txtin
 		size_hint_x: 0.8
+
+		multiline: False
+		# TODO: Length limit..?
+		halign: "center"
+		# valign
+		padding_y: self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0 
+
+		text: root.text
 
 	MDCheckbox:
 		id: chbx
@@ -92,7 +104,7 @@
 
 	# must return widget
 	make_widget: None
-	items: widget_items.ids.widgets_container.children
+	__iter__: widget_items.ids.widgets_container.children.__iter__
 
 	WidgetItems:
 		id: widget_items
@@ -102,7 +114,7 @@
 
 	ItemsManager:
 		id: container_manager
-		size_hint_x: .13
+		size_hint_x: .15
 
 		make_widget: root.make_widget
 		btn_on_add_release: lambda: widget_items.add_item(self.make_widget())
