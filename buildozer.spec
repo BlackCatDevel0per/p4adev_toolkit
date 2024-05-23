@@ -282,13 +282,14 @@ android.manifest.orientation = fullUser
 #android.wakelock = False
 
 # (list) Android application meta-data to set (key=value format)
-# NOTE: Set your admob ads app-id here
+# NOTE: Set your admob ads app-id here (better from env vars)
 # For test ads, use application ID ca-app-pub-3940256099942544~3347511713
 # Sometimes more fails if lib source under version incompatible..
 # NOTE: Don't forget to set test device for these ids!
 # android.meta_data = com.google.android.gms.ads.APPLICATION_ID={ADMOB_APP_ID_HERE}
 android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-3940256099942544~3347511713,
-  admob_main-banner=ca-app-pub-3940256099942544/6300978111
+  admob_main-banner=ca-app-pub-3940256099942544/6300978111,
+  admob_main4off-reward=ca-app-pub-3940256099942544/5224354917
 
 # (list) Android library project to add (will be added in the
 # project.properties automatically.)

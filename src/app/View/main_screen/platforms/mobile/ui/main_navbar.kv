@@ -28,7 +28,7 @@
 
 	ExtMDNavigationDrawerMenu:
 
-		MDNavigationDrawerHeader
+		MDNavigationDrawerHeader:
 			id: header
 
 			title: "P4ADev Toolkit"
@@ -38,11 +38,11 @@
 			spacing: "4dp"
 			padding: "12dp", 0, 0, "56dp"
 
-		MDNavigationDrawerLabel
+		MDNavigationDrawerLabel:
 			id: label_view
 			text: "View"
 
-		DrawerClickableItem
+		DrawerClickableItem:
 			id: accent_btn
 
 			icon: "brush-variant"
@@ -51,23 +51,34 @@
 			# TODO: Add other params too.. (material style, divider, icon & etc.)
 			on_press: app.switch_accent_style()
 
-		MDNavigationDrawerLabel
+		MDNavigationDrawerLabel:
 			id: label_app
 			text: "App"
 
 		# TODO: Correctly rename in other places..
-		DrawerClickableItem
+		DrawerClickableItem:
 			id: app_settings_btn
 			icon: "cog"
 			text: "Settings"
 
 			on_press: app.manager_screens.current = 'settings_screen'
 
-		DrawerClickableItem
+		DrawerClickableItem:
 			id: about_btn
 			icon: "information-slab-circle"
 			text: "About"
 
 			on_press: AboutDialog().open()
+
+		MDNavigationDrawerDivider
+
+		DrawerClickableItem:
+			id: about_btn
+			icon: "google-ads"
+			text: "ADFree"
+
+			# TODO: Button text update (adfree time with fixed limit)
+			on_press: app.ads.show_rewarded_ad()
+			# TODO: Startup timer check & update
 
 		# TODO: Spacer & Turn ads off for fixed time
