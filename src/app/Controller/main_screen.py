@@ -11,8 +11,8 @@ from app.View.main_screen import MainScreenView
 if platform != 'android':
 	fopen = lambda urip, fn, mode: open(f'{urip}/{fn}', mode)  # noqa: E731
 else:
-	from PyScopedStorage import sfopen_sync as fopen
 	from jnius import autoclass
+	from PyScopedStorage import sfopen_sync as fopen
 
 	Uri = autoclass('android.net.Uri')
 
