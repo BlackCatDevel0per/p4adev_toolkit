@@ -109,11 +109,12 @@ class ClockTimer(Loggable):
 
 		# update vals helper task
 		def expiration_prop_update(timer: ClockTimer, event: 'ClockEvent', dt) -> None:
-			##
-			print(
-				timer.apr_next_call_time, '-', perf_counter(),
-				'==', max(timer.apr_next_call_time - perf_counter(), 0),
-			)
+			# # [FOR TESTS ONLY] Uncomment to see timer estimated remaining time
+			# (WARNING on small update time to avoid trash log..)
+			# print(
+			# 	timer.apr_next_call_time, '-', perf_counter(),
+			# 	'is', max(timer.apr_next_call_time - perf_counter(), 0),
+			# )
 			# NOTE: Never get event instance from timer directly!
 			is_event_pending: bool = event.next is not None or event.prev is not None
 			# if main event not end (to avoid value change by two events on restart)

@@ -129,8 +129,9 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 		# TODO: Separate this stuff from handler instance..
 		def show_ad_banner_again(dt) -> None:
 			# if we got multiple reward
-			toast('Showing ad banner again..')
-			print('Showing ad banner again..')
+			msg: str = 'Showing ad banner again..'
+			toast(msg)
+			self.log.debug(msg)
 			self.ads.show_banner()
 
 		# self resume trigger (until adfree time is not expired)
@@ -162,7 +163,7 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 				self.__show_ad_banner_again_clock_timer.time_sec,
 			)
 
-		# ##
+		# # [FOR TESTS ONLY] Uncomment on desktop
 		# self.on_rewarded('adfree-time', 3)
 
 
