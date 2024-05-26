@@ -97,6 +97,10 @@ class AdsAdmob(AppBaseABCLike):
 		return self._ads
 
 
+	def ads_get_adfree_reward(self: 'AdsAdmob') -> None:
+		self.ads.show_rewarded_ad()
+
+
 	def _show_ads(self: 'AdsAdmob') -> None:
 		"""AdMob Ads."""
 		# WARNING: If you use incorrect device id not equal from `adb logcat -s Ads` ads will not show
@@ -213,7 +217,7 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 
 
 	def on_rewarded_video_ad_started(self: 'ADFreeRewardHandler') -> None:
-		"""External call method."""
+		"""External call method (load video during watch current)."""
 		self.load_video()
 
 
