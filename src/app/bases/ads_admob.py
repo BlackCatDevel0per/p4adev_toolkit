@@ -133,6 +133,7 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 			self.log.debug(msg)
 			self.ads.show_banner()
 
+		# TODO: Toast funny messages for mom's-crackers XD
 		# Why that's not in one place? to avoid "easy" external access
 		resume_time_sec: int = min(int(_ad_timer_get()), 35 * 60)
 
