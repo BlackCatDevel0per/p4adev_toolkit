@@ -55,3 +55,39 @@ class PostInitableMeta(type):
 			obj._post_init_called = True  # noqa: SLF001
 
 		return obj
+
+
+# TODO: Move it into another lib..
+class defprop(property):
+
+	def __init__(
+		self: 'defprop',
+		obj: 'Any' = None, priv_name: str = '',
+		fdel=None, doc=None, *, set_once: bool = False,
+	) -> None:
+		self._is_set: bool = False
+
+		fset: 'Callable[[Any, Any], None] | None'
+		if priv_name:
+			if obj is not None:
+				def fget(ins: 'Any'):
+					return obj
+			else:
+				def fget(ins: 'Any'):
+					return getattr(ins, priv_name)
+
+			if set_once:
+				def fset(ins: 'Any', val) -> None:
+					if self._is_set:
+						msg = 'This attribute can only be set once.'
+						raise AttributeError(msg)
+					self._is_set = True
+					setattr(ins, priv_name, val)
+			else:
+				def fset(ins: 'Any', val: 'Any') -> None:
+					setattr(ins, priv_name, val)
+		else:
+			fget = obj
+			fset = None
+
+		super().__init__(fget=fget, fset=fset, fdel=fdel, doc=doc)
