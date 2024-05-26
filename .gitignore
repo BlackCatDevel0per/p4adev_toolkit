@@ -27,4 +27,5 @@ temp
 
 src/app/**/*.c
 **/*.ini
+**/*.lat
 
