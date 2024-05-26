@@ -133,7 +133,8 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 			self.log.debug(msg)
 			self.ads.show_banner()
 
-		resume_time_sec: int = int(_ad_timer_get())
+		# Why that's not in one place? to avoid "easy" external access
+		resume_time_sec: int = min(int(_ad_timer_get()), 35 * 60)
 
 		# self resume trigger (until adfree time is not expired)
 		self.__show_ad_banner_again_clock_timer: 'ClockTimer' = \
@@ -191,7 +192,8 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 	def amount(self: 'ADFreeRewardHandler', value: int) -> None:
 		if value <= 0:
 			return
-		max_limit = 35 * 60  # NOTE: Set here your multiply limit
+		# NOTE: Set here your multiply limit & in `__init__` var `resume_time_sec`
+		max_limit = 35 * 60
 		self.__show_ad_banner_again_clock_timer.restart(min(value, max_limit))
 		_ad_timer_save(self.amount)
 
