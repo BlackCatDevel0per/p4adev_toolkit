@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from os import environ as os_env
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from app import APP_CONF_PATH
 from app.bases.abc import AppBaseABCLike
 
 if TYPE_CHECKING:
@@ -16,10 +16,7 @@ class AppConf(AppBaseABCLike):
 		self: 'AppConf',
 		default_path: str = str(
 			Path(
-				os_env.get(
-					'ANDROID_APP_CONF_PATH',  # FIXME: Check platform..
-					Path.cwd(),
-				),
+				APP_CONF_PATH,
 				'config.ini',
 			),
 		),
