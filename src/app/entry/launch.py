@@ -27,8 +27,6 @@ class App(AppTweaks, AppConf, AppServices, AppStyle, AppDebug, AdsAdmob, AppBase
 
 def run() -> None:
 	"""Run the app."""
-	# TODO: Write some info on main screen..
-
 	# TODO: i18n
 	# TODO: More ads apis integrate..
 	# TODO: Set icons..
