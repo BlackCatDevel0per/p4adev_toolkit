@@ -134,7 +134,6 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 			self.ads.show_banner()
 
 		resume_time_sec: int = int(_ad_timer_get())
-		self.log.debug('Got resume time %i', resume_time_sec)
 
 		# self resume trigger (until adfree time is not expired)
 		self.__show_ad_banner_again_clock_timer: 'ClockTimer' = \
