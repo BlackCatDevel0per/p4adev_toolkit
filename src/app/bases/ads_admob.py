@@ -65,7 +65,6 @@ def _ad_timer_get() -> float:
 		with open(f'{APP_CONF_PATH}/.lat') as f:
 			sec: float = float(f.read()) - perf_counter()
 			# if somebody will change the value manually XD
-			toast(f'Got time: {sec}')
 			if sec < 0:
 				raise ValueError
 			return sec
@@ -134,13 +133,14 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 			self.log.debug(msg)
 			self.ads.show_banner()
 
+		resume_time_sec: int = int(_ad_timer_get())
+		self.log.debug('Got resume time %i', resume_time_sec)
+
 		# self resume trigger (until adfree time is not expired)
 		self.__show_ad_banner_again_clock_timer: 'ClockTimer' = \
 			ClockTimer(
 				show_ad_banner_again,
-				##
-				# self.amount,
-				time_sec=int(_ad_timer_get()),
+				time_sec=resume_time_sec,
 				timer_update_interval_sec=1 * 60,
 				# timer_update_interval_sec=60,
 				log_preprefix='Ads',
