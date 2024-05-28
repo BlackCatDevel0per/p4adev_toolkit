@@ -32,7 +32,7 @@ class Loggable(metaclass=PostInitableMeta):
 		# aka `app.utility.logger.Loggable`
 		self._p_log_name: str = f'{self.__module__}.{self.__class__.__name__}'
 		self.log: 'Logger' = getLogger(self._p_log_name)
-		self.log.setLevel(DEBUG)
+		self.log.setLevel(CURRENT_LEVEL)
 		self.log.debug('[%s] Post-Init `%s`', self._log_prefix, self._log_name)
 
 
