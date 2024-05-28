@@ -219,5 +219,4 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 
 
 	def on_rewarded_video_ad_left_application(self: 'ADFreeRewardHandler') -> None:
-		"""External call method if user hasn't fully viewed the ad."""
-		toast('No reward..')
+		"""External call method when ad leaves the application (e.g., to go to the browser)."""
