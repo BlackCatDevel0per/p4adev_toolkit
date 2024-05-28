@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from logging import getLogger
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -13,6 +14,7 @@ from app import APP_CONF_PATH, module_dir
 from app.utility.kv_conf import exclude_kvs as ekvs
 from app.utility.kv_conf import force_include_kvs as fikvs
 from app.utility.kv_conf import unload_kvs as ukvs
+from app.utility.logger import CURRENT_LEVEL
 from app.View.screenmanager import AppScreenManager
 from app.View.screens import screens
 
@@ -26,6 +28,7 @@ if TYPE_CHECKING:
 	# NOTE: Type annotations from typing block are still quoted because
 	# cython will raise errors in functions & methods annotations.. (but still ok for vars)
 	from collections.abc import Callable
+	from logging import Logger
 	from typing import Any, TypeAlias
 
 	from app.View.base_view import BaseScreenView
@@ -82,6 +85,11 @@ class AppBase(MDApp):
 		for cls in type(self).mro():
 			if hasattr(cls, 'on_app_init'):
 				cls.on_app_init(self, **kwargs)
+
+		# FIXME: Solve metaclass conflicts & use `Loggable` cls
+		self.log: 'Logger' = getLogger('app.App')
+		self.log.setLevel(CURRENT_LEVEL)
+		self.log.debug('App: App init..')
 
 
 	def load_all_kv_files(
@@ -209,7 +217,12 @@ class AppBase(MDApp):
 
 	def binds_run(self: 'AppBase', on_event: str) -> None:
 		for action, on in self.binds.items():
-			if on != on_event:
+			if any(
+				(
+					isinstance(on, str) and on_event != on,
+					isinstance(on, tuple) and on_event not in on,
+				),
+			):
 				continue
 
 			if isinstance(action, str):
