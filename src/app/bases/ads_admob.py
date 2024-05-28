@@ -150,6 +150,8 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 				log_preprefix='Ads',
 			)
 
+		# TODO: Startup run network check task using kivy clock & android api
+
 
 	def __post_init__(self: 'ADFreeRewardHandler') -> None:
 		super().__post_init__()
@@ -205,7 +207,7 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 
 
 	def on_rewarded_video_ad_started(self: 'ADFreeRewardHandler') -> None:
-		"""External call method (load video during watch current)."""
+		"""External call method when a user is watching ad (load new video during watch current)."""
 		self.load_video()
 
 
@@ -216,6 +218,11 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 		self.amount += amount_mins * 60
 
 		toast(f'ADFree time increased up to {self.amount // 60} (add {amount_mins}) mins')
+
+
+	def on_rewarded_video_ad_failed_to_load(self: 'ADFreeRewardHandler', err_c: int) -> None:
+		"""External call method when ad request failed."""
+		self.log.warning('Rewarded video request failed with code %i', err_c)
 
 
 	def on_rewarded_video_ad_left_application(self: 'ADFreeRewardHandler') -> None:
