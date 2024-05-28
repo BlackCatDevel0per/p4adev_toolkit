@@ -13,6 +13,7 @@ from app import APP_CONF_PATH
 from app.bases.abc import AppBaseABCLike
 from app.utility.clock_timer import ClockTimer
 from app.utility.logger import Loggable
+from app.utility.utils import defprop
 
 if TYPE_CHECKING:
 	from typing import Final
@@ -92,9 +93,7 @@ class AdsAdmob(AppBaseABCLike):
 		return True
 
 
-	@property
-	def ads(self: 'AdsAdmob') -> kmob.KivMob:
-		return self._ads
+	ads = defprop(lambda self: self._ads)
 
 
 	def ads_get_adfree_reward(self: 'AdsAdmob') -> None:
@@ -172,19 +171,8 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 		# self.on_rewarded('adfree-time', 3)
 
 
-	@property
-	def ads(self: 'ADFreeRewardHandler') -> kmob.KivMob:
-		return self.__ads
-
-
-	@property
-	def reward(self: 'ADFreeRewardHandler') -> str:
-		return self.__reward
-
-
-	@reward.setter
-	def reward(self: 'ADFreeRewardHandler', value: str) -> None:
-		self.__reward = value
+	ads = defprop(lambda self: self.__ads)
+	reward = defprop(priv_name='__reward')
 
 
 	@property
