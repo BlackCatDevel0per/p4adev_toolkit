@@ -81,9 +81,9 @@ class AdsAdmob(AppBaseABCLike):
 
 		self.__adfree_rh: ADFreeRewardHandler = ADFreeRewardHandler(self._ads)
 		self._ads.set_rewarded_ad_listener(self.__adfree_rh)
-		self.__adfree_rh.load_video()
 
 		self.bind_to({'_show_ads': 'on_build'})
+		self.bind_to({'_reload_ads_on_net_state_on': 'on_net_state_on'})
 
 
 	def on_pause(self: 'AdsAdmob') -> bool:
@@ -97,6 +97,13 @@ class AdsAdmob(AppBaseABCLike):
 
 
 	def ads_get_adfree_reward(self: 'AdsAdmob') -> None:
+		if platform != 'android':
+			return
+
+		if not self._br_net_conn_available:
+			toast('First turn your internet on!')
+			return
+
 		self.ads.show_rewarded_ad()
 
 
@@ -113,10 +120,15 @@ class AdsAdmob(AppBaseABCLike):
 			self.ads.show_banner()
 
 
+	def _reload_ads_on_net_state_on(self: 'AdsAdmob') -> None:
+		self.log.debug('Ads: Network on, requesting ads..')
+		self.ads.request_banner()
+		self.__adfree_rh.load_video()
+
+
 	def _add_main_banner(self: 'AdsAdmob') -> None:
 		"""Start screen banner."""
 		self.ads.new_banner(ADMOB_MAIN_BANNER_ID, top_pos=False)
-		self.ads.request_banner()
 
 
 class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
@@ -149,8 +161,6 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 				# timer_update_interval_sec=60,
 				log_preprefix='Ads',
 			)
-
-		# TODO: Startup run network check task using kivy clock & android api
 
 
 	def __post_init__(self: 'ADFreeRewardHandler') -> None:
@@ -222,7 +232,8 @@ class ADFreeRewardHandler(kmob.RewardedListenerInterface, Loggable):
 
 	def on_rewarded_video_ad_failed_to_load(self: 'ADFreeRewardHandler', err_c: int) -> None:
 		"""External call method when ad request failed."""
-		self.log.warning('Rewarded video request failed with code %i', err_c)
+		# self.log.warning('Rewarded video request failed with code %i', err_c)
+		# TODO: Firebase & other metrics..
 
 
 	def on_rewarded_video_ad_left_application(self: 'ADFreeRewardHandler') -> None:
