@@ -67,6 +67,8 @@ class defprop(property):
 	) -> None:
 		self._is_set: bool = False
 
+		# TODO: Type checking & generate pure methods code (optionally)..
+		# TODO: Use (generate) annotations..
 		fset: 'Callable[[Any, Any], None] | None'
 		if priv_name:
 			if obj is not None:

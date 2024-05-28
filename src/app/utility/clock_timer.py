@@ -120,6 +120,7 @@ class ClockTimer(Loggable):
 			# if main event not end (to avoid value change by two events on restart)
 			if is_event_pending:
 				timer._expiration_time = max(timer.apr_next_call_time - perf_counter(), 0)  # noqa: SLF001
+				# TODO: Add subcallback here
 				# recalc next call time if event is intervally
 				if self.__event_type == 'interval' and timer.expiration_time <= 0:
 					self.log.debug('%s: self vals reset', self.__class__.__name__)
@@ -131,6 +132,7 @@ class ClockTimer(Loggable):
 					self.__class__.__name__, self._callback,
 				)
 				timer._update_event.cancel()  # noqa: SLF001
+				# TODO: Add subcallback here
 
 		# update vals before begin
 		if not self._has_started:
