@@ -13,7 +13,16 @@ from app.utility import logger  # noqa: F401
 
 from kivy.config import Config
 
-from app.bases import AdsAdmob, AppBase, AppConf, AppDebug, AppServices, AppStyle, AppTweaks
+from app.bases import (
+	AdsAdmob,
+	AppBase,
+	AppBroadcast,
+	AppConf,
+	AppDebug,
+	AppServices,
+	AppStyle,
+	AppTweaks,
+)
 
 if TYPE_CHECKING:
 	# NOTE: Type annotations from typing block are still quoted because
@@ -21,7 +30,7 @@ if TYPE_CHECKING:
 	...
 
 
-class App(AppTweaks, AppConf, AppServices, AppStyle, AppDebug, AdsAdmob, AppBase):
+class App(AppTweaks, AppConf, AppServices, AppStyle, AppDebug, AdsAdmob, AppBase, AppBroadcast):
 	...
 
 
