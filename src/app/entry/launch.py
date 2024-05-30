@@ -38,7 +38,7 @@ def run() -> None:
 	"""Run the app."""
 	# TODO: i18n
 	# TODO: More ads apis integrate..
-	# TODO: Set icons..
+	# TODO: AsyncIO branch
 	# TODO: Cythonize command to check if annotations are correct for build
 	# TODO: Make docker container with all stuff & notebook on google colab
 
