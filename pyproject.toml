@@ -19,7 +19,7 @@ Repository = "https://github.com/BlackCatDevel0per/p4adev_toolkit"
 [tool.poetry-plugin-commands]
 stree = "tree src"
 run-app = "PYTHONPATH=src:. .venv/bin/python src/app_launch/main.py"
-run-app-rd = "DEBUG_ACCESS_APP=1 PYTHONPATH=src:. .venv/bin/pythonpython src/app_launch/main.py"
+run-app-rd = "DEBUG_ACCESS_APP=1 PYTHONPATH=src:. .venv/bin/python src/app_launch/main.py"
 
 build-debug = "bash -c 'scripts/build.sh debug dev'"
 # Remove built app & build again
@@ -91,8 +91,8 @@ select = [
 
 ignore = [
 	"W191", "D206", "RET502",
-	"UP040",  # New type aliases (type hinting)
 	"UP037",  # Ignore quoted type annotations for properly work cython 0.29.37..
+	"UP040",  # New type aliases (type hinting)
 	"PTH123",  # Not good solution for all things..
 	"TD001",
 	"TD002",
