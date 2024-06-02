@@ -59,6 +59,7 @@ requirements = python3,hostpython3,
   pyslet==0.7.20170805,
   plyer==2.1.0,
   PyScopedStorage,
+  aiofiles==23.2.1,
   kivymd2_widgets,
   git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc
 
@@ -534,6 +535,7 @@ requirements = python3,hostpython3,
   plyer==2.1.0,
   kivymd2_widgets,
   PyScopedStorage,
+  aiofiles==23.2.1,
   git+https://github.com/kivymd/KivyMD.git@1152d3c31229b357336cb9e19cfaa2ba8c6941bc,
 
   # for dev
