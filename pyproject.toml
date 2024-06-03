@@ -153,7 +153,7 @@ p4adev-tools = "^0.0.3"
 plyer = "^2.1.0"
 pyslet = "^0.7.20170805"
 aiofiles = "^23.2.1"
-pyscopedstorage = "^0.0.3"
+pyscopedstorage = "^0.0.7"
 
 [tool.poetry.group.poetry-plugins]
 optional = true
