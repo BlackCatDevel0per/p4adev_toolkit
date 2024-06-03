@@ -12,7 +12,7 @@ venv
 .pytest_cache
 MANIFEST
 __pycache__
-build
+./build
 dist
 
 *.prof
