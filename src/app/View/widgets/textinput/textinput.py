@@ -585,7 +585,7 @@ class MDTextInputRect(ThemableBehavior, TextInput):
 			d_color = 0.05
 
 		Animation(
-			points=points, d=(d_line if self.line_anim else 0), t="out_cubic"
+			points=points, d=(d_line if self.line_anim else 0), t='out_cubic'
 		).start(self._rectangle)
 		Animation(a=alpha, d=(d_color if self.line_anim else 0)).start(
 			self._rectangle_color
