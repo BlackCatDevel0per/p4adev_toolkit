@@ -1,3 +1,4 @@
+"""WARNING: In `pythonforandroid` lib that recipe has more priority & this stuff can be skipped."""
 import glob
 from os.path import basename, exists, join
 import sys
