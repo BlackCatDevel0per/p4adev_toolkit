@@ -16,16 +16,29 @@ if TYPE_CHECKING:
 class PyZMQRecipe(CythonRecipe):
     name = 'pyzmq'
     # Version depends on Cython
-    version = '25.1.1'
+    version = '25.1.2'
     url = 'https://github.com/zeromq/pyzmq/archive/v{version}.zip'
     site_packages_name = 'zmq'
-    depends = ['setuptools', 'libzmq']
+    depends = [
+        'setuptools',
+        'build',
+        # 'git+https://github.com/BlackCatDevel0per/cython/archive/master.tar.gz',
+        'cython',
+        'libzmq',
+    ]
     cython_args: ClassVar[list[str]] = [
         '-Izmq/utils',
         '-Izmq/backend/cython',
         # '-Izmq/backend/cffi',
         '-Izmq/devices',
     ]
+
+    # Install just for app (exclude native/host machine build)
+    # to use setuptools from hostpython
+    ####call_hostpython_via_targetpython = True##
+    # install just inside bundle (app's target)
+    install_in_hostpython: bool = False
+    install_in_targetpython: bool = True
 
     def get_recipe_env(self, arch=None):
         env = super().get_recipe_env(arch)
@@ -69,4 +82,3 @@ skip_check_zmq = True
 
 
 recipe = PyZMQRecipe()
-
