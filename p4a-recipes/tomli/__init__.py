@@ -10,7 +10,7 @@ class TomliRecipe(NoSetupPyPiRecipe):
     url = 'https://files.pythonhosted.org/packages/97/75/10a9ebee3fd790d20926a90a2547f0bf78f371b2f13aa822c759680ca7b9/tomli-2.0.1-py3-none-any.whl'
 
     # Install just for build (exclude app)
-    # to use setuotools from hostpython
+    # to use setuptools from hostpython
     call_hostpython_via_targetpython = False
     # install just inside hostpython (native python build on this machine)
     install_in_hostpython = True

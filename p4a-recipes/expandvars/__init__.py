@@ -10,7 +10,7 @@ class ExpandvarsRecipe(NoSetupPyPiRecipe):
     url = 'https://files.pythonhosted.org/packages/df/b3/072c28eace372ba7630ea187b7efd7f09cc8bcebf847a96b5e03e9cc0828/expandvars-0.12.0-py3-none-any.whl'
 
     # Install just for build (exclude app)
-    # to use setuotools from hostpython
+    # to use setuptools from hostpython
     call_hostpython_via_targetpython = False
     # install just inside hostpython (native python build on this machine)
     install_in_hostpython = True

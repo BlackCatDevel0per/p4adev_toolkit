@@ -11,7 +11,7 @@ class ZippRecipe(NoSetupPyPiRecipe):
     url = 'https://files.pythonhosted.org/packages/c2/0a/ba9d0ee9536d3ef73a3448e931776e658b36f128d344e175bc32b092a8bf/zipp-3.18.1-py3-none-any.whl'
 
     # Install just for build (exclude app)
-    # to use setuotools from hostpython
+    # to use setuptools from hostpython
     call_hostpython_via_targetpython = False
     # install just inside hostpython (native python build on this machine)
     install_in_hostpython = True

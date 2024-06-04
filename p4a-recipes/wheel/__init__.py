@@ -10,7 +10,7 @@ class WheelRecipe(NoSetupPyPiRecipe):
     url = 'https://files.pythonhosted.org/packages/7d/cd/d7460c9a869b16c3dd4e1e403cce337df165368c71d6af229a74699622ce/wheel-0.43.0-py3-none-any.whl'
 
     # Install just for build (exclude app)
-    # to use setuotools from hostpython
+    # to use setuptools from hostpython
     call_hostpython_via_targetpython = False
     # install just inside hostpython (native python build on this machine)
     install_in_hostpython = True

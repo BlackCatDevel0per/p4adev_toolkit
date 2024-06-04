@@ -18,7 +18,7 @@ class MarkupSafeRecipe(AdvancedCompiledComponentsPythonRecipe):
     depends: List[str] = ['setuptools']
 
     # Install just for build (exclude app)
-    # to use setuotools from hostpython
+    # to use setuptools from hostpython
     call_hostpython_via_targetpython = False
     # install just inside hostpython (native python build on this machine)
     install_in_hostpython = True

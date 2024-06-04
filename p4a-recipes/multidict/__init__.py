@@ -16,7 +16,7 @@ class MultiDictRecipe(AdvancedCompiledComponentsPythonRecipe):
     depends: List[str] = ['setuptools']
 
     # Install just for app (exclude native/host machine build)
-    # to use setuotools from hostpython
+    # to use setuptools from hostpython
     call_hostpython_via_targetpython = False
     # install just inside bundle (app's target)
     install_in_hostpython = False

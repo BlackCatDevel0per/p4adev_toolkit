@@ -16,7 +16,7 @@ class YarlRecipe(BuildToolCompiledComponentsPythonRecipe):
 	depends: List[str] = ['setuptools']
 
 	# Install just for build (exclude app)
-	# (setuotools from hostpython)
+	# (setuptools from hostpython)
 	# install just inside bundle (app's target)
 	install_in_hostpython: bool = False
 	install_in_targetpython: bool = True
