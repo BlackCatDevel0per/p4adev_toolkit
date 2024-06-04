@@ -1,8 +1,8 @@
 import glob
-from os.path import basename, exists, join
 import sys
-import packaging.version
+from os.path import basename, exists, join
 
+import packaging.version
 import sh
 from pythonforandroid.recipe import CythonRecipe
 from pythonforandroid.toolchain import current_directory, shprint
@@ -22,7 +22,8 @@ def is_kivy_affected_by_deadlock_issue(recipe=None, arch=None):
 
 
 class KivyRecipe(CythonRecipe):
-    version = '2.3.0'
+    version = '2.3.0'  # in current time fails on newer versions 3.10+
+    # due old cython..
     url = 'https://github.com/kivy/kivy/archive/{version}.zip'
     name = 'kivy'
 
@@ -63,6 +64,11 @@ class KivyRecipe(CythonRecipe):
 
     def get_recipe_env(self, arch):
         env = super().get_recipe_env(arch)
+
+        # (set in args)
+        env['CPPFLAGS'] +=  ' -Wno-unreachable-code-fallthrough'
+        env['CPPFLAGS'] +=  ' -Wno-incompatible-pointer-types'
+
         # NDKPLATFORM is our switch for detecting Android platform, so can't be None
         env['NDKPLATFORM'] = "NOTNONE"
         if 'sdl2' in self.ctx.recipe_build_order:
@@ -81,4 +87,3 @@ class KivyRecipe(CythonRecipe):
 
 
 recipe = KivyRecipe()
-
