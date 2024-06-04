@@ -53,7 +53,7 @@ version = 0.1
 # prod
 requirements = python3,hostpython3,
   app,
-  kivy==2.2.1,
+  kivy,
   kivmob==2.0,
   certifi,
   pyslet==0.7.20170805,
@@ -528,7 +528,7 @@ android.no-byte-compile-python = True
 requirements = python3,hostpython3,
   app,
   # from prod
-  kivy==2.2.1,
+  kivy,
   kivmob==2.0,
   certifi,
   pyslet==0.7.20170805,
