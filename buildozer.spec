@@ -231,7 +231,7 @@ android.accept_sdk_license = True
 
 # (list) Gradle dependencies to add
 # android.gradle_dependencies = androidx.documentfile:documentfile:1.0.1
-android.gradle_dependencies = com.google.android.gms:play-services-ads:19.8.0
+android.gradle_dependencies = com.google.android.gms:play-services-ads:19.8.0,androidx.work:work-runtime:2.7.0
 
 # (bool) Enable AndroidX support. Enable when 'android.gradle_dependencies'
 # contains an 'androidx' package, or any package from Kotlin source.
